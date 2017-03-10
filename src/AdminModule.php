@@ -10,7 +10,7 @@ namespace skeeks\cms\admin;
  * Class Module
  * @package skeeks\cms\admin
  */
-class Module extends \yii\base\Module
+class AdminModule extends \yii\base\Module
 {
     public $controllerNamespace = 'skeeks\cms\admin\controllers';
 }
