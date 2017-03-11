@@ -8,7 +8,6 @@
 namespace skeeks\cms\admin;
 
 use skeeks\cms\backend\BackendController;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use yii\helpers\ArrayHelper;
@@ -26,7 +25,7 @@ abstract class AdminController extends BackendController
     {
         return [
             CmsManager::PERMISSION_ADMIN_ACCESS,
-            $this->permissionName
+            $this->uniqueId
         ];
     }
 
@@ -41,7 +40,7 @@ abstract class AdminController extends BackendController
             //Проверка основной привелигии доступа к админ панели
             'access' =>
             [
-                'class'         => AdminAccessControl::className(),
+                'class'         => \skeeks\cms\admin\AdminAccessControl::class,
             ],
 
             //Обновление активности пользователя взаимдействие с админкой
@@ -70,24 +69,6 @@ abstract class AdminController extends BackendController
                 ],
             ],
         ]);
-    }
-
-
-    public function init()
-    {
-        \Yii::$app->admin;
-        parent::init();
-    }
-
-    /**
-     * TODO::Is deprecated
-     *
-     * The name of the privilege of access to this controller
-     * @return string
-     */
-    public function getPermissionName()
-    {
-        return $this->getUniqueId();
     }
 
 }
