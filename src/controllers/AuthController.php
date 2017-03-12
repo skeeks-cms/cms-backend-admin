@@ -47,7 +47,7 @@ class AuthController extends AdminController
         [
             'access' =>
             [
-                'class' => AdminAccessControl::className(),
+                'class' => \skeeks\cms\admin\AdminAccessControl::className(),
                 'only' => [
                     'logout', 'lock'
                     //, 'login', 'auth', 'reset-password'
@@ -166,7 +166,7 @@ class AuthController extends AdminController
     {
         $this->view->title = \Yii::t('skeeks/cms','Lock Mode');
 
-        $this->layout = '@skeeks/cms/modules/admin/views/layouts/unauthorized.php';
+        $this->layout = '@app/views/layouts/unauthorized';
 
         if ($ref = UrlHelper::getCurrent()->getRef())
         {

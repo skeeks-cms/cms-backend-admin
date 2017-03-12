@@ -25,8 +25,17 @@ abstract class AdminController extends BackendController
     {
         return [
             CmsManager::PERMISSION_ADMIN_ACCESS,
-            $this->uniqueId
+            $this->permissionName
         ];
+    }
+
+    /**
+     * The name of the privilege of access to this controller
+     * @return string
+     */
+    public function getPermissionName()
+    {
+        return $this->getUniqueId();
     }
 
     /**
@@ -35,7 +44,7 @@ abstract class AdminController extends BackendController
      */
     public function behaviors()
     {
-        return ArrayHelper::merge(parent::behaviors(),
+        $result = ArrayHelper::merge(parent::behaviors(),
         [
             //Проверка основной привелигии доступа к админ панели
             'access' =>
@@ -69,6 +78,8 @@ abstract class AdminController extends BackendController
                 ],
             ],
         ]);
+
+        return $result;
     }
 
 }

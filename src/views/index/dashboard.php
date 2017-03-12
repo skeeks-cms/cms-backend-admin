@@ -110,7 +110,7 @@ HTML;
 
 
 
-                                        <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::begin([
+                                        <? \skeeks\cms\admin\widgets\AdminPanelWidget::begin([
                                             'name'      => $cmsDashboardWidget->name,
                                             'actions'   => $actions,
 
@@ -125,7 +125,7 @@ HTML;
                                             <? else : ?>
                                                 Виджет удален
                                             <? endif; ?>
-                                        <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::end(); ?>
+                                        <? \skeeks\cms\admin\widgets\AdminPanelWidget::end(); ?>
 
                                         <? endif; ?>
                                     <? endforeach; ?>

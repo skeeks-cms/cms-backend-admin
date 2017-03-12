@@ -10,9 +10,10 @@
  */
 
 namespace yii\web;
+use skeeks\cms\admin\AdminComponent;
 
 /**
- * @property AdminSettings                  $admin
+ * @property AdminComponent                  $backendAdmin
  *
  * Class Application
  * @package yii\web

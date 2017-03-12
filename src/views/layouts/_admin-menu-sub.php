@@ -6,19 +6,19 @@
  * @date 21.02.2016
  *
  * @var $this \yii\web\View
- * @var $subAdminMenuItems []
+ * @var $subAdminMenuItems \skeeks\cms\backend\BackendMenuItem[]
  */
 ?>
 <? if ($subAdminMenuItems) : ?>
     <ul class="nav nav-sidebar">
     <? foreach ($subAdminMenuItems as $subAdminMenuItem) : ?>
-        <? if ($subAdminMenuItem->isAllowShow()) : ?>
-            <li <?= $subAdminMenuItem->isActive() ? 'class="active opened sx-start-opened"' : '' ?>>
-                <a href="<?= $subAdminMenuItem->getUrl() ? $subAdminMenuItem->getUrl() : "#" ?>" title="<?= $subAdminMenuItem->label; ?>">
+        <? if ($subAdminMenuItem->isVisible) : ?>
+            <li <?= $subAdminMenuItem->isActive ? 'class="active opened sx-start-opened"' : '' ?>>
+                <a href="<?= $subAdminMenuItem->url ? $subAdminMenuItem->url : "#" ?>" title="<?= $subAdminMenuItem->name; ?>">
                     <span class="sx-icon">
-                        <img src="<?= $subAdminMenuItem->getImgUrl(); ?>" />
+                        <img src="<?= $subAdminMenuItem->image; ?>" />
                     </span>
-                    <span class="txt"><?= $subAdminMenuItem->label; ?></span>
+                    <span class="txt"><?= $subAdminMenuItem->name; ?></span>
                     <? if ($subAdminMenuItem->items) : ?>
                         <span class="caret"></span>
                     <? endif; ?>

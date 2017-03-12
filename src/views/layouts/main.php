@@ -36,7 +36,7 @@ AdminAsset::register($this);
 
             <div class="col-lg-12 sx-main-body">
                 <? $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse')?>
-                <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::begin([
+                <? \skeeks\cms\admin\widgets\AdminPanelWidget::begin([
                     'name'      => \Yii::$app->controller instanceof \skeeks\cms\IHasInfo ? \Yii::$app->controller->name : "",
                     'actions'   => <<<HTML
                         <a href="#" class="sx-btn-trigger-full">
@@ -59,7 +59,7 @@ HTML
                         <?= \skeeks\cms\modules\admin\widgets\Alert::widget(); ?>
                         <?= $content ?>
                     </div>
-                <? \skeeks\cms\modules\admin\widgets\AdminPanelWidget::end(); ?>
+                <? \skeeks\cms\admin\widgets\AdminPanelWidget::end(); ?>
             </div>
 
         </div>

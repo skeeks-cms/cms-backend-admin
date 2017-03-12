@@ -16,19 +16,20 @@
     <div class="inner-wrapper scrollbar-macosx">
         <div class="sidebar-collapse sx-sidebar-collapse">
 
-<? if ($items = \Yii::$app->admin->menu->items) : ?>
+<? if ($items = \skeeks\cms\backend\BackendComponent::getCurrent()->menu->items) : ?>
     <? foreach ($items as $adminMenuItem) : ?>
-        <? if ($adminMenuItem->isAllowShow() && $adminMenuItem->items) : ?>
-            <div class="sidebar-menu <?= $adminMenuItem->isActive() ? ' sx-opened' : '' ?>" id="<?= $adminMenuItem->code; ?>">
-                <div class="sx-head" title="<?= $adminMenuItem->label; ?>">
-                    <? if ($imgUrl = $adminMenuItem->getImgUrl()) : ?>
+        <? if ($adminMenuItem->isVisible && $adminMenuItem->items) : ?>
+
+            <div class="sidebar-menu <?= $adminMenuItem->isActive ? ' sx-opened' : '' ?>" id="<?= $adminMenuItem->id; ?>">
+                <div class="sx-head" title="<?= $adminMenuItem->name; ?>">
+                    <? if ($imgUrl = $adminMenuItem->image) : ?>
                         <span class="sx-icon">
                             <img src="<?= $imgUrl; ?>" />
                         </span>
                     <? else : ?>
                         <i class="icon icon-arrow-up" style=""></i>
                     <? endif; ?>
-                    <?= $adminMenuItem->label; ?>
+                    <?= $adminMenuItem->name; ?>
                 </div>
 
                 <?= $this->render('_admin-menu-sub', [
