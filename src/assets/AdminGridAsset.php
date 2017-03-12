@@ -22,7 +22,7 @@ class AdminGridAsset extends AdminAsset
 
     public $depends =
     [
-        'skeeks\cms\admin\assets\AdminAsset',
+        //'skeeks\cms\admin\assets\AdminAsset',
     ];
 }
 
