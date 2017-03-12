@@ -6,10 +6,12 @@
  * @date 11.03.2017
  */
 namespace skeeks\cms\admin;
+use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 
 /**
  * Class AdminComponent
@@ -62,6 +64,8 @@ class AdminComponent extends BackendComponent
 
         parent::run();
     }
+
+
     
     
 
@@ -198,4 +202,34 @@ class AdminComponent extends BackendComponent
 
         return (array) $this->_menuFilesData;
     }
+
+
+    /**
+     * @param View|null $view
+     */
+    public function initJs(View $view = null)
+    {
+        $options =
+        [
+            'BlockerImageLoader'        => AdminAsset::getAssetUrl('images/loaders/circulare-blue-24_24.GIF'),
+            'disableCetainLink'         => false,
+            'globalAjaxLoader'          => true,
+            'menu'                      => [],
+        ];
+
+        $options = \yii\helpers\Json::encode($options);
+
+        \Yii::$app->view->registerJs(<<<JS
+        (function(sx, $, _)
+        {
+            /**
+            * @type {Admin}
+            */
+            sx.App = new sx.classes.Admin($options);
+
+        })(sx, sx.$, sx._);
+JS
+        );
+    }
+
 }

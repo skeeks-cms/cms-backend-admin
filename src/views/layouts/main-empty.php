@@ -1,5 +1,4 @@
 <?php
-use skeeks\cms\modules\admin\assets\AdminAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -9,8 +8,8 @@ use skeeks\cms\helpers\UrlHelper;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-AdminAsset::register($this);
-\Yii::$app->admin->registerAsset($this)->initJs();
+\skeeks\cms\admin\assets\AdminAsset::register($this);
+\Yii::$app->backendAdmin->initJs($this);
 \skeeks\cms\modules\admin\widgets\UserLastActivityWidget::widget();
 ?>
 <?php $this->beginPage() ?>
