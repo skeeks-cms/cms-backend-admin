@@ -17,18 +17,6 @@ return
             'urlRule'           => [
                 'urlPrefix' => '~sx'
             ],
-            /*'view' => [
-                'theme' =>
-                [
-                    'pathMap'       =>
-                    [
-                        '@app/views' =>
-                        [
-                            '@app/templates/default',
-                        ],
-                    ]
-                ],
-            ],*/
         ],
 
         'i18n' => [
