@@ -30,15 +30,6 @@ abstract class AdminController extends BackendController
     }
 
     /**
-     * The name of the privilege of access to this controller
-     * @return string
-     */
-    public function getPermissionName()
-    {
-        return $this->getUniqueId();
-    }
-
-    /**
      * Проверка доступа к админке
      * @return array
      */

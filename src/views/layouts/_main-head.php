@@ -24,7 +24,7 @@
         <div class="col-md-1">
             <div class="pull-right">
 
-                <? if (\Yii::$app->user->can('admin/admin-role') && \Yii::$app->controller instanceof \skeeks\cms\modules\admin\controllers\AdminController) : ?>
+                <? if (\Yii::$app->user->can('admin/admin-role') && \Yii::$app->controller instanceof \skeeks\cms\IHasPermissions) : ?>
 
                     <a href="#sx-permissions-for-controller" class="btn btn-default btn-primary sx-fancybox">
                         <i class="glyphicon glyphicon-exclamation-sign" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Setting up access to this section')?>" style="color: white;"></i>

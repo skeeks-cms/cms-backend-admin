@@ -19,7 +19,7 @@ $langOptions = \yii\helpers\Json::encode([
 ]);
 
 $clearCacheOptions = \yii\helpers\Json::encode([
-    'backend' => UrlHelper::construct(['/admin/clear/index'])->enableAdmin()->toString()
+    'backend' => UrlHelper::construct(['/cms/admin-clear/index'])->enableAdmin()->toString()
 ]);
 
 $this->registerJs(<<<JS
@@ -108,7 +108,7 @@ JS
         </a>
     </li>-->
 
-    <? if (\Yii::$app->user->can('admin/clear')) : ?>
+    <? if (\Yii::$app->user->can('cms/admin-clear')) : ?>
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
         <a href="#" onclick="sx.ClearCache.execute(); return false;" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Clear cache and temporary files')?>"><i class="glyphicon glyphicon-refresh"></i></a>
     </li>
