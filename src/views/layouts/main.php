@@ -51,7 +51,12 @@ HTML
                 ]); ?>
                    <div class="panel-content-before">
                         <? if (!UrlHelper::constructCurrent()->getSystem(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_NO_ACTIONS_MODEL)) : ?>
-                            <?= \yii\helpers\ArrayHelper::getValue($this->params, 'actions'); ?>
+                            <? if (\Yii::$app->controller && \Yii::$app->controller instanceof \skeeks\cms\backend\IHasInfoActions
+                                && \Yii::$app->controller->actions && count(\Yii::$app->controller->actions) > 1) : ?>
+                                <?
+                                    echo \skeeks\cms\backend\widgets\ControllerActionsWidget::currentWidget();
+                                ?>
+                            <? endif; ?>
                         <? endif; ?>
                     </div>
                     <div class="panel-content">
