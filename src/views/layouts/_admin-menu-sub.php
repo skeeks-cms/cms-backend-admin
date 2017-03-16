@@ -16,7 +16,8 @@
             <li <?= $subAdminMenuItem->isActive ? 'class="active opened sx-start-opened"' : '' ?>>
                 <a href="<?= $subAdminMenuItem->url ? $subAdminMenuItem->url : "#" ?>" title="<?= $subAdminMenuItem->name; ?>">
                     <span class="sx-icon">
-                        <img src="<?= $subAdminMenuItem->image; ?>" />
+                        <img src="<?= $subAdminMenuItem->image ? $subAdminMenuItem->image : \skeeks\cms\assets\CmsAsset::getAssetUrl('images/icons/posteditem.png'); ?>" />
+
                     </span>
                     <span class="txt"><?= $subAdminMenuItem->name; ?></span>
                     <? if ($subAdminMenuItem->items) : ?>

@@ -27,7 +27,9 @@
                             <img src="<?= $imgUrl; ?>" />
                         </span>
                     <? else : ?>
-                        <i class="icon icon-arrow-up" style=""></i>
+                        <span class="sx-icon">
+                            <img src="<?= \skeeks\cms\assets\CmsAsset::getAssetUrl('images/icons/posteditem.png'); ?>" />
+                        </span>
                     <? endif; ?>
                     <?= $adminMenuItem->name; ?>
                 </div>
