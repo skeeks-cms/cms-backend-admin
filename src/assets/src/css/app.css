@@ -489,3 +489,15 @@ a.sx-border-1px img
     border-color: #d6dfe1 #ced7d8 #969d9e #bec7c8;
     margin-bottom: 10px;
 }
+
+
+.panel-content-before-second
+{
+    background: #f5f9f9;
+}
+    .panel-content-before-second .sx-model-title
+    {
+        margin-top: 11px;
+        font-weight: bold;
+        overflow: hidden;
+    }

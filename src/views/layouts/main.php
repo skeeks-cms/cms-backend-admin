@@ -59,6 +59,20 @@ HTML
                             <? endif; ?>
                         <? endif; ?>
                     </div>
+
+                    <div class="panel-content-before panel-content-before-second">
+                        <? if (\Yii::$app->controller && \Yii::$app->controller instanceof \skeeks\cms\backend\controllers\IBackendModelController
+                            && \Yii::$app->controller->modelActions && count(\Yii::$app->controller->modelActions) > 1) : ?>
+
+                            <div class="col-md-1 sx-model-title" title="<?= \Yii::$app->controller->modelShowName; ?>"">id <?= \Yii::$app->controller->modelPkValue ?>:</div>
+                            <?
+                                echo \skeeks\cms\backend\widgets\ControllerActionsWidget::widget([
+                                        'actions' => \Yii::$app->controller->modelActions,
+                                        'activeId' => \Yii::$app->controller->action->id
+                                ]);
+                            ?>
+                        <? endif; ?>
+                    </div>
                     <div class="panel-content">
                         <?= \skeeks\cms\modules\admin\widgets\Alert::widget(); ?>
                         <?= $content ?>
