@@ -62,7 +62,7 @@ HTML
 
                     <div class="panel-content-before panel-content-before-second">
                         <? if (\Yii::$app->controller && \Yii::$app->controller instanceof \skeeks\cms\backend\controllers\IBackendModelController
-                            && \Yii::$app->controller->modelActions && count(\Yii::$app->controller->modelActions) > 1) : ?>
+                            && \Yii::$app->controller->modelActions && count(\Yii::$app->controller->modelActions)) : ?>
 
                             <div class="col-md-1 sx-model-title" title="<?= \Yii::$app->controller->modelShowName; ?>"">id <?= \Yii::$app->controller->modelPkValue ?>:</div>
                             <?

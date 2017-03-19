@@ -24,8 +24,8 @@ abstract class AdminController extends BackendController
     public function getPermissionNames()
     {
         return [
-            CmsManager::PERMISSION_ADMIN_ACCESS,
-            $this->permissionName
+            CmsManager::PERMISSION_ADMIN_ACCESS => \Yii::t('skeeks/cms', 'Access to the administration system'),
+            $this->getUniqueId() => $this->name
         ];
     }
 

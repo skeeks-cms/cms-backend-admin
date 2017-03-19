@@ -46,14 +46,49 @@
                             }
                             ?>
                             <? if (\Yii::$app->controller->permissionNames) : ?>
-                                <? foreach (\Yii::$app->controller->permissionNames as $parmissionName) : ?>
+                                <? foreach (\Yii::$app->controller->permissionNames as $parmissionName => $permissionLabel) : ?>
                                     <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
                                         'permissionName'        => $parmissionName,
-                                        'permissionDescription' => $parmissionName,
-                                        'label'                 => $parmissionName,
+                                        'permissionDescription' => $permissionLabel,
+                                        'label'                 => $permissionLabel,
                                         'items'                 => \yii\helpers\ArrayHelper::map($items, 'name', 'description'),
                                     ]); ?>
                                 <? endforeach; ?>
+
+                                <? if (\Yii::$app->controller->allActions) : ?>
+                                    <h2>Действия</h2>
+                                    <hr />
+                                    <? foreach (\Yii::$app->controller->allActions as $actionObj) : ?>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label><?= $actionObj->name; ?></label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <? if ($actionObj->permissionNames) : ?>
+                                                    <? foreach ($actionObj->permissionNames as $parmissionName => $permissionLabel) : ?>
+                                                        <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
+                                                            'permissionName'        => $parmissionName,
+                                                            'permissionDescription' => $permissionLabel,
+                                                            'label'                 => $permissionLabel,
+                                                            'items'                 => \yii\helpers\ArrayHelper::map($items, 'name', 'description'),
+                                                        ]); ?>
+                                                    <? endforeach; ?>
+                                                <? endif; ?>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <?/*= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
+                                            'permissionName'        => $parmissionName,
+                                            'permissionDescription' => $permissionLabel,
+                                            'label'                 => $permissionLabel,
+                                            'items'                 => \yii\helpers\ArrayHelper::map($items, 'name', 'description'),
+                                        ]); */?><!--
+                                        -->
+                                    <? endforeach; ?>
+                                <? endif; ?>
                             <? endif; ?>
 
                             <?=\Yii::t('skeeks/cms','Specify which groups of users will have access.')?>
