@@ -501,3 +501,27 @@ a.sx-border-1px img
         font-weight: bold;
         overflow: hidden;
     }
+
+
+
+.modal-header {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+
+.sx-action-permission
+{
+    padding: 5px;
+}
+    .sx-action-permission:hover
+    {
+        background-color: rgba(93, 195, 231, 0.15) !important;
+    }
+
+    .sx-action-permission:nth-child(2n)
+    {
+        background-color: #f8f9fa;
+    }
+
