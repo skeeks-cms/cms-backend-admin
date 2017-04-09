@@ -72,7 +72,11 @@ $sortableString = [];
                                 <? $widgets = $dashboard->getCmsDashboardWidgets()->andWhere(['cms_dashboard_column' => $i])->orderBy(['priority' => SORT_ASC])->all(); ?>
                                 <? if ($widgets) : ?>
 
-                                    <? foreach($widgets as $cmsDashboardWidget) : ?>
+                                    <?
+                                    /**
+                                     * @var $widgets \skeeks\cms\models\CmsDashboardWidget[]
+                                     */
+                                    foreach($widgets as $cmsDashboardWidget) : ?>
 
                                         <? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT)) : ?>
                                         <?
@@ -121,7 +125,15 @@ HTML;
                                             ],
                                         ]); ?>
                                             <? if ($cmsDashboardWidget->widget) : ?>
-                                                <?= $cmsDashboardWidget->widget->run(); ?>
+                                                <?
+                                                    try
+                                                    {
+                                                        echo $cmsDashboardWidget->widget->run();
+                                                    } catch (\Exception $e)
+                                                    {
+                                                        echo $e->getMessage();
+                                                    }
+                                                ?>
                                             <? else : ?>
                                                 Виджет удален
                                             <? endif; ?>

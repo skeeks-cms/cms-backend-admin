@@ -25,7 +25,7 @@ abstract class AdminController extends BackendController
     {
         return [
             CmsManager::PERMISSION_ADMIN_ACCESS => \Yii::t('skeeks/cms', 'Access to the administration system'),
-            $this->getUniqueId() => $this->name
+            $this->permissionName => $this->name
         ];
     }
 

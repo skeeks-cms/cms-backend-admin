@@ -8,7 +8,7 @@
 namespace skeeks\cms\admin\controllers;
 use skeeks\cms\admin\AdminController;
 use skeeks\cms\helpers\RequestResponse;
-use skeeks\cms\modules\admin\filters\AdminAccessControl;
+use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\modules\admin\widgets\filters\EditFilterForm;
 use yii\filters\VerbFilter;
