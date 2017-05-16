@@ -48,3 +48,19 @@ form.sx-form-admin
     {
         background: rgba(93, 195, 231, 0.15);
     }
+
+
+.sx-form-admin .error-summary
+{
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    background: #fee5e5;
+    color: #c10a09;
+    border-radius: 2px;
+    border-color: transparent!important;
+}
+    .sx-form-admin .error-summary p
+    {
+        font-weight: bold;
+    }
