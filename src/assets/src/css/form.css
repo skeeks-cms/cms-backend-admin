@@ -6,6 +6,24 @@ form.sx-form-admin
     padding: 10px;
 }
 
+    form.sx-form-admin .error-summary
+    {
+        background: #fee5e5;
+        border-color: #f86c6b;
+        color: #c10a09;
+        padding: 15px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px;
+        border-color: transparent;
+    }
+
+        form.sx-form-admin .error-summary p
+        {
+            font-weight: bold;
+        }
+
     form.sx-form-admin .hint-block
     {
         font-size: 11px;
