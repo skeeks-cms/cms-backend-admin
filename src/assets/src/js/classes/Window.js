@@ -55,6 +55,7 @@
                     'style' : 'display: none;',
                     'href' : self._src,
                     'data-fancybox-type' : 'iframe',
+                    'data-type' : 'iframe',
                 }).appendTo('body').fancybox(options).click();
             });
 
