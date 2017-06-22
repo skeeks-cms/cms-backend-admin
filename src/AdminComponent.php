@@ -9,8 +9,13 @@ namespace skeeks\cms\admin;
 use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
+use skeeks\cms\IHasPermissions;
+use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
+use skeeks\cms\rbac\CmsManager;
+use yii\base\Application;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\View;
 
 /**
@@ -41,7 +46,7 @@ class AdminComponent extends BackendComponent
         'timeout' => 30000
     ];
 
-    public function run()
+    protected function _run()
     {
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
 
@@ -62,7 +67,56 @@ class AdminComponent extends BackendComponent
 
         \Yii::$app->language = \Yii::$app->admin->languageCode;
 
-        parent::run();
+        \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function()
+        {
+            if (in_array(\Yii::$app->controller->uniqueId, [
+                'admin/auth'
+            ]))
+            {
+                return true;
+            }
+
+            if ($behaviorAccess = ArrayHelper::getValue(\Yii::$app->controller->behaviors(), 'access'))
+            {
+                $behaviorAccess['class'] = \skeeks\cms\admin\AdminAccessControl::class;
+                \Yii::$app->controller->attachBehavior('access', $behaviorAccess);
+            }
+
+            \Yii::$app->controller->attachBehavior('adminLastActivityAccess', [
+                'class'         => AdminLastActivityAccessControl::className(),
+                'rules' =>
+                [
+                    [
+                        'allow'         => true,
+                        'matchCallback' => function($rule, $action)
+                        {
+                            if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime)
+                            {
+                                return false;
+                            }
+
+                            if (\Yii::$app->user->identity)
+                            {
+                                \Yii::$app->user->identity->updateLastAdminActivity();
+                            }
+
+                            return true;
+                        }
+                    ]
+                ],
+            ]);
+
+            if (\Yii::$app->controller instanceof IHasPermissions && \Yii::$app->controller->permissionNames)
+            {
+                $result = ArrayHelper::merge([
+                    CmsManager::PERMISSION_ADMIN_ACCESS => \Yii::t('skeeks/cms', 'Access to the administration system'),
+                ], \Yii::$app->controller->permissionNames);
+
+                \Yii::$app->controller->setPermissionNames($result);
+            }
+        });
+
+        parent::_run();
     }
 
 

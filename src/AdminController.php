@@ -15,62 +15,18 @@ use yii\helpers\ArrayHelper;
 /**
  * Class AdminController
  * @package skeeks\cms\admin
+ * @deprecated
  */
 abstract class AdminController extends BackendController
 {
     /**
      * @return array
      */
-    public function getPermissionNames()
+    /*public function getPermissionNames()
     {
         return [
             CmsManager::PERMISSION_ADMIN_ACCESS => \Yii::t('skeeks/cms', 'Access to the administration system'),
             $this->permissionName => $this->name
         ];
-    }
-
-    /**
-     * Проверка доступа к админке
-     * @return array
-     */
-    public function behaviors()
-    {
-        $result = ArrayHelper::merge(parent::behaviors(),
-        [
-            //Проверка основной привелигии доступа к админ панели
-            'access' =>
-            [
-                'class'         => \skeeks\cms\admin\AdminAccessControl::class,
-            ],
-
-            //Обновление активности пользователя взаимдействие с админкой
-            'adminLastActivityAccess' =>
-            [
-                'class'         => AdminLastActivityAccessControl::className(),
-                'rules' =>
-                [
-                    [
-                        'allow'         => true,
-                        'matchCallback' => function($rule, $action)
-                        {
-                            if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime)
-                            {
-                                return false;
-                            }
-
-                            if (\Yii::$app->user->identity)
-                            {
-                                \Yii::$app->user->identity->updateLastAdminActivity();
-                            }
-
-                            return true;
-                        }
-                    ]
-                ],
-            ],
-        ]);
-
-        return $result;
-    }
-
+    }*/
 }
