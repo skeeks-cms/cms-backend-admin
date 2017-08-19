@@ -87,10 +87,10 @@ $sortableString = [];
                                             ];
 
                                             $cmsWidgetData = \yii\helpers\ArrayHelper::merge($cmsWidgetData, [
-                                                'editConfigUrl' => \skeeks\cms\helpers\UrlHelper::construct('/admin/index/edit-dashboard-widget', $requestData)
-                                                                    ->setSystemParam(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_EMPTY_LAYOUT, 'true')
-                                                                    ->enableAdmin()
-                                                                    ->toString()
+                                                'editConfigUrl' => \skeeks\cms\backend\helpers\BackendUrlHelper::createByParams(['admin/index/edit-dashboard-widget'])
+                                                    ->merge((array) $requestData)
+                                                    ->enableEmptyLayout()
+                                                    ->url
                                             ]);
 
                                             $cmsWidgetData = \yii\helpers\Json::encode($cmsWidgetData);

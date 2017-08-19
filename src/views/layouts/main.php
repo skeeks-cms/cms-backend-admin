@@ -50,7 +50,7 @@ HTML
                     ],
                 ]); ?>
                    <div class="panel-content-before">
-                        <? if (!UrlHelper::constructCurrent()->getSystem(\skeeks\cms\modules\admin\Module::SYSTEM_QUERY_NO_ACTIONS_MODEL)) : ?>
+                        <? if (!\skeeks\cms\backend\helpers\BackendUrlHelper::createByParams()->setBackendParamsByCurrentRequest()->isNoActions) : ?>
                             <? if (\Yii::$app->controller && \Yii::$app->controller instanceof \skeeks\cms\backend\IHasInfoActions
                                 && \Yii::$app->controller->actions && count(\Yii::$app->controller->actions) > 1) : ?>
                                 <?
