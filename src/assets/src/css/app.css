@@ -530,3 +530,8 @@ a.sx-border-1px img
 {
     margin-bottom: 10px;
 }
+
+
+table.table {
+    margin-top: 0px !important;
+}
