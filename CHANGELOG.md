@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-1.0.0-alpha4.pre
+1.0.0-beta
 -----------------
   * Url changes
   
