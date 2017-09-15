@@ -8,9 +8,12 @@
 namespace skeeks\cms\admin;
 use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
+use skeeks\cms\backend\BackendController;
 use skeeks\cms\backend\BackendMenu;
+use skeeks\cms\filters\CmsAccessControl;
 use skeeks\cms\IHasPermissions;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
+use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\Application;
 use yii\base\Theme;
@@ -67,6 +70,10 @@ class AdminComponent extends BackendComponent
 
         \Yii::$app->language = \Yii::$app->admin->languageCode;
 
+        /*\Yii::$container->setDefinitions([
+            BackendController::class => \skeeks\modules\cms\form2\controllers\BackendController::class
+        ]);*/
+
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function()
         {
             if (in_array(\Yii::$app->controller->uniqueId, [
@@ -79,6 +86,7 @@ class AdminComponent extends BackendComponent
             if ($behaviorAccess = ArrayHelper::getValue(\Yii::$app->controller->behaviors(), 'access'))
             {
                 $behaviorAccess['class'] = \skeeks\cms\admin\AdminAccessControl::class;
+                \Yii::$app->controller->detachBehavior('access');
                 \Yii::$app->controller->attachBehavior('access', $behaviorAccess);
             }
 
