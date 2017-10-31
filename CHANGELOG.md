@@ -1,6 +1,14 @@
 CHANGELOG
 ==============
 
+1.0.0.1.pre
+-----------------
+  * Fixed admin required field
+  
+1.0.0
+-----------------
+  * Url changes
+  
 1.0.0-beta
 -----------------
   * Url changes
