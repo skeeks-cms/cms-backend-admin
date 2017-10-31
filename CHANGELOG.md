@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-1.0.0.1.pre
+1.0.0.1
 -----------------
   * Fixed admin required field
   
