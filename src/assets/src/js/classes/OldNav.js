@@ -68,7 +68,7 @@
                 }
                 if (!$(this).parent().hasClass("hover"))
                 {
-                  if ($(this).parent().find("ul").size() != 0)
+                  if ($(this).parent().find("ul").length != 0)
                   {
                     if ($(this).parent().hasClass("opened"))
                     {
