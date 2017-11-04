@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.0.1
+-----------------
+  * Compatibility with jquery 3.0
+  
 1.0.0.1
 -----------------
   * Fixed admin required field
