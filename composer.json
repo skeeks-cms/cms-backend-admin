@@ -23,5 +23,18 @@
         "psr-4": {
             "skeeks\\cms\\admin\\": "src/"
         }
+    },
+	"extra": {
+        "config-plugin": {
+            "common": "src/config/common.php",
+            "web": [
+                "$common",
+                "src/config/main.php"
+            ],
+            "console": [
+                "$common",
+                "src/config/main-console.php"
+            ]
+        }
     }
 }
