@@ -28,11 +28,11 @@
         "config-plugin": {
             "common": "src/config/common.php",
             "web": [
-                "$common",
+                "src/config/common.php",
                 "src/config/main.php"
             ],
             "console": [
-                "$common",
+                "src/config/common.php",
                 "src/config/main-console.php"
             ]
         }
