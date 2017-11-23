@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+1.1.2.pre
+-----------------
+  * Removed old assets
+  
 1.1.1
 -----------------
   * Fixed css
