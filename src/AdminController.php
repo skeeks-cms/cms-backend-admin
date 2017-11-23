@@ -5,12 +5,10 @@
  * @copyright (c) 2010 SkeekS
  * @date 10.03.2017
  */
+
 namespace skeeks\cms\admin;
 
 use skeeks\cms\backend\BackendController;
-use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
-use skeeks\cms\rbac\CmsManager;
-use yii\helpers\ArrayHelper;
 
 /**
  * Class AdminController

@@ -7,7 +7,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 26.02.2015
  */
+
 /* @var $this \yii\web\View */
+
 use yii\helpers\Html;
 //use \skeeks\cms\modules\admin\widgets\ActiveForm;
 
@@ -207,53 +209,63 @@ JS
 
                     <div class="sx-act sx-act-login">
                         <?php $form = ActiveForm::begin([
-                            'id'                            => 'login-form',
-                            'enableAjaxValidation'          => false,
-                            'afterValidateCallback'         => 'function(jForm, ajaxQuery){ sx.auth.afterValidateLogin(jForm, ajaxQuery); }',
+                            'id' => 'login-form',
+                            'enableAjaxValidation' => false,
+                            'afterValidateCallback' => 'function(jForm, ajaxQuery){ sx.auth.afterValidateLogin(jForm, ajaxQuery); }',
                         ]); ?>
 
-                            <div class="sx-form-messages"></div>
+                        <div class="sx-form-messages"></div>
 
-                            <?= $form->field($loginModel, 'identifier')->label(\Yii::t('skeeks/cms','Username or Email')); ?>
-                            <?= $form->field($loginModel, 'password')->passwordInput()->label(\Yii::t('skeeks/cms','Password')) ?>
-                                <?= Html::input('hidden', 'do', 'login'); ?>
-                                <div class="form-group sx-submit-group">
-                                    <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms','Log in'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                                </div>
+                        <?= $form->field($loginModel, 'identifier')->label(\Yii::t('skeeks/cms',
+                            'Username or Email')); ?>
+                        <?= $form->field($loginModel, 'password')->passwordInput()->label(\Yii::t('skeeks/cms',
+                            'Password')) ?>
+                        <?= Html::input('hidden', 'do', 'login'); ?>
+                        <div class="form-group sx-submit-group">
+                            <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms',
+                                    'Log in'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                        </div>
 
-                                <div>
-                                    <hr />
-                                    <div style="color:#999;margin:1em 0">
-                                        <a href="#" class="sx-act-controll" onclick="sx.auth.goActForget(); return false;"><?= \Yii::t('skeeks/cms','recover password')?></a>
-                                    </div>
-                                </div>
+                        <div>
+                            <hr/>
+                            <div style="color:#999;margin:1em 0">
+                                <a href="#" class="sx-act-controll"
+                                   onclick="sx.auth.goActForget(); return false;"><?= \Yii::t('skeeks/cms',
+                                        'recover password') ?></a>
+                            </div>
+                        </div>
                         <?php ActiveForm::end(); ?>
                     </div>
 
                     <div class="sx-act sx-act-forget">
                         <?php $form = ActiveForm::begin([
                             'id' => 'forget-form',
-                            'afterValidateCallback'         => 'function(jForm, ajaxQuery){ sx.auth.afterValidateResetPassword(jForm, ajaxQuery); }',
+                            'afterValidateCallback' => 'function(jForm, ajaxQuery){ sx.auth.afterValidateResetPassword(jForm, ajaxQuery); }',
                         ]); ?>
 
-                            <div class="sx-form-messages"></div>
+                        <div class="sx-form-messages"></div>
 
-                            <?= $form->field($passwordResetModel, 'identifier')->label(\Yii::t('skeeks/cms','Username or Email')); ?>
-                                <?= Html::input('hidden', 'do', 'password-reset'); ?>
-                                <div class="form-group sx-submit-group">
-                                    <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms','Recover password'), [
-                                        'class' => 'btn btn-primary',
-                                        'name' => 'login-button',
-                                        //'onclick' => 'sx.notify.info("Не нажимайте пока меня, я еще не работаю )"); return false;'
-                                    ]) ?>
-                                </div>
+                        <?= $form->field($passwordResetModel, 'identifier')->label(\Yii::t('skeeks/cms',
+                            'Username or Email')); ?>
+                        <?= Html::input('hidden', 'do', 'password-reset'); ?>
+                        <div class="form-group sx-submit-group">
+                            <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms',
+                                    'Recover password'), [
+                                'class' => 'btn btn-primary',
+                                'name' => 'login-button',
+                                //'onclick' => 'sx.notify.info("Не нажимайте пока меня, я еще не работаю )"); return false;'
+                            ]) ?>
+                        </div>
 
-                                <div class="sx-hidden1">
-                                    <hr />
-                                    <div style="color:#999;margin:1em 0">
-                                        <?= \Yii::t('skeeks/cms','I remembered password')?> <a href="#" class="sx-act-controll" onclick="sx.auth.goActLogin(); return false;"><?= \Yii::t('skeeks/cms','log in') ?></a>
-                                    </div>
-                                </div>
+                        <div class="sx-hidden1">
+                            <hr/>
+                            <div style="color:#999;margin:1em 0">
+                                <?= \Yii::t('skeeks/cms', 'I remembered password') ?> <a href="#"
+                                                                                         class="sx-act-controll"
+                                                                                         onclick="sx.auth.goActLogin(); return false;"><?= \Yii::t('skeeks/cms',
+                                        'log in') ?></a>
+                            </div>
+                        </div>
 
                         <?php ActiveForm::end(); ?>
                     </div>

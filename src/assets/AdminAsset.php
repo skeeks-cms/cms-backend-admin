@@ -5,10 +5,10 @@
  * @copyright (c) 2010 SkeekS
  * @date 12.03.2017
  */
+
 namespace skeeks\cms\admin\assets;
-use skeeks\cms\assets\FancyboxAssets;
+
 use skeeks\cms\base\AssetBundle;
-use yii\helpers\Json;
 
 
 /**
@@ -60,8 +60,7 @@ class AdminAsset extends AssetBundle
      */
     public function registerAssetFiles($view)
     {
-        if (\Yii::$app->request->isPjax)
-        {
+        if (\Yii::$app->request->isPjax) {
             return parent::registerAssetFiles($view);
         }
 

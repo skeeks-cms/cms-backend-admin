@@ -6,12 +6,12 @@
  * @date 08.03.2017
  */
 return
-[
-    'modules' => [
+    [
+        'modules' => [
 
-        'admin' =>
-        [
-            'class' => '\skeeks\cms\admin\AdminModule'
+            'admin' =>
+                [
+                    'class' => '\skeeks\cms\admin\AdminModule'
+                ],
         ],
-    ],
-];
+    ];

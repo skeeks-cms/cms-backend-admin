@@ -5,6 +5,7 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 02.07.2015
  */
+
 namespace skeeks\cms\admin\assets;
 
 /**

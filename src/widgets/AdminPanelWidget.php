@@ -5,11 +5,12 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 30.09.2015
  */
+
 namespace skeeks\cms\admin\widgets;
+
 use yii\base\Widget;
-use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
+use yii\helpers\Html;
 
 /**
  * Class AdminPanelWidget
@@ -21,14 +22,13 @@ class AdminPanelWidget extends Widget
      * Widget options
      *
      *  'class' => 'sx-dashboard-widget',
-        'data'      =>
-        [
-            'id' => 1
-        ],
+     * 'data'      =>
+     * [
+     * 'id' => 1
+     * ],
      * @var array
      */
     public $options = [];
-
 
 
     /**
@@ -85,14 +85,14 @@ class AdminPanelWidget extends Widget
         Html::addCssClass($this->options, ['panel', 'sx-panel', $this->color]);
 
         $options = ArrayHelper::merge($this->options, [
-            'id'    => $this->id,
+            'id' => $this->id,
         ]);
 
         echo Html::beginTag('div', $options);
 
-            echo Html::beginTag('div', $this->headingOptions);
+        echo Html::beginTag('div', $this->headingOptions);
 
-echo<<<HTML
+        echo <<<HTML
 
                 <div class="pull-left">
                     <h2>
@@ -104,12 +104,12 @@ echo<<<HTML
                 </div>
 HTML;
 
-            echo Html::endTag('div');
+        echo Html::endTag('div');
 
-            echo Html::beginTag('div', $this->bodyOptions);
+        echo Html::beginTag('div', $this->bodyOptions);
 
-                //echo '<div class="panel-content">' . $this->content;
-                echo $this->content;
+        //echo '<div class="panel-content">' . $this->content;
+        echo $this->content;
 
     }
 
@@ -120,7 +120,7 @@ HTML;
      */
     public function run()
     {
-            echo Html::endTag('div');
+        echo Html::endTag('div');
         echo Html::endTag('div');
 
         self::registerJs();
@@ -130,8 +130,7 @@ HTML;
 
     static public function registerJs()
     {
-        if (self::$_isRegisteredJs === true)
-        {
+        if (self::$_isRegisteredJs === true) {
             return false;
         }
 
@@ -152,6 +151,6 @@ HTML;
             return false;
         });
 JS
-);
+        );
     }
 }

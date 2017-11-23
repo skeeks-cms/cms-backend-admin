@@ -3,6 +3,7 @@ CHANGELOG
 
 1.1.2.pre
 -----------------
+  * Code style
   * Removed old assets
   
 1.1.1
