@@ -535,3 +535,7 @@ a.sx-border-1px img
 table.table {
     margin-top: 0px !important;
 }
+
+.navbar-brand > span > img {
+    height: 40px;
+}

@@ -8,7 +8,6 @@
  * @date 26.02.2015
  * @since 1.0.0
  */
-use skeeks\cms\modules\admin\assets\AdminAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -21,8 +20,8 @@ use skeeks\cms\helpers\UrlHelper;
 \skeeks\cms\admin\assets\AdminUnauthorizedAsset::register($this);
 \Yii::$app->backendAdmin->initJs($this);
 
-$urlBg = \Yii::$app->assetManager->getAssetUrl(\skeeks\cms\modules\admin\assets\AdminAsset::register($this), 'images/bg/582738_www.Gde-Fon.com.jpg');
-$blockerLoader = \Yii::$app->getAssetManager()->getAssetUrl(\Yii::$app->getAssetManager()->getBundle(\skeeks\cms\modules\admin\assets\AdminAsset::className()), 'images/loaders/circulare-blue-24_24.GIF');
+$urlBg = \Yii::$app->assetManager->getAssetUrl(\skeeks\cms\admin\assets\AdminAsset::register($this), 'images/bg/582738_www.Gde-Fon.com.jpg');
+$blockerLoader = \Yii::$app->getAssetManager()->getAssetUrl(\Yii::$app->getAssetManager()->getBundle(\skeeks\cms\admin\assets\AdminAsset::className()), 'images/loaders/circulare-blue-24_24.GIF');
 
 $this->registerCss(<<<CSS
     body.sx-styled

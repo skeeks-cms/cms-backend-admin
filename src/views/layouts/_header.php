@@ -7,7 +7,6 @@
  */
 /* @var $this yii\web\View */
 
-use skeeks\cms\modules\admin\assets\AdminAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;

@@ -5,20 +5,18 @@
  * @copyright (c) 2010 SkeekS
  * @date 11.03.2017
  */
+
 namespace skeeks\cms\admin;
+
 use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
-use skeeks\cms\backend\BackendController;
 use skeeks\cms\backend\BackendMenu;
-use skeeks\cms\filters\CmsAccessControl;
 use skeeks\cms\IHasPermissions;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
-use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\rbac\CmsManager;
 use yii\base\Application;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
 use yii\web\View;
 
 /**
@@ -30,12 +28,12 @@ class AdminComponent extends BackendComponent
     /**
      * @var string
      */
-    public $controllerPrefix    = "admin";
+    public $controllerPrefix = "admin";
 
     /**
      * @var array
      */
-    public $urlRule             = [
+    public $urlRule = [
         'urlPrefix' => '~sx'
     ];
 
@@ -44,10 +42,10 @@ class AdminComponent extends BackendComponent
      *
      * @var array
      */
-    public $pjax                        =
-    [
-        'timeout' => 30000
-    ];
+    public $pjax =
+        [
+            'timeout' => 30000
+        ];
 
     protected function _run()
     {
@@ -55,16 +53,15 @@ class AdminComponent extends BackendComponent
 
         \Yii::$app->view->theme = new Theme([
             'pathMap' =>
-            [
-                '@app/views' =>
                 [
-                    '@skeeks/cms/admin/views',
+                    '@app/views' =>
+                        [
+                            '@skeeks/cms/admin/views',
+                        ]
                 ]
-            ]
         ]);
 
-        if ($this->pjax)
-        {
+        if ($this->pjax) {
             \Yii::$container->set('yii\widgets\Pjax', $this->pjax);
         }
 
@@ -74,48 +71,41 @@ class AdminComponent extends BackendComponent
             BackendController::class => \skeeks\modules\cms\form2\controllers\BackendController::class
         ]);*/
 
-        \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function()
-        {
+        \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function () {
             if (in_array(\Yii::$app->controller->uniqueId, [
                 'admin/auth'
-            ]))
-            {
+            ])) {
                 return true;
             }
 
-            if ($behaviorAccess = ArrayHelper::getValue(\Yii::$app->controller->behaviors(), 'access'))
-            {
+            if ($behaviorAccess = ArrayHelper::getValue(\Yii::$app->controller->behaviors(), 'access')) {
                 $behaviorAccess['class'] = \skeeks\cms\admin\AdminAccessControl::class;
                 \Yii::$app->controller->detachBehavior('access');
                 \Yii::$app->controller->attachBehavior('access', $behaviorAccess);
             }
 
             \Yii::$app->controller->attachBehavior('adminLastActivityAccess', [
-                'class'         => AdminLastActivityAccessControl::className(),
+                'class' => AdminLastActivityAccessControl::className(),
                 'rules' =>
-                [
                     [
-                        'allow'         => true,
-                        'matchCallback' => function($rule, $action)
-                        {
-                            if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime)
-                            {
-                                return false;
-                            }
+                        [
+                            'allow' => true,
+                            'matchCallback' => function ($rule, $action) {
+                                if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime) {
+                                    return false;
+                                }
 
-                            if (\Yii::$app->user->identity)
-                            {
-                                \Yii::$app->user->identity->updateLastAdminActivity();
-                            }
+                                if (\Yii::$app->user->identity) {
+                                    \Yii::$app->user->identity->updateLastAdminActivity();
+                                }
 
-                            return true;
-                        }
-                    ]
-                ],
+                                return true;
+                            }
+                        ]
+                    ],
             ]);
 
-            if (\Yii::$app->controller instanceof IHasPermissions && \Yii::$app->controller->permissionNames)
-            {
+            if (\Yii::$app->controller instanceof IHasPermissions && \Yii::$app->controller->permissionNames) {
                 $result = ArrayHelper::merge([
                     CmsManager::PERMISSION_ADMIN_ACCESS => \Yii::t('skeeks/cms', 'Access to the administration system'),
                 ], \Yii::$app->controller->permissionNames);
@@ -128,39 +118,30 @@ class AdminComponent extends BackendComponent
     }
 
 
-    
-    
-
     /**
      * @return BackendMenu
      */
     public function getMenu()
     {
-        if (is_array($this->_menu) || $this->_menu === null)
-        {
-            $data = (array) $this->_menu;
-            
-            if (!ArrayHelper::getValue($data, 'class'))
-            {
+        if (is_array($this->_menu) || $this->_menu === null) {
+            $data = (array)$this->_menu;
+
+            if (!ArrayHelper::getValue($data, 'class')) {
                 $data['class'] = BackendMenu::class;
             }
-            
-            if ($dataFromFiles = (array) $this->getMenuFilesData())
-            {
+
+            if ($dataFromFiles = (array)$this->getMenuFilesData()) {
                 $dataFromFiles = static::_filesConfigNormalize($dataFromFiles);
             }
 
-            if (ArrayHelper::getValue($data, 'data'))
-            {
+            if (ArrayHelper::getValue($data, 'data')) {
                 $data['data'] = ArrayHelper::merge($dataFromFiles, $data['data']);
-            } else
-            {
+            } else {
                 $data['data'] = $dataFromFiles;
             }
 
-            if ($this->isMergeControllerMenu)
-            {
-                $data['data'] = ArrayHelper::merge((array) $this->getMenuDataFromControllers(), (array) $data['data']);
+            if ($this->isMergeControllerMenu) {
+                $data['data'] = ArrayHelper::merge((array)$this->getMenuDataFromControllers(), (array)$data['data']);
             }
 
             $this->_menu = \Yii::createObject($data);
@@ -168,37 +149,30 @@ class AdminComponent extends BackendComponent
 
         return $this->_menu;
     }
-    
+
     static protected function _filesConfigNormalize($config = [])
     {
-        if ($config)
-        {
-            foreach ($config as $key => $itemData)
-            {
-                if ($label = ArrayHelper::getValue($itemData, 'label'))
-                {
+        if ($config) {
+            foreach ($config as $key => $itemData) {
+                if ($label = ArrayHelper::getValue($itemData, 'label')) {
                     ArrayHelper::remove($itemData, 'label');
                     $itemData['name'] = $label;
                 }
 
-                if ($image = ArrayHelper::getValue($itemData, 'img'))
-                {
+                if ($image = ArrayHelper::getValue($itemData, 'img')) {
                     ArrayHelper::remove($itemData, 'img');
                     $itemData['image'] = $image;
                 }
 
-                if ($code = ArrayHelper::getValue($itemData, 'code'))
-                {
+                if ($code = ArrayHelper::getValue($itemData, 'code')) {
                     ArrayHelper::remove($itemData, 'code');
                     //$itemData['id'] = $code;
                 }
 
                 ArrayHelper::remove($itemData, 'enabled');
 
-                if ($items = ArrayHelper::getValue($itemData, 'items'))
-                {
-                    if (is_array($items))
-                    {
+                if ($items = ArrayHelper::getValue($itemData, 'items')) {
+                    if (is_array($items)) {
                         $itemData['items'] = self::_filesConfigNormalize($items);
                     }
                 }
@@ -220,49 +194,41 @@ class AdminComponent extends BackendComponent
     {
         \Yii::beginProfile('admin-menu');
 
-        if ($this->_menuFilesData !== null && is_array($this->_menuFilesData))
-        {
-            return (array) $this->_menuFilesData;
+        if ($this->_menuFilesData !== null && is_array($this->_menuFilesData)) {
+            return (array)$this->_menuFilesData;
         }
 
         $paths[] = \Yii::getAlias('@common/config/admin/menu.php');
         $paths[] = \Yii::getAlias('@app/config/admin/menu.php');
 
-        foreach (\Yii::$app->extensions as $code => $data)
-        {
-            if ($data['alias'])
-            {
-                foreach ($data['alias'] as $code => $path)
-                {
+        foreach (\Yii::$app->extensions as $code => $data) {
+            if ($data['alias']) {
+                foreach ($data['alias'] as $code => $path) {
                     $adminMenuFile = $path . '/config/admin/menu.php';
-                    if (file_exists($adminMenuFile))
-                    {
-                        $menuGroups = (array) include_once $adminMenuFile;
+                    if (file_exists($adminMenuFile)) {
+                        $menuGroups = (array)include_once $adminMenuFile;
                         $this->_menuFilesData = ArrayHelper::merge($this->_menuFilesData, $menuGroups);
                     }
                 }
             }
         }
 
-        foreach ($paths as $path)
-        {
-            if (file_exists($path))
-            {
-                $menuGroups = (array) include_once $path;
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                $menuGroups = (array)include_once $path;
                 $this->_menuFilesData = ArrayHelper::merge($this->_menuFilesData, $menuGroups);
             }
         }
 
         ArrayHelper::multisort($this->_menuFilesData, 'priority');
 
-        if (!$this->_menuFilesData)
-        {
+        if (!$this->_menuFilesData) {
             $this->_menuFilesData = false;
         }
-        
+
         \Yii::endProfile('admin-menu');
 
-        return (array) $this->_menuFilesData;
+        return (array)$this->_menuFilesData;
     }
 
 
@@ -272,12 +238,12 @@ class AdminComponent extends BackendComponent
     public function initJs(View $view = null)
     {
         $options =
-        [
-            'BlockerImageLoader'        => AdminAsset::getAssetUrl('images/loaders/circulare-blue-24_24.GIF'),
-            'disableCetainLink'         => false,
-            'globalAjaxLoader'          => true,
-            'menu'                      => [],
-        ];
+            [
+                'BlockerImageLoader' => AdminAsset::getAssetUrl('images/loaders/circulare-blue-24_24.GIF'),
+                'disableCetainLink' => false,
+                'globalAjaxLoader' => true,
+                'menu' => [],
+            ];
 
         $options = \yii\helpers\Json::encode($options);
 

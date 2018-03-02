@@ -8,6 +8,7 @@
  * @date 28.10.2014
  * @since 1.0.0
  */
+
 namespace skeeks\cms\admin\controllers;
 
 use skeeks\cms\admin\AdminController;
@@ -15,12 +16,9 @@ use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\CmsDashboard;
 use skeeks\cms\models\CmsDashboardWidget;
-use skeeks\cms\modules\admin\actions\AdminAction;
 use skeeks\cms\rbac\CmsManager;
-use yii\base\Exception;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -61,22 +59,18 @@ class IndexController extends AdminController
     public function actionIndex()
     {
         $dashboard = null;
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             $dashboard = CmsDashboard::find()->orderBy(['priority' => SORT_ASC])->one();
 
-            if (!$dashboard)
-            {
+            if (!$dashboard) {
                 $dashboard = new CmsDashboard();
                 $dashboard->name = 'Стол по умолчанию';
 
-                if (!$dashboard->save())
-                {
+                if (!$dashboard->save()) {
                     throw new NotFoundHttpException("Рабочий стол не найден");
                 }
             }
@@ -91,13 +85,11 @@ class IndexController extends AdminController
     public function actionDashboard()
     {
         $dashboard = null;
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             throw new NotFoundHttpException("Рабочий стол не найден");
         }
 
@@ -113,19 +105,16 @@ class IndexController extends AdminController
         $rr = new RequestResponse();
         $dashboard = null;
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             $rr->message = "Рабочий стол не найден";
             $rr->success = false;
         }
 
-        if ($rr->isRequestAjaxPost())
-        {
+        if ($rr->isRequestAjaxPost()) {
             return $rr->ajaxValidateForm($dashboard);
         }
 
@@ -142,25 +131,21 @@ class IndexController extends AdminController
          */
         $dashboard = null;
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             $rr->message = "Рабочий стол не найден";
             $rr->success = false;
         }
 
-        try
-        {
+        try {
             $dashboard->delete();
-            $rr->redirect   = UrlHelper::construct(['/admin/index'])->enableAdmin()->toString();
-            $rr->success    = true;
+            $rr->redirect = UrlHelper::construct(['/admin/index'])->enableAdmin()->toString();
+            $rr->success = true;
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $rr->message = $e->getMessage();
             $rr->success = false;
         }
@@ -178,25 +163,20 @@ class IndexController extends AdminController
          */
         $dashboard = null;
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             $rr->message = "Рабочий стол не найден";
             $rr->success = false;
         }
 
-        if ($rr->isRequestAjaxPost())
-        {
-            if ($dashboard->load(\Yii::$app->request->post()) && $dashboard->save())
-            {
+        if ($rr->isRequestAjaxPost()) {
+            if ($dashboard->load(\Yii::$app->request->post()) && $dashboard->save()) {
                 $rr->success = true;
                 $rr->message = 'Сохранено';
-            } else
-            {
+            } else {
 
                 $rr->message = 'Не сохранено';
             }
@@ -211,8 +191,7 @@ class IndexController extends AdminController
         $rr = new RequestResponse();
         $dashboardWidget = new CmsDashboardWidget();
 
-        if ($rr->isRequestAjaxPost())
-        {
+        if ($rr->isRequestAjaxPost()) {
             return $rr->ajaxValidateForm($dashboardWidget);
         }
 
@@ -224,14 +203,11 @@ class IndexController extends AdminController
         $rr = new RequestResponse();
         $dashboardWidget = new CmsDashboardWidget();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            if ($dashboardWidget->load(\Yii::$app->request->post()) && $dashboardWidget->save())
-            {
+        if ($rr->isRequestAjaxPost()) {
+            if ($dashboardWidget->load(\Yii::$app->request->post()) && $dashboardWidget->save()) {
                 $rr->success = true;
                 $rr->message = 'Сохранено';
-            } else
-            {
+            } else {
 
                 $rr->message = 'Не сохранено';
             }
@@ -246,8 +222,7 @@ class IndexController extends AdminController
         $rr = new RequestResponse();
         $dashboard = new CmsDashboard();
 
-        if ($rr->isRequestAjaxPost())
-        {
+        if ($rr->isRequestAjaxPost()) {
             return $rr->ajaxValidateForm($dashboard);
         }
 
@@ -260,15 +235,15 @@ class IndexController extends AdminController
         $rr = new RequestResponse();
         $dashboard = new CmsDashboard();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            if ($dashboard->load(\Yii::$app->request->post()) && $dashboard->save())
-            {
+        if ($rr->isRequestAjaxPost()) {
+            if ($dashboard->load(\Yii::$app->request->post()) && $dashboard->save()) {
                 $rr->success = true;
                 $rr->message = 'Сохранено';
-                $rr->redirect = UrlHelper::construct(['/admin/index/dashboard', 'pk' => $dashboard->id])->enableAdmin()->toString();
-            } else
-            {
+                $rr->redirect = UrlHelper::construct([
+                    '/admin/index/dashboard',
+                    'pk' => $dashboard->id
+                ])->enableAdmin()->toString();
+            } else {
 
                 $rr->message = 'Не сохранено';
             }
@@ -276,9 +251,6 @@ class IndexController extends AdminController
 
         return $rr;
     }
-
-
-
 
 
     public function actionWidgetPrioritySave()
@@ -291,37 +263,28 @@ class IndexController extends AdminController
          */
         $dashboard = null;
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboard = CmsDashboard::findOne($pk);
         }
 
-        if (!$dashboard)
-        {
+        if (!$dashboard) {
             $rr->message = "Рабочий стол не найден";
             $rr->success = false;
         }
 
         $widgets = $dashboard->cmsDashboardWidgets;
-        $widgets = ArrayHelper::map($dashboard->cmsDashboardWidgets, 'id', function($model)
-        {
+        $widgets = ArrayHelper::map($dashboard->cmsDashboardWidgets, 'id', function ($model) {
             return $model;
         });
 
-        if ($rr->isRequestAjaxPost())
-        {
-            if ($data = \Yii::$app->request->post())
-            {
-                foreach ($data as $columnId => $widgetIds)
-                {
+        if ($rr->isRequestAjaxPost()) {
+            if ($data = \Yii::$app->request->post()) {
+                foreach ($data as $columnId => $widgetIds) {
                     //Обновляем приоритеты виджетов в этой колонке
-                    if ($widgetIds)
-                    {
+                    if ($widgetIds) {
                         $priority = 100;
-                        foreach ($widgetIds as $widgetId)
-                        {
-                            if (isset($widgets[$widgetId]))
-                            {
+                        foreach ($widgetIds as $widgetId) {
+                            if (isset($widgets[$widgetId])) {
                                 /**
                                  * @var $widget CmsDashboardWidget
                                  */
@@ -339,12 +302,10 @@ class IndexController extends AdminController
                 }
 
                 //еще остались виджеты, суем их в конец
-                if ($widgets)
-                {
-                    foreach ($widgets as $widget)
-                    {
-                        $widget->cms_dashboard_column   = $columnId;
-                        $widget->priority               = $priority;
+                if ($widgets) {
+                    foreach ($widgets as $widget) {
+                        $widget->cms_dashboard_column = $columnId;
+                        $widget->priority = $priority;
                         $widget->save();
 
                         $priority = $priority + 100;
@@ -359,7 +320,6 @@ class IndexController extends AdminController
     }
 
 
-
     public function actionEditDashboardWidget()
     {
         $rr = new RequestResponse();
@@ -370,43 +330,35 @@ class IndexController extends AdminController
          */
         $dashboardWidget = null;
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $dashboardWidget = CmsDashboardWidget::findOne($pk);
         }
 
         //print_r($dashboardWidget->toArray());die;
 
-        if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax)
-        {
+        if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
             return $rr->ajaxValidateForm($dashboardWidget->widget);
         }
 
-        if (\Yii::$app->request->isPjax && \Yii::$app->request->post())
-        {
-            if (!$dashboardWidget)
-            {
+        if (\Yii::$app->request->isPjax && \Yii::$app->request->post()) {
+            if (!$dashboardWidget) {
                 $rr->message = "Виджет не найден";
                 $rr->success = false;
             }
 
-            if ($dashboardWidget->widget->load(\Yii::$app->request->post()))
-            {
+            if ($dashboardWidget->widget->load(\Yii::$app->request->post())) {
                 $data = \Yii::$app->request->post($dashboardWidget->widget->formName());
                 $dashboardWidget->component_settings = $data;
-                if ($dashboardWidget->save())
-                {
+                if ($dashboardWidget->save()) {
                     \Yii::$app->session->setFlash('success', 'Saved');
-                } else
-                {
+                } else {
                     \Yii::$app->session->setFlash('success', 'Errors');
                 }
             }
 
         }
 
-        if (!$dashboardWidget)
-        {
+        if (!$dashboardWidget) {
             throw new NotFoundHttpException('Widget not found');
         }
 
@@ -426,19 +378,16 @@ class IndexController extends AdminController
          */
         $dashboardWidget = null;
 
-        if ($pk = \Yii::$app->request->post('id'))
-        {
+        if ($pk = \Yii::$app->request->post('id')) {
             $dashboardWidget = CmsDashboardWidget::findOne($pk);
         }
 
-        if (!$dashboardWidget)
-        {
+        if (!$dashboardWidget) {
             $rr->message = "Виджет не найден";
             $rr->success = false;
         }
 
-        if ($dashboardWidget->delete())
-        {
+        if ($dashboardWidget->delete()) {
             $rr->success = true;
         }
 

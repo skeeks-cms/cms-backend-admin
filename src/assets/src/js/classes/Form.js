@@ -18,7 +18,7 @@
         {
             var self = this;
 
-            $('#' + this.get('id') + ' .form-group.required label').each(function()
+            $('#' + this.get('id') + ' .form-group.required > label').each(function()
             {
                 $(this).append($('<span class="sx-from-required" title="' + self.get('msg_title') + '">').text(' *'));
             });

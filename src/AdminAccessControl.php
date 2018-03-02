@@ -5,12 +5,13 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 31.05.2015
  */
+
 namespace skeeks\cms\admin;
 
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
-use yii\web\User;
 use yii\web\ForbiddenHttpException;
+use yii\web\User;
 
 /**
  * Class AdminAccessControl
@@ -29,22 +30,19 @@ class AdminAccessControl extends \yii\filters\AccessControl
     {
         $rr = new RequestResponse();
 
-        if ($user->getIsGuest())
-        {
+        if ($user->getIsGuest()) {
             $authUrl = UrlHelper::construct(["/admin/auth"])->setCurrentRef()->enableAdmin()->createUrl();
 
-            if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax)
-            {
+            if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
                 $rr->redirect = $authUrl;
-                return (array) $rr;
-            } else
-            {
+                return (array)$rr;
+            } else {
                 \Yii::$app->getResponse()->redirect($authUrl);
             }
 
-        } else
-        {
-            throw new ForbiddenHttpException(\Yii::t('yii', \Yii::t('skeeks/cms','You are not allowed to perform this action.')));
+        } else {
+            throw new ForbiddenHttpException(\Yii::t('yii',
+                \Yii::t('skeeks/cms', 'You are not allowed to perform this action.')));
         }
     }
 }

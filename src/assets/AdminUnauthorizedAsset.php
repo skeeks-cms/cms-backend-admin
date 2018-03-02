@@ -5,10 +5,12 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 02.07.2015
  */
+
 namespace skeeks\cms\admin\assets;
+
 /**
  * Class AdminUnauthorizedAsset
- * @package skeeks\cms\modules\admin\assets
+ * @package skeeks\cms\admin\assets
  */
 class AdminUnauthorizedAsset extends AdminAsset
 {

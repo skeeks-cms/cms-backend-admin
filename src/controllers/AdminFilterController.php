@@ -5,10 +5,11 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 22.05.2016
  */
+
 namespace skeeks\cms\admin\controllers;
+
 use skeeks\cms\admin\AdminController;
 use skeeks\cms\helpers\RequestResponse;
-use skeeks\cms\admin\AdminAccessControl;
 use skeeks\cms\modules\admin\models\CmsAdminFilter;
 use skeeks\cms\modules\admin\widgets\filters\EditFilterForm;
 use yii\filters\VerbFilter;
@@ -29,36 +30,32 @@ class AdminFilterController extends AdminController
     public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(),
-        [
-            'verbs' => [
-                'class'         => VerbFilter::className(),
-                'actions' => [
-                   'create'     => ['post'],
-                   'validate'   => ['post'],
-                   'save-visibles'   => ['post'],
-                   'save'   => ['post'],
-                   'delete'   => ['post'],
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'create' => ['post'],
+                        'validate' => ['post'],
+                        'save-visibles' => ['post'],
+                        'save' => ['post'],
+                        'delete' => ['post'],
+                    ]
                 ]
-            ]
-        ]);
+            ]);
     }
 
     public function actionCreate()
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
+        if ($rr->isRequestAjaxPost()) {
             $model = new CmsAdminFilter();
-            if ($model->load(\Yii::$app->request->post()) && $model->save())
-            {
-                if (\Yii::$app->request->post('visibles'))
-                {
+            if ($model->load(\Yii::$app->request->post()) && $model->save()) {
+                if (\Yii::$app->request->post('visibles')) {
                     $model->visibles = explode(',', \Yii::$app->request->post('visibles'));
                 }
 
-                if ($values = \Yii::$app->request->post('values'))
-                {
+                if ($values = \Yii::$app->request->post('values')) {
                     parse_str(\Yii::$app->request->post('values'), $values);
                     ArrayHelper::remove($values, 'sx-filter');
                     ArrayHelper::remove($values, '_pjax');
@@ -69,8 +66,7 @@ class AdminFilterController extends AdminController
 
                 $rr->success = true;
                 $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully created');
-            } else
-            {
+            } else {
                 $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
                 $rr->success = false;
                 $rr->message = \Yii::t('skeeks/cms', $error);
@@ -83,13 +79,11 @@ class AdminFilterController extends AdminController
     }
 
 
-
     public function actionValidate()
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
+        if ($rr->isRequestAjaxPost()) {
             $model = new CmsAdminFilter();
             return $rr->ajaxValidateForm($model);
         }
@@ -102,26 +96,21 @@ class AdminFilterController extends AdminController
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            try
-            {
+        if ($rr->isRequestAjaxPost()) {
+            try {
                 $model = $this->model;
                 $model->visibles = \Yii::$app->request->post('visibles');
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     $rr->success = true;
                     $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
-                } else
-                {
+                } else {
                     $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
                     $rr->success = false;
                     $rr->message = \Yii::t('skeeks/admin', $error);
                 }
 
-            } catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $rr->success = false;
                 $rr->message = $e->getMessage();
             }
@@ -137,10 +126,8 @@ class AdminFilterController extends AdminController
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            try
-            {
+        if ($rr->isRequestAjaxPost()) {
+            try {
                 $model = $this->model;
                 $values = [];
                 parse_str(\Yii::$app->request->post('values'), $values);
@@ -148,19 +135,16 @@ class AdminFilterController extends AdminController
                 ArrayHelper::remove($values, '_pjax');
                 $model->values = $values;
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     $rr->success = true;
                     $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
-                } else
-                {
+                } else {
                     $error = 'An error occurred in the time of saving' . Json::encode($model->getFirstErrors());
                     $rr->success = false;
                     $rr->message = \Yii::t('skeeks/admin', $error);
                 }
 
-            } catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $rr->success = false;
                 $rr->message = $e->getMessage();
             }
@@ -175,25 +159,20 @@ class AdminFilterController extends AdminController
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            try
-            {
+        if ($rr->isRequestAjaxPost()) {
+            try {
                 $model = $this->model;
 
-                if ($model->load(\Yii::$app->request->post()) && $model->save())
-                {
+                if ($model->load(\Yii::$app->request->post()) && $model->save()) {
                     $rr->success = true;
                     $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully saved');
-                } else
-                {
+                } else {
                     $error = 'An error occurred in the time of saving' . serialize($model->getFirstErrors());
                     $rr->success = false;
                     $rr->message = \Yii::t('skeeks/admin', $error);
                 }
 
-            } catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $rr->success = false;
                 $rr->message = $e->getMessage();
             }
@@ -209,25 +188,20 @@ class AdminFilterController extends AdminController
     {
         $rr = new RequestResponse();
 
-        if ($rr->isRequestAjaxPost())
-        {
-            try
-            {
+        if ($rr->isRequestAjaxPost()) {
+            try {
                 $model = $this->model;
 
-                if ($model && $model->delete())
-                {
+                if ($model && $model->delete()) {
                     $rr->success = true;
                     $rr->message = \Yii::t('skeeks/admin', 'Filter was successfully deleted');
-                } else
-                {
+                } else {
                     $error = 'An error occurred in the time of saving' . serialize($model->getFirstErrors());
                     $rr->success = false;
                     $rr->message = \Yii::t('skeeks/admin', $error);
                 }
 
-            } catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $rr->success = false;
                 $rr->message = $e->getMessage();
             }
@@ -249,18 +223,15 @@ class AdminFilterController extends AdminController
      */
     public function getModel()
     {
-        if ($this->_model !== null)
-        {
+        if ($this->_model !== null) {
             return $this->_model;
         }
 
-        if ($pk = \Yii::$app->request->get('pk'))
-        {
+        if ($pk = \Yii::$app->request->get('pk')) {
             $this->_model = CmsAdminFilter::findOne($pk);
         }
 
-        if ($pk = \Yii::$app->request->post('pk'))
-        {
+        if ($pk = \Yii::$app->request->post('pk')) {
             $this->_model = CmsAdminFilter::findOne($pk);
         }
 
