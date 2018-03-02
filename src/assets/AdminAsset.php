@@ -20,6 +20,8 @@ class AdminAsset extends AssetBundle
     public $sourcePath = '@skeeks/cms/admin/assets/src';
 
     public $css = [
+        'https://use.fontawesome.com/releases/v5.0.7/css/all.css',
+
         'css/panel.css',
         'css/sidebar.css',
         'css/app.css',
