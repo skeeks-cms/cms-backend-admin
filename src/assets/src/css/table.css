@@ -1,7 +1,7 @@
 .sx-table-wrapper table.sx-table
 {
     border:none;
-    border-top:1px solid #adbdca;
+    border:1px solid #adbdca;
     border-spacing:0;
     width:100%;
     margin-top: 0px !important;
@@ -11,7 +11,7 @@
     table.sx-table>thead:first-child>tr:first-child>th
     {
         border-color:#d6dfe1 #ced7d8 #969d9e #bec7c8;
-        height: 35px;
+        padding: 10px;
     }
     table.sx-table thead tr th
     {
