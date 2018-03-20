@@ -4,6 +4,7 @@ return [
     'Available for all' => 'Доступен для всех',
     'Filter' => 'Фильтр',
     'Save filter' => 'Сохранить фильтр',
+    'Showing' => 'Отображение',
     'Close' => 'Отмена',
     'Filter was successfully created' => 'Фильтр успешно создан',
     'Filter was successfully saved' => 'Фильтр успешно сохранен',
