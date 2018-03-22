@@ -1,7 +1,7 @@
 .sx-table-wrapper table.sx-table
 {
     border:none;
-    border:1px solid #adbdca;
+    border:1px solid #e2e2e2;
     border-spacing:0;
     width:100%;
     margin-top: 0px !important;
@@ -10,14 +10,14 @@
 
     table.sx-table>thead:first-child>tr:first-child>th
     {
-        border-color:#d6dfe1 #ced7d8 #969d9e #bec7c8;
+        border-color:#d6dfe1 #ced7d8 #ced7d8 #ced7d8;
         padding: 10px;
     }
     table.sx-table thead tr th
     {
         background: #aebbc0;
-        background-image: -webkit-linear-gradient(top, #b9c7cd, #aab6b8);
-        background-image: linear-gradient(to bottom, #b9c7cd, #aab6b8);
+        background-image: -webkit-linear-gradient(top, #eff3f4, #e2e2e2);
+        background-image: linear-gradient(to bottom, #eff3f4, #e2e2e2);
         border:1px solid;
         border-color:#d9e0e4 #89979d #919b9d #ebeef0;
         font-weight:bold;
