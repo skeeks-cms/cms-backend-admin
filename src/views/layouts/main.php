@@ -36,7 +36,7 @@ use skeeks\cms\helpers\UrlHelper;
             <div class="col-lg-12 sx-main-body">
                 <? $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse')?>
                 <? \skeeks\cms\admin\widgets\AdminPanelWidget::begin([
-                    'name'      => \Yii::$app->controller instanceof \skeeks\cms\IHasInfo ? \Yii::$app->controller->name : "",
+                    'name'      => \Yii::$app->controller instanceof \skeeks\cms\IHasName ? \Yii::$app->controller->name : "",
                     'actions'   => <<<HTML
                         <a href="#" class="sx-btn-trigger-full">
                             <i class="glyphicon glyphicon-fullscreen" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
