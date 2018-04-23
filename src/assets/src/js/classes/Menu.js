@@ -16,6 +16,7 @@
     sx.classes.AdminMenu = sx.classes.Component.extend({
         _init: function()
         {
+            this._cookieManager = null;
             this.getCookieManager().setNamespace('admin-menu');
         },
 
