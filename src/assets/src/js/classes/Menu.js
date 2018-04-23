@@ -19,6 +19,21 @@
             this.getCookieManager().setNamespace('admin-menu');
         },
 
+        /**
+         * Удобная работа с cookies
+         * @returns {Skeeks.classes.Cookie}
+         * @deprecated
+         */
+        getCookieManager: function()
+        {
+            if (this._cookieManager === null)
+            {
+                this._cookieManager = new sx.classes.Cookie();
+            }
+
+            return this._cookieManager;
+        },
+
         _onDomReady: function()
         {
             var self = this;
