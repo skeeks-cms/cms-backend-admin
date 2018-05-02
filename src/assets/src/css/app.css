@@ -539,3 +539,24 @@ table.table {
 .navbar-brand > span > img {
     height: 40px;
 }
+
+
+
+/**
+ * Context menu
+ */
+
+.context-menu-item.sx-backend-action-wrapper {
+    padding: 3px 10px;
+}
+
+.context-menu-item.sx-backend-action-wrapper:hover {
+    background: #f5f5f5;
+}
+
+.context-menu-item.sx-backend-action-wrapper a,
+.context-menu-item.sx-backend-action-wrapper a:hover {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
