@@ -554,9 +554,13 @@ table.table {
     background: #f5f5f5;
 }
 
+.context-menu-item.sx-backend-action-wrapper span,
+.context-menu-item.sx-backend-action-wrapper span:hover,
 .context-menu-item.sx-backend-action-wrapper a,
-.context-menu-item.sx-backend-action-wrapper a:hover {
+.context-menu-item.sx-backend-action-wrapper a:hover
+{
     text-decoration: none;
     color: #333;
     font-size: 14px;
+    cursor: pointer;
 }
