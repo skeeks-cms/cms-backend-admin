@@ -33,6 +33,28 @@
     {
         color: #0e0e0e;
         text-shadow: 0 1px rgba(255,255,255,0.7);
+        border-bottom: 1px solid;
+    }
+    table.sx-table thead tr th a:hover
+    {
+        text-decoration: none;
+    }
+
+    table.sx-table thead tr th a.asc,
+    table.sx-table thead tr th a.desc {
+        color: red;
+    }
+    table.sx-table thead tr th a.asc:after {
+        content: ' ↑';
+        margin-top: -1px;
+        position: absolute;
+        margin-left: 3px;
+    }
+    table.sx-table thead tr th a.desc:after {
+        content: ' ↓';
+        margin-top: -1px;
+        position: absolute;
+        margin-left: 3px;
     }
 
         table.sx-table a.sx-fancybox img
