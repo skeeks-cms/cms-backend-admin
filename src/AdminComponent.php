@@ -9,11 +9,13 @@
 namespace skeeks\cms\admin;
 
 use skeeks\cms\admin\assets\AdminAsset;
+use skeeks\cms\admin\form\fields\AdminSelectField;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use skeeks\cms\IHasPermissions;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
+use skeeks\yii2\form\fields\SelectField;
 use yii\base\Application;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
@@ -114,6 +116,14 @@ class AdminComponent extends BackendComponent
             }
         });
 
+        \Yii::$container->setDefinitions(ArrayHelper::merge(
+            \Yii::$container->definitions,
+            [
+                SelectField::class => [
+                    'class' => AdminSelectField::class
+                ]
+            ]
+        ));
         parent::_run();
     }
 
