@@ -10,6 +10,7 @@ namespace skeeks\cms\admin\form\fields;
 
 use skeeks\widget\chosen\Chosen;
 use skeeks\yii2\form\fields\SelectField;
+use yii\helpers\ArrayHelper;
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
  */
@@ -27,10 +28,13 @@ class AdminSelectField extends SelectField
             $this->elementOptions['size'] = 1;
         }
 
+        $items = $this->getItems();
+        ArrayHelper::remove($items, null);
+
         return $field->widget(
             Chosen::class,
             [
-                'items' => $this->getItems(),
+                'items' => $items,
                 'clientOptions' =>
                 [
                     'search_contains' => true
