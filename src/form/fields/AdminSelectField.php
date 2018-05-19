@@ -34,7 +34,8 @@ class AdminSelectField extends SelectField
                 'clientOptions' =>
                 [
                     'search_contains' => true
-                ]
+                ],
+                'multiple' => $this->multiple
             ]
         );
 
