@@ -8,23 +8,15 @@
 
 namespace skeeks\cms\admin\assets;
 
+use skeeks\cms\widgets\assets\GridViewAsset;
+
 /**
  * Class AdminGridAsset
  * @package skeeks\cms\admin\assets
+ * @deprecated 
  */
-class AdminGridAsset extends AdminAsset
+class AdminGridAsset extends GridViewAsset
 {
-    public $css =
-        [
-            'css/grid.css',
-            'css/table.css',
-        ];
-
-    public $js = [];
-
-    public $depends =
-        [
-            //'skeeks\cms\admin\assets\AdminAsset',
-        ];
+    
 }
 
