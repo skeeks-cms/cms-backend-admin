@@ -21,8 +21,7 @@ class ActionFilesAsset extends AdminAsset
             'actions/files/files.js',
         ];
     public $depends = [
-        '\skeeks\sx\assets\Core',
-        '\skeeks\sx\assets\Widget',
+        '\skeeks\sx\assets\Custom',
         '\skeeks\widget\simpleajaxuploader\Asset',
     ];
 }
