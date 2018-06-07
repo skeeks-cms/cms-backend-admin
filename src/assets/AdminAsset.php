@@ -26,8 +26,8 @@ class AdminAsset extends AssetBundle
         'css/sidebar.css',
         'css/app.css',
 
-        'css/grid.css',
-        'css/table.css'
+        /*'css/grid.css',
+        'css/table.css'*/
     ];
     public $js = [
         'js/classes/Blocker.js',
