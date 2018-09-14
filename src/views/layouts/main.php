@@ -64,13 +64,21 @@ HTML
                         <? if (\Yii::$app->controller && \Yii::$app->controller instanceof \skeeks\cms\backend\controllers\IBackendModelController
                             && \Yii::$app->controller->modelActions && count(\Yii::$app->controller->modelActions)) : ?>
 
-                            <div class="col-md-1 sx-model-title" title="<?= \Yii::$app->controller->modelShowName; ?>"">id <?= \Yii::$app->controller->modelPkValue ?>:</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                            <div class="col-md-12 sx-model-title" title="<?= \Yii::$app->controller->modelShowName; ?>">
+                                <h2 style="margin-top: 0px;"><?= \Yii::$app->controller->modelShowName; ?></h2>
+                            </div>
+                            </div>
+                            <div class="col-md-12">
                             <?
                                 echo \skeeks\cms\backend\widgets\ControllerActionsWidget::widget([
                                         'actions' => \Yii::$app->controller->modelActions,
                                         'activeId' => \Yii::$app->controller->action->id
                                 ]);
                             ?>
+                            </div>
+                                </div>
                         <? endif; ?>
                     </div>
                     <div class="panel-content">
