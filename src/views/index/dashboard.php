@@ -99,15 +99,15 @@ $sortableString = [];
 
                                         $actions = <<<HTML
 <a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'>
-    <i class="glyphicon glyphicon-cog" data-sx-widget="tooltip-b" data-original-title="Настроить" style="color: white;"></i>
+    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="Настроить" style="color: white;"></i>
 </a>
 
 <a href="#" class="sx-btn-trigger-full">
-    <i class="glyphicon glyphicon-fullscreen" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
+    <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
 </a>
 
 <a href="#sx-permissions-for-controller" onclick='sx.Dashboard.removeWidget({$cmsWidgetData}); return false;'>
-    <i class="glyphicon glyphicon-remove" data-sx-widget="tooltip-b" data-original-title="Удалить" style="color: white;"></i>
+    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="Удалить" style="color: white;"></i>
 </a>
 HTML;
                                         ?>

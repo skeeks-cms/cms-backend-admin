@@ -115,7 +115,7 @@ JS
 
     <? if (\Yii::$app->user->can('cms/admin-settings')) : ?>
     <li class="sx-left-border dropdown visible-md visible-lg visible-sm visible-xs">
-        <a href="<?= \yii\helpers\Url::to(['/cms/admin-settings']); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Project settings')?>"><i class="glyphicon glyphicon-cog"></i></a>
+        <a href="<?= \yii\helpers\Url::to(['/cms/admin-settings']); ?>" style="width: auto;" data-sx-widget="tooltip-b" data-original-title="<?=\Yii::t('skeeks/cms','Project settings')?>"><i class="fa fa-cog"></i></a>
     </li>
     <? endif; ?>
 

@@ -39,7 +39,7 @@ use skeeks\cms\helpers\UrlHelper;
                     'name'      => \Yii::$app->controller instanceof \skeeks\cms\IHasName ? \Yii::$app->controller->name : "",
                     'actions'   => <<<HTML
                         <a href="#" class="sx-btn-trigger-full">
-                            <i class="glyphicon glyphicon-fullscreen" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
+                            <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
                         </a>
 HTML
 ,
