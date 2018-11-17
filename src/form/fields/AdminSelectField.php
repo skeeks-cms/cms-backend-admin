@@ -39,7 +39,8 @@ class AdminSelectField extends SelectField
                 [
                     'search_contains' => true
                 ],
-                'multiple' => $this->multiple
+                'multiple' => $this->multiple,
+                'options' => $this->elementOptions
             ]
         );
 
