@@ -22,10 +22,9 @@ use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
- * Class IndexController
- * @package skeeks\cms\admin\controllers
+ * @author Semenov Alexander <semenov@skeeks.com>
  */
-class IndexController extends AdminController
+class AdminIndexController extends AdminController
 {
     public function init()
     {
@@ -142,7 +141,7 @@ class IndexController extends AdminController
 
         try {
             $dashboard->delete();
-            $rr->redirect = UrlHelper::construct(['/admin/admin-index'])->enableAdmin()->toString();
+            $rr->redirect = UrlHelper::construct(['/admin/index'])->enableAdmin()->toString();
             $rr->success = true;
 
         } catch (\Exception $e) {
@@ -240,7 +239,7 @@ class IndexController extends AdminController
                 $rr->success = true;
                 $rr->message = 'Сохранено';
                 $rr->redirect = UrlHelper::construct([
-                    '/admin/admin-index/dashboard',
+                    '/admin/index/dashboard',
                     'pk' => $dashboard->id
                 ])->enableAdmin()->toString();
             } else {

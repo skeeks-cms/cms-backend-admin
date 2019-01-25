@@ -12,7 +12,7 @@
 use yii\helpers\Html;
 use \skeeks\cms\modules\admin\widgets\ActiveForm;
 
-$authLink = \skeeks\cms\helpers\UrlHelper::construct('admin/index')->enableAbsolute()->enableAdmin();
+$authLink = \skeeks\cms\helpers\UrlHelper::construct('/admin/admin-index')->enableAbsolute()->enableAdmin();
 
 $this->registerJs(<<<JS
     (function(sx, $, _)

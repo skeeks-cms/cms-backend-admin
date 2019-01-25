@@ -15,7 +15,7 @@
             <? if ($controller && $controller instanceof \skeeks\cms\backend\IHasBreadcrumbs) : ?>
                 <?= \yii\widgets\Breadcrumbs::widget([
                     'homeLink' => ['label' => \Yii::t("yii", "Home"), 'url' =>
-                        \yii\helpers\Url::to(['/admin/index'])
+                        \yii\helpers\Url::to(['/admin/admin-index'])
                     ],
                     'links' => $controller->breadcrumbsData,
                 ]) ?>

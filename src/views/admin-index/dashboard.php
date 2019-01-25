@@ -87,7 +87,7 @@ $sortableString = [];
                                             ];
 
                                             $cmsWidgetData = \yii\helpers\ArrayHelper::merge($cmsWidgetData, [
-                                                'editConfigUrl' => \skeeks\cms\backend\helpers\BackendUrlHelper::createByParams(['admin/index/edit-dashboard-widget'])
+                                                'editConfigUrl' => \skeeks\cms\backend\helpers\BackendUrlHelper::createByParams(['admin/admin-index/edit-dashboard-widget'])
                                                     ->merge((array) $requestData)
                                                     ->enableEmptyLayout()
                                                     ->url
@@ -175,8 +175,8 @@ CSS
     $jsonData = \yii\helpers\Json::encode([
         'model'                     => $dashboard,
         'sortableSelector'          => $sortableString,
-        'backendPrioritySave'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/index/widget-priority-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
-        'backendWidgetRemove'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/index/widget-remove'])->enableAdmin()->toString(),
+        'backendPrioritySave'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/widget-priority-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
+        'backendWidgetRemove'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/widget-remove'])->enableAdmin()->toString(),
     ]);
 
     $this->registerJs(<<<JS
