@@ -31,7 +31,7 @@ class AdminAccessControl extends \yii\filters\AccessControl
         $rr = new RequestResponse();
 
         if ($user->getIsGuest()) {
-            $authUrl = UrlHelper::construct(["/admin/auth"])->setCurrentRef()->enableAdmin()->createUrl();
+            $authUrl = UrlHelper::construct(["/admin/admin-auth"])->setCurrentRef()->enableAdmin()->createUrl();
 
             if (\Yii::$app->request->isAjax && !\Yii::$app->request->isPjax) {
                 $rr->redirect = $authUrl;
@@ -41,6 +41,7 @@ class AdminAccessControl extends \yii\filters\AccessControl
             }
 
         } else {
+            die('111');
             throw new ForbiddenHttpException(\Yii::t('yii',
                 \Yii::t('skeeks/cms', 'You are not allowed to perform this action.')));
         }

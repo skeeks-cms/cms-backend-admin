@@ -75,7 +75,7 @@ class AdminComponent extends BackendComponent
 
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function () {
             if (in_array(\Yii::$app->controller->uniqueId, [
-                'admin/auth'
+                'admin/admin-auth'
             ])) {
                 return true;
             }

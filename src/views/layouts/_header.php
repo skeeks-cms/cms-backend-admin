@@ -137,10 +137,10 @@ JS
             <!--<li><a href="#"><i class="fa fa-envelope-o"></i> Сообщения <span class="label label-info">42</span></a></li>-->
             <li class="divider"></li>
             <li>
-                <?= Html::a('<i class="fa fa-shield"></i> '.\Yii::t('skeeks/cms','To block'), UrlHelper::construct("admin/auth/lock")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
+                <?= Html::a('<i class="fa fa-shield"></i> '.\Yii::t('skeeks/cms','To block'), UrlHelper::construct("admin/admin-auth/lock")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
             </li>
             <li>
-                <?= Html::a('<i class="glyphicon glyphicon-off"></i> '.\Yii::t('skeeks/cms','Exit'), UrlHelper::construct("admin/auth/logout")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
+                <?= Html::a('<i class="glyphicon glyphicon-off"></i> '.\Yii::t('skeeks/cms','Exit'), UrlHelper::construct("admin/admin-auth/logout")->enableAdmin()->setCurrentRef(), ["data-method" => "post"])?>
             </li>
         </ul>
     </li>
