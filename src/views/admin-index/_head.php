@@ -54,7 +54,7 @@ JS
             <?= $form->buttonsStandart($model, ['save']); ?>
         </div>
     <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
-<? \yii\bootstrap\Modal::end();?>
+<? $createModal::end();?>
 
 
 <? $createModal = \yii\bootstrap\Modal::begin([
@@ -89,7 +89,7 @@ JS
             </div>
         <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
 
-<? \yii\bootstrap\Modal::end();?>
+<? $createModal::end();?>
 
 
 <? $createModal = \yii\bootstrap\Modal::begin([
@@ -124,7 +124,7 @@ JS
             </div>
         <? \skeeks\cms\modules\admin\widgets\ActiveForm::end()?>
 
-<? \yii\bootstrap\Modal::end();?>
+<? $createModal::end();?>
 
 <?
 $jsonData = \yii\helpers\Json::encode([
