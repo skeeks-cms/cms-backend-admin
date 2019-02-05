@@ -92,7 +92,7 @@ class AdminIndexController extends AdminController
             throw new NotFoundHttpException("Рабочий стол не найден");
         }
 
-        $this->layout = '@app/views/layouts/main-empty';
+        //$this->layout = '@app/views/layouts/main-empty';
 
         return $this->render($this->action->id, [
             'dashboard' => $dashboard
