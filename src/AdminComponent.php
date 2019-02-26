@@ -36,7 +36,7 @@ class AdminComponent extends BackendComponent
      * @var array
      */
     public $urlRule = [
-        'urlPrefix' => '~sx'
+        'urlPrefix' => '~sx',
     ];
 
     /**
@@ -46,7 +46,7 @@ class AdminComponent extends BackendComponent
      */
     public $pjax =
         [
-            'timeout' => 30000
+            'timeout' => 30000,
         ];
 
     protected function _run()
@@ -56,14 +56,12 @@ class AdminComponent extends BackendComponent
         //\skeeks\crm\themes\unifyAdmin\UnifyAdminHelper::init();
 
         \Yii::$app->view->theme = new Theme([
-            'pathMap' =>
-                [
-                    '@app/views' =>
-                        [
-                            //'@skeeks/crm/themes/unifyAdmin/views',
-                            '@skeeks/cms/admin/views',
-                        ]
-                ]
+            'pathMap' => [
+                '@app/views' => [
+                    //'@skeeks/crm/themes/unifyAdmin/views',
+                    '@skeeks/cms/admin/views',
+                ],
+            ],
         ]);
 
         if ($this->pjax) {
@@ -78,7 +76,7 @@ class AdminComponent extends BackendComponent
 
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, function () {
             if (in_array(\Yii::$app->controller->uniqueId, [
-                'admin/admin-auth'
+                'admin/admin-auth',
             ])) {
                 return true;
             }
@@ -94,7 +92,7 @@ class AdminComponent extends BackendComponent
                 'rules' =>
                     [
                         [
-                            'allow' => true,
+                            'allow'         => true,
                             'matchCallback' => function ($rule, $action) {
                                 if (\Yii::$app->user->identity->lastAdminActivityAgo > \Yii::$app->admin->blockedTime) {
                                     return false;
@@ -105,8 +103,8 @@ class AdminComponent extends BackendComponent
                                 }
 
                                 return true;
-                            }
-                        ]
+                            },
+                        ],
                     ],
             ]);
 
@@ -123,8 +121,8 @@ class AdminComponent extends BackendComponent
             \Yii::$container->definitions,
             [
                 SelectField::class => [
-                    'class' => AdminSelectField::class
-                ]
+                    'class' => AdminSelectField::class,
+                ],
             ]
         ));
         parent::_run();
@@ -217,7 +215,7 @@ class AdminComponent extends BackendComponent
         foreach (\Yii::$app->extensions as $code => $data) {
             if ($data['alias']) {
                 foreach ($data['alias'] as $code => $path) {
-                    $adminMenuFile = $path . '/config/admin/menu.php';
+                    $adminMenuFile = $path.'/config/admin/menu.php';
                     if (file_exists($adminMenuFile)) {
                         $menuGroups = (array)include_once $adminMenuFile;
                         $this->_menuFilesData = ArrayHelper::merge($this->_menuFilesData, $menuGroups);
@@ -253,9 +251,9 @@ class AdminComponent extends BackendComponent
         $options =
             [
                 'BlockerImageLoader' => AdminAsset::getAssetUrl('images/loaders/circulare-blue-24_24.GIF'),
-                'disableCetainLink' => false,
-                'globalAjaxLoader' => true,
-                'menu' => [],
+                'disableCetainLink'  => false,
+                'globalAjaxLoader'   => true,
+                'menu'               => [],
             ];
 
         $options = \yii\helpers\Json::encode($options);
