@@ -53,7 +53,16 @@ class AdminComponent extends BackendComponent
     {
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
 
-        //\skeeks\crm\themes\unifyAdmin\UnifyAdminHelper::init();
+        /*$theme = new \skeeks\cms\themes\unify\admin\UnifyThemeAdmin();
+        $theme->pathMap = [
+            '@app/views' => [
+                '@common/themes/backend/views',
+                '@skeeks/cms/themes/unify/admin/views',
+            ],
+        ];
+        $theme->favicon = "";
+        \skeeks\cms\themes\unify\admin\UnifyThemeAdmin::initBeforeRender();
+        \Yii::$app->view->theme = $theme;*/
 
         \Yii::$app->view->theme = new Theme([
             'pathMap' => [
