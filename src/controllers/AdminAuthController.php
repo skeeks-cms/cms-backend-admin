@@ -162,6 +162,8 @@ class AdminAuthController extends BackendController
 
         $this->layout = '@app/views/layouts/unauthorized';
 
+        $goUrl = "";
+
         if ($ref = UrlHelper::getCurrent()->getRef()) {
             $goUrl = $ref;
         }
