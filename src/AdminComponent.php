@@ -33,6 +33,11 @@ class AdminComponent extends BackendComponent
     public $controllerPrefix = "admin";
 
     /**
+     * @var string
+     */
+    public $defaultRoute = "/admin/admin-index/index";
+
+    /**
      * @var array
      */
     public $urlRule = [
