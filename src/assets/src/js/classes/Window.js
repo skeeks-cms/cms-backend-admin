@@ -20,19 +20,7 @@
             var self = this;
 
             this.trigger('beforeOpen');
-            //строка параметров, собираем из массива
-            var paramsSting = "";
-            if (this.getOpts()) {
-                _.each(this.getOpts(), function (value, key) {
-                    if (paramsSting) {
-                        paramsSting = paramsSting + ',';
-                    }
-                    paramsSting = paramsSting + String(key) + "=" + String(value);
-                });
-            }
-
             var name = this.getName();
-
             this.onDomReady(function () {
                 $.fancybox.open({
                     src: self._src,
