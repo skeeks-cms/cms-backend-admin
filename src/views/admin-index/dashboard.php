@@ -98,16 +98,22 @@ $sortableString = [];
                                             $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse');
 
                                         $actions = <<<HTML
-<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'>
-    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="Настроить" style="color: white;"></i>
+<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'
+class="u-link-v5 g-color-gray-light-v3 g-color-primary--hover g-ml-10"
+>
+    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="Настроить"></i>
 </a>
 
-<a href="#" class="sx-btn-trigger-full">
-    <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}" style="color: white;"></i>
+<a href="#"
+class="sx-btn-trigger-full u-link-v5 g-color-gray-light-v3 g-color-primary--hover g-ml-10"
+>
+    <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}"></i>
 </a>
 
-<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.removeWidget({$cmsWidgetData}); return false;'>
-    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="Удалить" style="color: white;"></i>
+<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.removeWidget({$cmsWidgetData}); return false;'
+class="u-link-v5 g-color-gray-light-v3 g-color-primary--hover g-ml-10"
+>
+    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="Удалить"></i>
 </a>
 HTML;
                                         ?>

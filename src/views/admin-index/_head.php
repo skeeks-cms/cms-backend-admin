@@ -37,13 +37,21 @@ $model->columns = 1;
         'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-widget-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
         'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-widget-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
 
-        'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
-            function(jForm, ajaxQuery){
-                new sx.classes.DashboardsControllCallback(jForm, ajaxQuery);
-            };
+        'clientCallback' => new \yii\web\JsExpression(<<<JS
+    function (ActiveFormAjaxSubmit) {
+        ActiveFormAjaxSubmit.on('success', function(e, response) {
+            
+            $('div').modal('hide');
+
+            _.delay(function()
+            {
+                window.location.reload();
+            }, 1000);
+            
+        });
+    }
 JS
 ),
-
     ])?>
         <div style="display: none;">
             <?= $form->field($modelWidget, 'cms_dashboard_id')->hiddenInput()->label(false); ?>
@@ -73,12 +81,20 @@ JS
             'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
             'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
 
-            'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
-                function(jForm, ajaxQuery){
-                    new sx.classes.DashboardsControllCallback(jForm, ajaxQuery);
-                };
+            'clientCallback' => new \yii\web\JsExpression(<<<JS
+    function (ActiveFormAjaxSubmit) {
+        ActiveFormAjaxSubmit.on('success', function(e, response) {
+            $('div').modal('hide');
+
+            _.delay(function()
+            {
+                window.location.reload();
+            }, 1000);
+            
+        });
+    }
 JS
-    ),
+),
 
         ])?>
             <?= $form->field($model, 'name'); ?>
@@ -108,12 +124,22 @@ JS
             'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-validate', 'pk' => $dashboard->id])->enableAdmin()->toString(),
             'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
 
-            'afterValidateCallback'                     => new \yii\web\JsExpression(<<<JS
-                function(jForm, ajaxQuery){
-                    new sx.classes.DashboardsControllCallback(jForm, ajaxQuery);
-                };
+            'clientCallback' => new \yii\web\JsExpression(<<<JS
+    function (ActiveFormAjaxSubmit) {
+        ActiveFormAjaxSubmit.on('success', function(e, response) {
+            $('div').modal('hide');
+            
+            console.log('22222');
+
+            _.delay(function()
+            {
+                window.location.reload();
+            }, 1000);
+            
+        });
+    }
 JS
-    ),
+),
 
         ])?>
             <?= $form->field($dashboard, 'name'); ?>
