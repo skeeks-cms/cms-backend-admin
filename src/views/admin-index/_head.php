@@ -128,8 +128,6 @@ JS
     function (ActiveFormAjaxSubmit) {
         ActiveFormAjaxSubmit.on('success', function(e, response) {
             $('div').modal('hide');
-            
-            console.log('22222');
 
             _.delay(function()
             {

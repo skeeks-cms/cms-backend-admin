@@ -1,17 +1,15 @@
 <?php
 /**
- * Admin
- *
+ * @link https://cms.skeeks.com/
+ * @copyright Copyright (c) 2010 SkeekS
+ * @license https://cms.skeeks.com/license/
  * @author Semenov Alexander <semenov@skeeks.com>
- * @link http://skeeks.com/
- * @copyright 2010-2014 SkeekS (Sx)
- * @date 28.10.2014
- * @since 1.0.0
  */
 
 namespace skeeks\cms\admin\controllers;
 
 use skeeks\cms\admin\AdminController;
+use skeeks\cms\backend\BackendController;
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\CmsDashboard;
@@ -24,11 +22,13 @@ use yii\web\NotFoundHttpException;
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
  */
-class AdminIndexController extends AdminController
+class AdminIndexController extends BackendController
 {
     public function init()
     {
         $this->name = \Yii::t('skeeks/cms', "Desktop");
+        $this->permissionName = CmsManager::PERMISSION_ADMIN_ACCESS;
+
         parent::init();
     }
 
@@ -42,14 +42,6 @@ class AdminIndexController extends AdminController
                 ],
             ],
         ]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPermissionName()
-    {
-        return CmsManager::PERMISSION_ADMIN_ACCESS;
     }
 
     /**
