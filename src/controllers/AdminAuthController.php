@@ -101,7 +101,7 @@ class AdminAuthController extends BackendController
         if ($ref = UrlHelper::getCurrent()->getRef()) {
             return $this->redirect($ref);
         } else {
-            return $this->redirect(Yii::$app->getUser()->getReturnUrl());
+            return $this->redirect(\Yii::$app->getUser()->getReturnUrl());
         }
     }
 

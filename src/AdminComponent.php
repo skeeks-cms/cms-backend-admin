@@ -59,14 +59,15 @@ class AdminComponent extends BackendComponent
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
 
         $theme = new \skeeks\cms\themes\unify\admin\UnifyThemeAdmin();
-        /*$theme->pathMap = [
+        $theme->pathMap = [
             '@app/views' => [
-                //'@common/themes/backend/views',
+                '@skeeks/cms/admin/views',
                 '@skeeks/cms/themes/unify/admin/views',
                 //'@skeeks/cms/admin/views',
             ],
-        ];*/
+        ];
         $theme->favicon = "";
+        $theme->logoTitle = "SkeekS CMS";
         \skeeks\cms\themes\unify\admin\UnifyThemeAdmin::initBeforeRender();
         \Yii::$app->view->theme = $theme;
 
