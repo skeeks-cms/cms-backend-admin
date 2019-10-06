@@ -35,6 +35,11 @@ class AdminComponent extends BackendComponent
     /**
      * @var string
      */
+    public $accessControl = AdminAccessControl::class;
+
+    /**
+     * @var string
+     */
     public $defaultRoute = "/admin/admin-index/index";
 
     /**

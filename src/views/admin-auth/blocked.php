@@ -79,6 +79,8 @@ CSS
                     <? /*= Html::submitButton("<i class='glyphicon glyphicon-lock'></i> Разблокировать", ['class' => 'btn btn-primary', 'name' => 'login-button']) */ ?>
 
 
+                    <?php $form::end(); ?>
+
                     <div class="text-center">
 
                     </div>
@@ -98,7 +100,7 @@ CSS
                         </p>
 
                     </div>
-                    <?php $form::end(); ?>
+
                 </div>
             </div>
         </div>
