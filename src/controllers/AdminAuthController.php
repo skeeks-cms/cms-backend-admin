@@ -205,12 +205,10 @@ class AdminAuthController extends BackendController
     public function actionAuth()
     {
         $this->view->title = \Yii::t('skeeks/cms', 'Authorization');
-
-        $this->layout = 'unauthorized';
+        $this->layout = '@app/views/layouts/unauthorized';
 
         $goUrl = "";
         $loginModel = new LoginFormUsernameOrEmail();
-        $passwordResetModel = new PasswordResetRequestFormEmailOrLogin();
 
         if ($ref = UrlHelper::getCurrent()->getRef()) {
             $goUrl = $ref;
@@ -222,8 +220,6 @@ class AdminAuthController extends BackendController
             return $goUrl ? $this->redirect($goUrl) : $this->goHome();
         }
 
-        //Авторизация
-        if (\Yii::$app->request->post('do') == 'login') {
 
             if ($rr->isRequestOnValidateAjaxForm()) {
                 return $rr->ajaxValidateForm($loginModel);
@@ -247,32 +243,49 @@ class AdminAuthController extends BackendController
                     return (array)$rr;
                 }
             }
-        }
 
 
-        //Запрос на сброс пароля
-        if (\Yii::$app->request->post('do') == 'password-reset') {
-            if ($rr->isRequestOnValidateAjaxForm()) {
-                return $rr->ajaxValidateForm($passwordResetModel);
-            }
-
-            if ($rr->isRequestAjaxPost()) {
-                if ($passwordResetModel->load(\Yii::$app->request->post()) && $passwordResetModel->sendEmail()) {
-                    $rr->success = true;
-                    $rr->message = \Yii::t('skeeks/cms', "Check your email address");
-                    return (array)$rr;
-                } else {
-                    $rr->success = false;
-                    $rr->message = \Yii::t('skeeks/cms', "Failed send email");
-                    return (array)$rr;
-                }
-            }
-        }
 
 
         return $this->render('auth', [
             'loginModel'         => $loginModel,
-            'passwordResetModel' => $passwordResetModel,
+            'goUrl'              => $goUrl,
+        ]);
+    }
+
+
+    public function actionForget()
+    {
+        $this->view->title = \Yii::t('skeeks/cms', 'Authorization');
+        $this->layout = '@app/views/layouts/unauthorized';
+
+        $goUrl = "";
+        $passwordResetModel = new PasswordResetRequestFormEmailOrLogin();
+
+        if ($ref = UrlHelper::getCurrent()->getRef()) {
+            $goUrl = $ref;
+        }
+
+        $rr = new RequestResponse();
+
+        if ($rr->isRequestOnValidateAjaxForm()) {
+            return $rr->ajaxValidateForm($passwordResetModel);
+        }
+
+        if ($rr->isRequestAjaxPost()) {
+            if ($passwordResetModel->load(\Yii::$app->request->post()) && $passwordResetModel->sendEmail()) {
+                $rr->success = true;
+                $rr->message = \Yii::t('skeeks/cms', "Check your email address");
+                return (array)$rr;
+            } else {
+                $rr->success = false;
+                $rr->message = \Yii::t('skeeks/cms', "Failed send email");
+                return (array)$rr;
+            }
+        }
+
+        return $this->render('forget', [
+            'model' => $passwordResetModel,
             'goUrl'              => $goUrl,
         ]);
     }

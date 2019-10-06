@@ -1,280 +1,67 @@
 <?php
 /**
- * auth
- *
  * @author Semenov Alexander <semenov@skeeks.com>
  * @link http://skeeks.com/
  * @copyright 2010 SkeekS (СкикС)
- * @date 26.02.2015
+ * @date 25.03.2015
  */
+/* @var $this yii\web\View */
+/* @var $model \skeeks\cms\models\forms\LoginFormUsernameOrEmail */
 
-/* @var $this \yii\web\View */
+use skeeks\cms\base\widgets\ActiveFormAjaxSubmit as ActiveForm;
+use skeeks\cms\helpers\UrlHelper;
 
-use yii\helpers\Html;
-//use \skeeks\cms\modules\admin\widgets\ActiveForm;
-
-use \skeeks\cms\base\widgets\ActiveFormAjaxSubmit as ActiveForm;
-
-$this->registerJs(<<<JS
-    (function(sx, $, _)
-    {
-        sx.createNamespace('classes', sx);
-
-        sx.classes.Auth = sx.classes.Component.extend({
-
-            _init: function()
-            {
-                this.loader = new sx.classes.AjaxLoader();
-                this.blocker = new sx.classes.Blocker();
-            },
-
-            _onDomReady: function()
-            {
-                this.JloginContainer        = $('.sx-act-login');
-                this.JSuccessLoginContainer = $('.sx-act-successLogin');
-                this.JForgetContainer       = $('.sx-act-forget');
-            },
-
-            _onWindowReady: function()
-            {
-                var self = this;
-
-                _.delay(function()
-                {
-                    self.JloginContainer.fadeIn();
-                }, 500);
-            },
-
-            closeAllActs: function()
-            {
-                $(".sx-act").fadeOut();
-                return this;
-            },
-
-            goActLogin: function()
-            {
-                var self = this;
-                $(".sx-act:visible").slideUp(200, function()
-                {
-                    self.JloginContainer.slideDown(500);
-                });
-                return this;
-            },
-
-            goActForget: function()
-            {
-                var self = this;
-                $(".sx-act:visible").slideUp(200, function()
-                {
-                    self.JForgetContainer.slideDown(500);
-                });
-                return this;
-            },
-
-            goActSuccessLogin: function()
-            {
-                var self = this;
-                $(".sx-act:visible").fadeOut(500, function()
-                {
-                    self.JSuccessLoginContainer.fadeIn(500);
-                });
-                return this;
-            },
-
-
-            afterValidateLogin: function(jForm, ajaxQuery)
-            {
-                var handler = new sx.classes.AjaxHandlerStandartRespose(ajaxQuery, {
-                    'blocker'                           : sx.AppUnAuthorized.PanelBlocker,
-                    'blockerSelector'                   : '',
-                    'enableBlocker'                     : true,
-                    'redirectDelay'                     : 500,
-                    'allowResponseSuccessMessage'       : false,
-                    'allowResponseErrorMessage'         : false,
-                });
-
-                new sx.classes.AjaxHandlerNoLoader(ajaxQuery);
-
-                handler.bind('success', function(e, response)
-                {
-                    if (response.message)
-                    {
-                        $('.sx-form-messages', jForm).empty().append(
-                            $('<div>',{
-                                'class' : 'alert alert-success',
-                                'data-dismiss' : 'alert',
-                                'aria-label' : 'Закрыть',
-                            })
-                            .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-                            .append(response.message)
-                        );
-                    }
-
-                    _.delay(function()
-                    {
-                        sx.AppUnAuthorized.triggerBeforeReddirect();
-                    }, 200)
-                });
-
-                handler.bind('error', function(e, response)
-                {
-                    if (response.message)
-                    {
-                        $('.sx-form-messages', jForm).empty().append(
-                            $('<div>',{
-                                'class' : 'alert alert-danger',
-                                'data-dismiss' : 'alert',
-                                'aria-label' : 'Закрыть',
-                            })
-                            .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-                            .append(response.message)
-                        );
-                    }
-
-                });
-            },
-
-            afterValidateResetPassword: function(jForm, ajaxQuery)
-            {
-                var self = this;
-
-                $('.sx-form-messages', jForm).empty();
-
-                var handler = new sx.classes.AjaxHandlerStandartRespose(ajaxQuery, {
-                    'blocker'                           : sx.AppUnAuthorized.PanelBlocker,
-                    'blockerSelector'                   : '',
-                    'enableBlocker'                     : true,
-                    'redirectDelay'                     : 2000,
-                    'allowResponseSuccessMessage'       : false,
-                    'allowResponseErrorMessage'         : false,
-                });
-
-                new sx.classes.AjaxHandlerNoLoader(ajaxQuery);
-
-                handler.bind('success', function(e, response)
-                {
-                    if (response.message)
-                    {
-                        $('.sx-form-messages', jForm).empty().append(
-                            $('<div>',{
-                                'class' : 'alert alert-success',
-                                'data-dismiss' : 'alert',
-                                'aria-label' : 'Закрыть',
-                            })
-                            .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-                            .append(response.message)
-                        );
-                    }
-
-                    _.delay(function()
-                    {
-                        self.goActLogin();
-                    }, 2000);
-
-                });
-
-                handler.bind('error', function(e, response)
-                {
-                    if (response.message)
-                    {
-                        $('.sx-form-messages', jForm).empty().append(
-                            $('<div>',{
-                                'class' : 'alert alert-danger',
-                                'data-dismiss' : 'alert',
-                                'aria-label' : 'Закрыть',
-                            })
-                            .append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-                            .append(response.message)
-                        );
-                    }
-
-                });
-            },
-
-        });
-
-        sx.auth = new sx.classes.Auth({});
-    })(sx, sx.$, sx._);
-JS
+$this->registerCss(<<<CSS
+.auth-clients {
+    padding-left: 0px;
+}
+CSS
 );
 ?>
-
-<div class="main sx-auth sx-content-block sx-windowReady-fadeIn">
-    <div class="col-lg-4"></div>
-
-    <div class="col-lg-4">
-        <div class="panel panel-primary sx-panel">
-            <div class="panel-body">
-                <div class="panel-content">
-
-                    <div class="sx-act sx-act-login">
-                        <?php $form = ActiveForm::begin([
-                            'id' => 'login-form',
-                            'enableAjaxValidation' => false,
-                            'afterValidateCallback' => 'function(jForm, ajaxQuery){ sx.auth.afterValidateLogin(jForm, ajaxQuery); }',
+<section class="sx-auth-wrapper">
+    <div class="container g-py-100">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-lg-5">
+                <div class="u-shadow-v21 sx-bg-auth rounded g-py-40 g-px-30 sx-bg-block">
+                    <?php $form = ActiveForm::begin([
+                        //'validationUrl' => UrlHelper::construct('cms/auth/login')->setSystemParam(\skeeks\cms\helpers\RequestResponse::VALIDATION_AJAX_FORM_SYSTEM_NAME)->toString(),
+                        'id' => 'login-form',
+                        'enableAjaxValidation' => false,
+                        'options'       => [
+                            'class' => 'reg-page',
+                        ],
+                    ]); ?>
+                    <header class="text-center mb-4">
+                        <h2 class="h2 g-font-weight-600">Авторизация</h2>
+                    </header>
+                    <?= $form->field($loginModel, 'identifier')->textInput([
+                        'class' => 'form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--hover rounded g-py-15 g-px-15',
+                    ]); ?>
+                    <div class="g-mb-20">
+                        <?= $form->field($loginModel, 'password')->passwordInput([
+                            'class' => 'form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--hover rounded g-py-15 g-px-15',
                         ]); ?>
+                        <div class="row justify-content-between">
+                            <div class="col align-self-center">
 
-                        <div class="sx-form-messages"></div>
-
-                        <?= $form->field($loginModel, 'identifier')->label(\Yii::t('skeeks/cms',
-                            'Username or Email')); ?>
-                        <?= $form->field($loginModel, 'password')->passwordInput()->label(\Yii::t('skeeks/cms',
-                            'Password')) ?>
-                        <?= Html::input('hidden', 'do', 'login'); ?>
-                        <div class="form-group sx-submit-group">
-                            <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms',
-                                    'Log in'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                        </div>
-
-                        <div>
-                            <hr/>
-                            <div style="color:#999;margin:1em 0">
-                                <a href="#" class="sx-act-controll"
-                                   onclick="sx.auth.goActForget(); return false;"><?= \Yii::t('skeeks/cms',
-                                        'recover password') ?></a>
+                            </div>
+                            <div class="col align-self-center text-right">
+                                <a class="g-font-size-12" href="<?= UrlHelper::constructCurrent()->setRoute('admin/admin-auth/forget')->toString(); ?>">Забыли пароль?</a>
                             </div>
                         </div>
-                        <?php ActiveForm::end(); ?>
                     </div>
-
-                    <div class="sx-act sx-act-forget">
-                        <?php $form = ActiveForm::begin([
-                            'id' => 'forget-form',
-                            'afterValidateCallback' => 'function(jForm, ajaxQuery){ sx.auth.afterValidateResetPassword(jForm, ajaxQuery); }',
-                        ]); ?>
-
-                        <div class="sx-form-messages"></div>
-
-                        <?= $form->field($passwordResetModel, 'identifier')->label(\Yii::t('skeeks/cms',
-                            'Username or Email')); ?>
-                        <?= Html::input('hidden', 'do', 'password-reset'); ?>
-                        <div class="form-group sx-submit-group">
-                            <?= Html::submitButton("<i class='glyphicon glyphicon-off'></i> " . \Yii::t('skeeks/cms',
-                                    'Recover password'), [
-                                'class' => 'btn btn-primary',
-                                'name' => 'login-button',
-                                //'onclick' => 'sx.notify.info("Не нажимайте пока меня, я еще не работаю )"); return false;'
-                            ]) ?>
-                        </div>
-
-                        <div class="sx-hidden1">
-                            <hr/>
-                            <div style="color:#999;margin:1em 0">
-                                <?= \Yii::t('skeeks/cms', 'I remembered password') ?> <a href="#"
-                                                                                         class="sx-act-controll"
-                                                                                         onclick="sx.auth.goActLogin(); return false;"><?= \Yii::t('skeeks/cms',
-                                        'log in') ?></a>
-                            </div>
-                        </div>
-
-                        <?php ActiveForm::end(); ?>
+                    <div class="mb-4">
+                        <button class="btn btn-md btn-block u-btn-primary g-py-13" type="submit">Войти</button>
                     </div>
+                    <?php $form::end(); ?>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-    </div><!-- End .col-lg-12  -->
 
-    <div class="col-lg-4"></div>
-</div>
+
+
+
 
