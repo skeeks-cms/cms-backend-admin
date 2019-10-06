@@ -51,7 +51,9 @@ CSS
                         </div>
                     </div>
                     <div class="mb-4">
-                        <button class="btn btn-md btn-block u-btn-primary g-py-13" type="submit">Войти</button>
+                        <button class="btn btn-md btn-block u-btn-primary g-py-13" type="submit">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Войти</button>
                     </div>
                     <?php $form::end(); ?>
                 </div>
