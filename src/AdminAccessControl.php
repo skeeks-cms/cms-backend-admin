@@ -41,7 +41,6 @@ class AdminAccessControl extends \yii\filters\AccessControl
             }
 
         } else {
-            die('111');
             throw new ForbiddenHttpException(\Yii::t('yii',
                 \Yii::t('skeeks/cms', 'You are not allowed to perform this action.')));
         }
