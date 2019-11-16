@@ -73,9 +73,7 @@ class AdminComponent extends BackendComponent
             ],
         ];
 
-        if (\Yii::$app->admin->logoTitle) {
-            $theme->logoTitle = \Yii::$app->admin->logoTitle;
-        }
+        $theme->logoTitle = \Yii::$app->admin->logoTitle;
         if (\Yii::$app->admin->logoSrc) {
             $theme->logoSrc = \Yii::$app->admin->logoSrc;
         }
