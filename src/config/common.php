@@ -5,30 +5,29 @@
  * @copyright 2010 SkeekS
  * @date 08.03.2017
  */
-return
-    [
-        'bootstrap'  => ['backendAdmin'],
-        'components' => [
-            'backendAdmin' => [
-                'id'            => 'backendAdmin',
-                'class'            => '\skeeks\cms\admin\AdminComponent',
-                'controllerPrefix' => 'admin',
-                'urlRule'          => [
-                    'urlPrefix' => '~sx',
-                ],
-            ],
+return [
+    'bootstrap'  => ['backendAdmin'],
 
-            'i18n' => [
-                'translations' =>
-                    [
-                        'skeeks/admin' => [
-                            'class'    => 'yii\i18n\PhpMessageSource',
-                            'basePath' => '@skeeks/cms/admin/messages',
-                            'fileMap'  => [
-                                'skeeks/admin' => 'main.php',
-                            ],
-                        ],
-                    ],
+    'components' => [
+        'backendAdmin' => [
+            'id'               => 'backendAdmin',
+            'class'            => '\skeeks\cms\admin\AdminComponent',
+            'controllerPrefix' => 'admin',
+            'urlRule'          => [
+                'urlPrefix' => '~sx',
             ],
         ],
-    ];
+
+        'i18n' => [
+            'translations' => [
+                'skeeks/admin' => [
+                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@skeeks/cms/admin/messages',
+                    'fileMap'  => [
+                        'skeeks/admin' => 'main.php',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];

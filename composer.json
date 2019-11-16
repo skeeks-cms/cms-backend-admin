@@ -30,11 +30,11 @@
             "common": "src/config/common.php",
             "web": [
                 "src/config/common.php",
-                "src/config/main.php"
+                "src/config/web.php"
             ],
             "console": [
                 "src/config/common.php",
-                "src/config/main-console.php"
+                "src/config/console.php"
             ]
         }
     }
