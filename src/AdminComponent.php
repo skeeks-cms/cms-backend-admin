@@ -19,6 +19,7 @@ use skeeks\yii2\form\fields\SelectField;
 use yii\base\Application;
 use yii\base\Theme;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -71,8 +72,16 @@ class AdminComponent extends BackendComponent
                 //'@skeeks/cms/admin/views',
             ],
         ];
+
+        if (\Yii::$app->admin->logoTitle) {
+            $theme->logoTitle = \Yii::$app->admin->logoTitle;
+        }
+        if (\Yii::$app->admin->logoSrc) {
+            $theme->logoSrc = \Yii::$app->admin->logoSrc;
+        }
+        $theme->logoHref = Url::to(['/admin/admin-index']);
+
         $theme->favicon = "";
-        $theme->logoTitle = "SkeekS CMS";
         \skeeks\cms\themes\unify\admin\UnifyThemeAdmin::initBeforeRender();
         \Yii::$app->view->theme = $theme;
 

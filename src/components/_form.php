@@ -12,6 +12,13 @@ use yii\helpers\Html;
 ?>
 
 
+<?= $form->fieldSet(\Yii::t('skeeks/cms', 'Main')); ?>
+    <?= $form->field($model, 'logoSrc')->widget(
+        \skeeks\cms\modules\admin\widgets\formInputs\OneImage::class
+    ); ?>
+    <?= $form->field($model, 'logoTitle'); ?>
+<?= $form->fieldSetEnd(); ?>
+
 <?= $form->fieldSet(\Yii::t('skeeks/admin', 'Language settings')); ?>
     <?= $form->fieldSelect($model, 'languageCode', \yii\helpers\ArrayHelper::map(
         \skeeks\cms\models\CmsLang::find()->active()->all(),

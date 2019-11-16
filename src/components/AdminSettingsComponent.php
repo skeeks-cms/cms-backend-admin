@@ -5,6 +5,7 @@
  * @license https://cms.skeeks.com/license/
  * @author Semenov Alexander <semenov@skeeks.com>
  */
+
 namespace skeeks\cms\admin\components;
 
 use skeeks\cms\backend\BackendComponent;
@@ -35,7 +36,7 @@ use yii\widgets\ActiveForm;
  * @property [] $dasboardWidgets
  * @property [] $dasboardWidgetsLabels
  *
- * @property bool $requestIsAdmin
+ * @property bool    $requestIsAdmin
  */
 class AdminSettingsComponent extends Component
 {
@@ -46,7 +47,7 @@ class AdminSettingsComponent extends Component
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name'          => \Yii::t('skeeks/cms','Setting the admin panel'),
+            'name' => \Yii::t('skeeks/cms', 'Setting the admin panel'),
         ]);
     }
 
@@ -71,31 +72,33 @@ class AdminSettingsComponent extends Component
     public $allowedIPs = ['*'];
 
 
-
     /**
      * Control via the admin interface
      */
 
 
     //Языковые настройки
-    public $languageCode            = "ru";
+    public $languageCode = "ru";
+
+
+    public $logoSrc = "";
+    public $logoTitle = "";
 
     //Настройки таблиц
-    public $enabledPjaxPagination       = Cms::BOOL_Y;
-    public $pageSize                    =   10;
-    public $pageSizeLimitMin            =   1;
-    public $pageSizeLimitMax            =   500;
-    public $pageParamName               =   "page";
+    public $enabledPjaxPagination = Cms::BOOL_Y;
+    public $pageSize = 10;
+    public $pageSizeLimitMin = 1;
+    public $pageSizeLimitMax = 500;
+    public $pageParamName = "page";
 
     //Настройки ckeditor
-    public $ckeditorPreset              = CKEditorPresets::EXTRA;
-    public $ckeditorSkin                = CKEditorPresets::SKIN_MOONO_COLOR;
-    public $ckeditorHeight              = 400;
-    public $ckeditorCodeSnippetGeshi    = Cms::BOOL_N;
-    public $ckeditorCodeSnippetTheme    = 'monokai_sublime';
+    public $ckeditorPreset = CKEditorPresets::EXTRA;
+    public $ckeditorSkin = CKEditorPresets::SKIN_MOONO_COLOR;
+    public $ckeditorHeight = 400;
+    public $ckeditorCodeSnippetGeshi = Cms::BOOL_N;
+    public $ckeditorCodeSnippetTheme = 'monokai_sublime';
 
-    public $blockedTime                 = 900; //15 минут
-
+    public $blockedTime = 900; //15 минут
 
 
     /**
@@ -105,26 +108,22 @@ class AdminSettingsComponent extends Component
     {
         $baseWidgets = [
             \Yii::t('skeeks/cms', 'Basic widgets') =>
-            [
-                AboutCmsDashboard::className(),
-                CmsInformDashboard::className(),
-                DiscSpaceDashboard::className(),
-                ContentElementListDashboard::className(),
-            ]
+                [
+                    AboutCmsDashboard::className(),
+                    CmsInformDashboard::className(),
+                    DiscSpaceDashboard::className(),
+                    ContentElementListDashboard::className(),
+                ],
         ];
 
         $widgetsAll = ArrayHelper::merge($baseWidgets, $this->dashboards);
 
         $result = [];
-        foreach ($widgetsAll as $label => $widgets)
-        {
-            if (is_array($widgets))
-            {
+        foreach ($widgetsAll as $label => $widgets) {
+            if (is_array($widgets)) {
                 $resultWidgets = [];
-                foreach ($widgets as $key => $classWidget)
-                {
-                    if (class_exists($classWidget) && is_subclass_of($classWidget, AdminDashboardWidget::className()))
-                    {
+                foreach ($widgets as $key => $classWidget) {
+                    if (class_exists($classWidget) && is_subclass_of($classWidget, AdminDashboardWidget::className())) {
                         $resultWidgets[$classWidget] = $classWidget;
                     }
                 }
@@ -143,13 +142,10 @@ class AdminSettingsComponent extends Component
     public function getDasboardWidgetsLabels()
     {
         $result = [];
-        if ($this->dasboardWidgets)
-        {
-            foreach ($this->dasboardWidgets as $label => $widgets)
-            {
+        if ($this->dasboardWidgets) {
+            foreach ($this->dasboardWidgets as $label => $widgets) {
                 $resultWidgets = [];
-                foreach ($widgets as $key => $widgetClassName)
-                {
+                foreach ($widgets as $key => $widgetClassName) {
                     $resultWidgets[$widgetClassName] = (new $widgetClassName)->descriptor->name;
                 }
 
@@ -175,7 +171,7 @@ class AdminSettingsComponent extends Component
             }
         }
 
-        \Yii::warning('Access to Admin is denied due to IP address restriction. The requested IP is ' . $ip, __METHOD__);
+        \Yii::warning('Access to Admin is denied due to IP address restriction. The requested IP is '.$ip, __METHOD__);
 
         return false;
     }
@@ -185,6 +181,8 @@ class AdminSettingsComponent extends Component
         return ArrayHelper::merge(parent::rules(), [
             [['languageCode', 'pageParamName', 'enabledPjaxPagination'], 'string'],
             [['pageSize'], 'integer'],
+            [['logoSrc'], 'string'],
+            [['logoTitle'], 'string'],
             [['pageSizeLimitMin'], 'integer'],
             [['pageSizeLimitMax'], 'integer'],
             [['ckeditorCodeSnippetGeshi'], 'string'],
@@ -200,36 +198,46 @@ class AdminSettingsComponent extends Component
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
             //'asset'                             => \Yii::t('skeeks/cms','Additional css and js admin area'),
-            'languageCode'                      => \Yii::t('skeeks/cms','Interface language'),
+            'languageCode' => \Yii::t('skeeks/cms', 'Interface language'),
 
-            'pageParamName'                     => \Yii::t('skeeks/cms','Interface language'),
+            'pageParamName' => \Yii::t('skeeks/cms', 'Interface language'),
 
-            'enabledPjaxPagination'             => \Yii::t('skeeks/cms','Turning ajax navigation'),
-            'pageParamName'                     => \Yii::t('skeeks/cms','Parameter name pages, pagination'),
-            'pageSize'                          => \Yii::t('skeeks/cms','Number of records on one page'),
-            'pageSizeLimitMin'                  => \Yii::t('skeeks/cms','The maximum number of records per page'),
-            'pageSizeLimitMax'                  => \Yii::t('skeeks/cms','The minimum number of records per page'),
+            'enabledPjaxPagination' => \Yii::t('skeeks/cms', 'Turning ajax navigation'),
+            'pageParamName'         => \Yii::t('skeeks/cms', 'Parameter name pages, pagination'),
+            'pageSize'              => \Yii::t('skeeks/cms', 'Number of records on one page'),
+            'pageSizeLimitMin'      => \Yii::t('skeeks/cms', 'The maximum number of records per page'),
+            'pageSizeLimitMax'      => \Yii::t('skeeks/cms', 'The minimum number of records per page'),
 
-            'ckeditorPreset'                    => \Yii::t('skeeks/cms','Instruments'),
-            'ckeditorSkin'                      => \Yii::t('skeeks/cms','Theme of formalization'),
-            'ckeditorHeight'                    => \Yii::t('skeeks/cms','Height'),
-            'ckeditorCodeSnippetGeshi'          => \Yii::t('skeeks/cms','Use code highlighting') . ' (Code Snippets Using GeSHi)',
-            'ckeditorCodeSnippetTheme'          => \Yii::t('skeeks/cms','Theme of {theme} code',['theme' => 'hightlight']),
+            'ckeditorPreset'           => \Yii::t('skeeks/cms', 'Instruments'),
+            'ckeditorSkin'             => \Yii::t('skeeks/cms', 'Theme of formalization'),
+            'ckeditorHeight'           => \Yii::t('skeeks/cms', 'Height'),
+            'ckeditorCodeSnippetGeshi' => \Yii::t('skeeks/cms', 'Use code highlighting').' (Code Snippets Using GeSHi)',
+            'ckeditorCodeSnippetTheme' => \Yii::t('skeeks/cms', 'Theme of {theme} code', ['theme' => 'hightlight']),
 
-            'blockedTime'                       => \Yii::t('skeeks/cms','Time through which block user'),
+            'blockedTime' => \Yii::t('skeeks/cms', 'Time through which block user'),
+
+            'logoSrc'   => "Логотип",
+            'logoTitle' => "Текст рядом с логотипом",
         ]);
     }
 
 
+    public function attributeHints()
+    {
+        return ArrayHelper::merge(parent::attributeHints(), [
+            'logoSrc'   => "Этот логотип показывается сверху-слева",
+            'logoTitle' => "Текст задавать не обязательно. Но если задать то он будет показан рядом с логотипом.",
+        ]);
+    }
+
 
     public function renderConfigForm(ActiveForm $form)
     {
-        echo \Yii::$app->view->renderFile(__DIR__ . '/_form.php', [
+        echo \Yii::$app->view->renderFile(__DIR__.'/_form.php', [
             'form'  => $form,
-            'model' => $this
+            'model' => $this,
         ], $this);
     }
-
 
 
     /**
@@ -249,20 +257,18 @@ class AdminSettingsComponent extends Component
     public function getCkeditorOptions()
     {
         $clientOptions = [
-            'height'                => $this->ckeditorHeight,
-            'skin'                  => $this->ckeditorSkin,
-            'codeSnippet_theme'     => $this->ckeditorCodeSnippetTheme,
+            'height'            => $this->ckeditorHeight,
+            'skin'              => $this->ckeditorSkin,
+            'codeSnippet_theme' => $this->ckeditorCodeSnippetTheme,
         ];
 
-        if ($this->ckeditorCodeSnippetGeshi == Cms::BOOL_Y)
-        {
+        if ($this->ckeditorCodeSnippetGeshi == Cms::BOOL_Y) {
             $clientOptions['codeSnippetGeshi_url'] = '../lib/colorize.php';
 
             $preset = CKEditorPresets::getPresets($this->ckeditorPreset);
             $extraplugins = ArrayHelper::getValue($preset, 'extraPlugins', "");
 
-            if ($extraplugins)
-            {
+            if ($extraplugins) {
                 $extraplugins = explode(",", $extraplugins);
             }
 
@@ -273,8 +279,8 @@ class AdminSettingsComponent extends Component
         }
 
         return [
-            'preset' => $this->ckeditorPreset,
-            'clientOptions' => $clientOptions
+            'preset'        => $this->ckeditorPreset,
+            'clientOptions' => $clientOptions,
         ];
     }
 
@@ -292,8 +298,7 @@ class AdminSettingsComponent extends Component
      */
     public function getRequestIsAdmin()
     {
-        if (BackendComponent::getCurrent() && BackendComponent::getCurrent()->controllerPrefix == 'admin')
-        {
+        if (BackendComponent::getCurrent() && BackendComponent::getCurrent()->controllerPrefix == 'admin') {
             return true;
         }
 
