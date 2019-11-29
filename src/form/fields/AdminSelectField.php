@@ -16,6 +16,8 @@ use yii\helpers\ArrayHelper;
  */
 class AdminSelectField extends SelectField
 {
+    public $widgetConfig = [];
+
     public function getActiveField()
     {
         $field = parent::getActiveField();
@@ -31,17 +33,18 @@ class AdminSelectField extends SelectField
         $items = $this->getItems();
         ArrayHelper::remove($items, null);
 
+        $resultOptions = ArrayHelper::merge([
+            'items'         => $items,
+            'clientOptions' => [
+                'search_contains' => true,
+            ],
+            'multiple'      => $this->multiple,
+            'options'       => $this->elementOptions,
+        ], $this->widgetConfig);
+
         return $field->widget(
             Chosen::class,
-            [
-                'items' => $items,
-                'clientOptions' =>
-                [
-                    'search_contains' => true
-                ],
-                'multiple' => $this->multiple,
-                'options' => $this->elementOptions
-            ]
+            $resultOptions
         );
 
         return $field;
