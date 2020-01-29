@@ -60,7 +60,7 @@ form.sx-form-admin
     form.sx-form-admin .form-group
     {
         padding: 5px;
-        margin-bottom: 5px;
+        margin-bottom: 0px;
     }
     form.sx-form-admin .form-group:hover
     {
