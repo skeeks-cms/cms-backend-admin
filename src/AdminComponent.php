@@ -148,9 +148,9 @@ class AdminComponent extends BackendComponent
         \Yii::$container->setDefinitions(ArrayHelper::merge(
             \Yii::$container->definitions,
             [
-                SelectField::class => [
+                /*SelectField::class => [
                     'class' => AdminSelectField::class,
-                ],
+                ],*/
             ]
         ));
         parent::_run();

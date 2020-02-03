@@ -42,7 +42,8 @@ class AdminSelectField extends SelectField
             'options'       => $this->elementOptions,
         ], $this->widgetConfig);
 
-        return $field->widget(
+        
+        $field->widget(
             Chosen::class,
             $resultOptions
         );
