@@ -10,6 +10,7 @@ namespace skeeks\cms\admin\components;
 
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\helpers\BackendUrlHelper;
+use skeeks\cms\backend\widgets\ActiveFormBackend;
 use skeeks\cms\base\Component;
 use skeeks\cms\base\Widget;
 use skeeks\cms\components\Cms;
@@ -230,6 +231,14 @@ class AdminSettingsComponent extends Component
         ]);
     }
 
+
+    /**
+     * @return ActiveForm
+     */
+    public function beginConfigForm()
+    {
+        return ActiveFormBackend::begin();
+    }
 
     public function renderConfigFormFields(ActiveForm $form)
     {
