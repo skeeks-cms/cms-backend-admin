@@ -49,6 +49,7 @@ class AdminSettingsComponent extends Component
     {
         return array_merge(parent::descriptorConfig(), [
             'name' => \Yii::t('skeeks/cms', 'Setting the admin panel'),
+            'image' => [AdminAsset::class, 'img/admin.jpeg'],
         ]);
     }
 
