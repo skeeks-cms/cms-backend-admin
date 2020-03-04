@@ -90,3 +90,8 @@ form.sx-form-admin
     {
         font-weight: bold;
     }
+
+
+.sx-form-admin .sx-inline-row label {
+    margin-bottom: 0px;
+}
