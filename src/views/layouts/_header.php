@@ -15,10 +15,10 @@ $theme = $this->theme;
 
 <?
 $langOptions = \yii\helpers\Json::encode([
-    'backend' => \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-ajax/set-lang'])->enableAdmin()->toString()
+    'backend' => \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-ajax/set-lang'])->enableAdmin()->toString(),
 ]);
 
-                    $this->registerJs(<<<JS
+$this->registerJs(<<<JS
 (function(sx, $, _)
 {
     sx.classes.ChangeLang = sx.classes.Component.extend({
@@ -47,8 +47,8 @@ $langOptions = \yii\helpers\Json::encode([
 
 })(sx, sx.$, sx._);
 JS
-                    );
-                    ?>
+);
+?>
 
 
 <!-- Header -->
@@ -65,13 +65,62 @@ JS
                 </a>
                 <!-- End Logo -->
                 <!-- Sidebar Toggler -->
-                <a class="js-side-nav u-header__nav-toggler d-flex align-self-center ml-auto" href="#!" data-hssm-class="u-side-nav--mini u-sidebar-navigation-v1--mini" data-hssm-body-class="u-side-nav-mini" data-hssm-is-close-all-except-this="true" data-hssm-target="#sideNav">
+                <a class="js-side-nav u-header__nav-toggler d-flex align-self-center ml-auto" href="#!" data-hssm-class="u-side-nav--mini u-sidebar-navigation-v1--mini" data-hssm-body-class="u-side-nav-mini"
+                   data-hssm-is-close-all-except-this="true" data-hssm-target="#sideNav">
                     <i class="hs-admin-align-left"></i>
                 </a>
                 <!-- End Sidebar Toggler -->
             </div>
-            <!-- Messages/Notifications/Top Search Bar/Top User -->
+
+
             <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
+                <? if (\skeeks\cms\models\CmsSite::find()->active()->count()) : ?>
+                    <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm my-auto">
+                        <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
+                            <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-site-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-site-menu"
+                               data-dropdown-type="css-animation" data-dropdown-duration="300"
+                               data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+                            <span class="g-pos-rel">
+                             <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
+                                  src="<?= \Yii::$app->cms->site->image ? \Yii::$app->cms->site->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
+                             >
+                            </span>
+                                <span class="g-pos-rel g-top-2">
+                                <span class="g-hidden-sm-down"><?= \Yii::$app->cms->site->name; ?></span>
+                                <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
+                            </span>
+                            </a>
+                            <ul id="sx-site-menu" class="js-custom-scroll g-absolute-centered--x g-width-340 g-mt-17 rounded g-pb-15 g-pt-10" style="max-width: 340px;" aria-labelledby="profileMenuInvoker">
+                                <? if ($sites = \skeeks\cms\models\CmsSite::find()->active()->all()) : ?>
+                                    <?
+                                    /**
+                                     * @var $site \skeeks\cms\models\CmsSite
+                                     */
+                                    ?>
+                                    <? foreach ($sites as $site) : ?>
+                                        <li class="g-mt-5">
+                                            <a class="media g-py-5 g-px-20" href="<?= $site->url . \yii\helpers\Url::to(['/admin/admin-index']); ?>">
+                                            <span class="d-flex align-self-center g-mr-12">
+
+                                                <? if ($site->image) : ?>
+                                                    <img class="pull-right" height="20" style="" src="<?= $site->image->src; ?>"/>
+                                                <? else: ?>
+                                                    <img class="pull-right" height="20" style="" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
+                                                <? endif; ?>
+                                            </span>
+                                                <span class="media-body align-self-center">
+                                                    <?= $site->name; ?>
+                                                    <div style="font-size: 10px; color: gray;"><?= $site->url; ?></div>
+                                            </span>
+                                            </a>
+                                        </li>
+                                    <? endforeach; ?>
+                                <? endif; ?>
+                            </ul>
+                        </div>
+                    </div>
+                <? endif; ?>
+
 
                 <div class="g-pos-rel sx-btn-backend-header">
                     <a id="messagesInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20"
@@ -148,26 +197,24 @@ JS
                 <? endif; ?>
 
 
-
-
-
                 <!-- Top User -->
-                <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
+                <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm my-auto">
                     <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
-                        <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-lang-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-lang-menu" data-dropdown-type="css-animation" data-dropdown-duration="300"
+                        <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-lang-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-lang-menu"
+                           data-dropdown-type="css-animation" data-dropdown-duration="300"
                            data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
                             <span class="g-pos-rel">
-                            <span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>
-                            <!--<span class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar">
-                                <?/*= \Yii::$app->admin->cmsLanguage->code; */?>
+                            <!--<span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>-->
+                                <!--<span class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar">
+                                <? /*= \Yii::$app->admin->cmsLanguage->code; */ ?>
                             </span>-->
-                             <img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar"
+                             <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
                                   src="<?= \Yii::$app->admin->cmsLanguage->image ? \Yii::$app->admin->cmsLanguage->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
-                              >
+                             >
                             </span>
                             <span class="g-pos-rel g-top-2">
                                 <span class="g-hidden-sm-down"><?= \Yii::$app->admin->cmsLanguage->name; ?></span>
-                                <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
+                                <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
                             </span>
                         </a>
 
@@ -181,10 +228,10 @@ JS
                                         <a class="media g-py-5 g-px-20" href="#" onclick="sx.ChangeLang.setLang('<?= $lang->code; ?>'); return false;">
                                             <span class="d-flex align-self-center g-mr-12">
 
-                                                <? if($lang->image) : ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= $lang->image->src; ?>" />
+                                                <? if ($lang->image) : ?>
+                                                    <img class="pull-right" height="20" style="" src="<?= $lang->image->src; ?>"/>
                                                 <? else: ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>" />
+                                                    <img class="pull-right" height="20" style="" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
                                                 <? endif; ?>
 
                                             </span>
@@ -194,8 +241,7 @@ JS
                                         </a>
                                     </li>
                                 <? endforeach; ?>
-                            <? endif;  ?>
-
+                            <? endif; ?>
 
 
                         </ul>
@@ -205,16 +251,16 @@ JS
                 <!-- End Top User -->
 
 
-
-
                 <!-- Top User -->
                 <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
                     <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
-                        <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu" data-dropdown-type="css-animation" data-dropdown-duration="300"
+                        <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu"
+                           data-dropdown-type="css-animation" data-dropdown-duration="300"
                            data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
                 <span class="g-pos-rel">
-        <span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>
-                <img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar" src="<?= \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>" alt="Image description">
+        <!--<span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>-->
+                <img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar"
+                     src="<?= \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>" alt="Image description">
                 </span>
                             <span class="g-pos-rel g-top-2">
         <span class="g-hidden-sm-down"><?= \Yii::$app->user->identity->shortDisplayName; ?></span>
