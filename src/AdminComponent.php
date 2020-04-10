@@ -76,6 +76,10 @@ class AdminComponent extends BackendComponent
         $theme->logoTitle = \Yii::$app->admin->logoTitle;
         if (\Yii::$app->admin->logoSrc) {
             $theme->logoSrc = \Yii::$app->admin->logoSrc;
+        } else {
+            if (\Yii::$app->cms->site && \Yii::$app->cms->site->image) {
+                $theme->logoSrc = \Yii::$app->cms->site->image->src;
+            }
         }
         $theme->logoHref = Url::to(['/admin/admin-index']);
 

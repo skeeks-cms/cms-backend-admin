@@ -103,9 +103,9 @@ JS
                                             <span class="d-flex align-self-center g-mr-12">
 
                                                 <? if ($site->image) : ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= $site->image->src; ?>"/>
+                                                    <img class="pull-right" style="max-width: 25px; max-height: 25px;" src="<?= $site->image->src; ?>"/>
                                                 <? else: ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
+                                                    <img class="pull-right" style="max-width: 25px; max-height: 25px;" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
                                                 <? endif; ?>
                                             </span>
                                                 <span class="media-body align-self-center">
