@@ -75,6 +75,7 @@ JS
 
             <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
                 <? if (\skeeks\cms\models\CmsSite::find()->active()->count() > 1) : ?>
+                
                     <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm my-auto">
                         <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
                             <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-site-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-site-menu"
