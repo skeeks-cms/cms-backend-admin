@@ -83,11 +83,11 @@ JS
                                data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
                             <span class="g-pos-rel">
                              <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
-                                  src="<?= \Yii::$app->cms->site->image ? \Yii::$app->cms->site->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
+                                  src="<?= \Yii::$app->skeeks->site->image ? \Yii::$app->skeeks->site->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
                              >
                             </span>
                                 <span class="g-pos-rel g-top-2">
-                                <span class="g-hidden-sm-down"><?= \Yii::$app->cms->site->name; ?></span>
+                                <span class="g-hidden-sm-down"><?= \Yii::$app->skeeks->site->name; ?></span>
                                 <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
                             </span>
                             </a>
