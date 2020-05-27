@@ -83,34 +83,44 @@ JS
                                data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
                             <span class="g-pos-rel">
 
-                                <?php if(\Yii::$app->skeeks->site->image) : ?>
-                                    <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
-                                          src="<?= \Yii::$app->imaging->thumbnailUrlOnRequest(\Yii::$app->skeeks->site->image->src,
-                                                                 new \skeeks\cms\components\imaging\filters\Thumbnail([
-                                                                     'w' => 50,
-                                                                     'h' => 50,
-                                                                     'm' => \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET,
-                                                                 ])
-                                                             ); ?>"
-                                     >
-                                <?php else: ?>
-                                <span class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar">
-                                    <span class="" style="    background: #c5c5c5;
-    border-radius: 50%;
-    color: #1c231f;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 15px;
-    text-align: center;
-    font-weight: bold;
-    display: block;
-    position: absolute;
-    left: -24px;
-    ">
-                                      <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr(\Yii::$app->skeeks->site->name, 0, 1)); ?>
 
-                                    </span>
+                                <?php
+                                $color = "darkgrey";
+                                if (\Yii::$app->skeeks->site->is_default) {
+                                    $color = "#6ba23b";
+                                }
+                                ?>
+
+                                <?php if (\Yii::$app->skeeks->site->image) : ?>
+                                    <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar" style="background: top: 1px;
+        border: 2px solid <?php echo $color; ?>;"
+                                         src="<?= \Yii::$app->imaging->thumbnailUrlOnRequest(\Yii::$app->skeeks->site->image->src,
+                                             new \skeeks\cms\components\imaging\filters\Thumbnail([
+                                                 'w' => 50,
+                                                 'h' => 50,
+                                                 'm' => \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET,
+                                             ])
+                                         ); ?>"
+                                    >
+                                <?php else: ?>
+                                    <span class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar">
+                                        <span class="" style="    background: #c5c5c5;
+        border-radius: 50%;
+        color: #1c231f;
+        width: 20px;
+        height: 20px;
+        line-height: 16px;
+        font-size: 14px;
+        text-align: center;
+        font-weight: bold;
+        display: block;
+        position: absolute;
+        left: -24px;
+        top: 1px;
+        border: 2px solid <?php echo $color; ?>;
+        ">
+                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr(\Yii::$app->skeeks->site->name, 0, 1)); ?>
+                                        </span>
                                     </span>
                                 <?php endif; ?>
 
@@ -131,19 +141,33 @@ JS
                                     ?>
                                     <? foreach ($sites as $site) : ?>
                                         <li class="g-mt-5">
-                                            <a class="media g-py-5 g-px-20" href="<?= $site->url.\yii\helpers\Url::to(['/admin/admin-index']); ?>">
+
+                                            <?php if(!$site->cmsSiteDomains && !$site->is_default) : ?>
+                                                <a class="media g-py-5 g-px-20" href="#" style="opacity: 0.2;" onclick="sx.notify.error('У этого сайта не задано доменное имя'); return false;">
+                                            <?php else: ?>
+                                                <a class="media g-py-5 g-px-20" href="<?= $site->url.\yii\helpers\Url::to(['/admin/admin-index']); ?>">
+                                            <?php endif; ?>
+
+
+
+                                                <?php
+                                                $color = "darkgrey";
+                                                if ($site->is_default) {
+                                                    $color = "#6ba23b";
+                                                }
+                                                ?>
 
 
                                                 <? if ($site->image) : ?>
                                                     <span class="d-flex align-self-center g-mr-12">
-                                                        <img class="pull-right" style="max-width: 25px; max-height: 25px; border-radius: 50%; background: #c5c5c5;"
+                                                        <img class="pull-right" style="max-width: 25px; max-height: 25px; border-radius: 50%; background: #c5c5c5; border: 2px solid <?php echo $color; ?>;"
                                                              src="<?= \Yii::$app->imaging->thumbnailUrlOnRequest($site->image->src,
                                                                  new \skeeks\cms\components\imaging\filters\Thumbnail([
                                                                      'w' => 50,
                                                                      'h' => 50,
                                                                      'm' => \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET,
                                                                  ])
-                                                             ); ?>" />
+                                                             ); ?>"/>
                                                     </span>
                                                 <? else: ?>
                                                     <span class="d-flex align-self-center g-mr-12 g-color-primary">
@@ -152,8 +176,9 @@ JS
                                                             color: #1c231f;
                                                             width: 25px;
                                                             height: 25px;
-                                                            line-height: 25px;
-                                                            font-size: 18px;
+                                                            line-height: 23px;
+                                                            border: 2px solid <?php echo $color; ?>;
+                                                            font-size: 16px;
                                                             text-align: center;
                                                             font-weight: bold;">
                                                           <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr($site->name, 0, 1)); ?>
