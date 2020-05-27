@@ -75,16 +75,47 @@ JS
 
             <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
                 <? if (\skeeks\cms\models\CmsSite::find()->active()->count() > 1) : ?>
-                
+
                     <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm my-auto">
                         <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
                             <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-site-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-site-menu"
                                data-dropdown-type="css-animation" data-dropdown-duration="300"
                                data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
                             <span class="g-pos-rel">
-                             <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
-                                  src="<?= \Yii::$app->skeeks->site->image ? \Yii::$app->skeeks->site->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
-                             >
+
+                                <?php if(\Yii::$app->skeeks->site->image) : ?>
+                                    <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
+                                          src="<?= \Yii::$app->imaging->thumbnailUrlOnRequest(\Yii::$app->skeeks->site->image->src,
+                                                                 new \skeeks\cms\components\imaging\filters\Thumbnail([
+                                                                     'w' => 50,
+                                                                     'h' => 50,
+                                                                     'm' => \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET,
+                                                                 ])
+                                                             ); ?>"
+                                     >
+                                <?php else: ?>
+                                <span class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar">
+                                    <span class="" style="    background: #c5c5c5;
+    border-radius: 50%;
+    color: #1c231f;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    position: absolute;
+    left: -24px;
+    ">
+                                      <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr(\Yii::$app->skeeks->site->name, 0, 1)); ?>
+
+                                    </span>
+                                    </span>
+                                <?php endif; ?>
+
+
+
                             </span>
                                 <span class="g-pos-rel g-top-2">
                                 <span class="g-hidden-sm-down"><?= \Yii::$app->skeeks->site->name; ?></span>
@@ -100,15 +131,39 @@ JS
                                     ?>
                                     <? foreach ($sites as $site) : ?>
                                         <li class="g-mt-5">
-                                            <a class="media g-py-5 g-px-20" href="<?= $site->url . \yii\helpers\Url::to(['/admin/admin-index']); ?>">
-                                            <span class="d-flex align-self-center g-mr-12">
+                                            <a class="media g-py-5 g-px-20" href="<?= $site->url.\yii\helpers\Url::to(['/admin/admin-index']); ?>">
+
 
                                                 <? if ($site->image) : ?>
-                                                    <img class="pull-right" style="max-width: 25px; max-height: 25px;" src="<?= $site->image->src; ?>"/>
+                                                    <span class="d-flex align-self-center g-mr-12">
+                                                        <img class="pull-right" style="max-width: 25px; max-height: 25px; border-radius: 50%; background: #c5c5c5;"
+                                                             src="<?= \Yii::$app->imaging->thumbnailUrlOnRequest($site->image->src,
+                                                                 new \skeeks\cms\components\imaging\filters\Thumbnail([
+                                                                     'w' => 50,
+                                                                     'h' => 50,
+                                                                     'm' => \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET,
+                                                                 ])
+                                                             ); ?>" />
+                                                    </span>
                                                 <? else: ?>
-                                                    <img class="pull-right" style="max-width: 25px; max-height: 25px;" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
+                                                    <span class="d-flex align-self-center g-mr-12 g-color-primary">
+                                                        <span class="" style="background: #c5c5c5;
+                                                            border-radius: 50%;
+                                                            color: #1c231f;
+                                                            width: 25px;
+                                                            height: 25px;
+                                                            line-height: 25px;
+                                                            font-size: 18px;
+                                                            text-align: center;
+                                                            font-weight: bold;">
+                                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr($site->name, 0, 1)); ?>
+
+                                                        </span>
+                                                    </span>
+                                                    <!--<img class="pull-right" style="max-width: 25px; max-height: 25px;" src="<? /*= \skeeks\cms\helpers\Image::getCapSrc(); */ ?>"/>-->
+
                                                 <? endif; ?>
-                                            </span>
+
                                                 <span class="media-body align-self-center">
                                                     <?= $site->name; ?>
                                                     <div style="font-size: 10px; color: gray;"><?= $site->url; ?></div>
