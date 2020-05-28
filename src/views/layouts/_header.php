@@ -72,6 +72,10 @@ JS
                 <!-- End Sidebar Toggler -->
             </div>
 
+             <div class="col-auto d-flex g-py-12 g-ml-20 sx-breadcrumbs-wrapper">
+                <?= $this->render("@app/views/layouts/_breadcrumbs"); ?>
+            </div>
+
 
             <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
                 <? if (\skeeks\cms\models\CmsSite::find()->active()->count() > 1) : ?>
@@ -284,15 +288,11 @@ JS
                         <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="sx-lang-menu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#sx-lang-menu"
                            data-dropdown-type="css-animation" data-dropdown-duration="300"
                            data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
-                            <span class="g-pos-rel">
-                            <!--<span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>-->
-                                <!--<span class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm sx-avatar">
-                                <? /*= \Yii::$app->admin->cmsLanguage->code; */ ?>
+                            <!--<span class="g-pos-rel">
+                                 <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
+                                      src="<?/*= \Yii::$app->admin->cmsLanguage->image ? \Yii::$app->admin->cmsLanguage->image->src : \skeeks\cms\helpers\Image::getCapSrc(); */?>"
+                                 >
                             </span>-->
-                             <img class="g-width-20 g-width-20 g-height-20 g-height-20 rounded-circle g-mr-5--sm sx-avatar"
-                                  src="<?= \Yii::$app->admin->cmsLanguage->image ? \Yii::$app->admin->cmsLanguage->image->src : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
-                             >
-                            </span>
                             <span class="g-pos-rel g-top-2">
                                 <span class="g-hidden-sm-down"><?= \Yii::$app->admin->cmsLanguage->name; ?></span>
                                 <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
@@ -307,15 +307,15 @@ JS
 
                                     <li class="g-mt-5">
                                         <a class="media g-py-5 g-px-20" href="#" onclick="sx.ChangeLang.setLang('<?= $lang->code; ?>'); return false;">
-                                            <span class="d-flex align-self-center g-mr-12">
+                                            <!--<span class="d-flex align-self-center g-mr-12">
 
-                                                <? if ($lang->image) : ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= $lang->image->src; ?>"/>
-                                                <? else: ?>
-                                                    <img class="pull-right" height="20" style="" src="<?= \skeeks\cms\helpers\Image::getCapSrc(); ?>"/>
-                                                <? endif; ?>
+                                                <?/* if ($lang->image) : */?>
+                                                    <img class="pull-right" height="20" style="" src="<?/*= $lang->image->src; */?>"/>
+                                                <?/* else: */?>
+                                                    <img class="pull-right" height="20" style="" src="<?/*= \skeeks\cms\helpers\Image::getCapSrc(); */?>"/>
+                                                <?/* endif; */?>
 
-                                            </span>
+                                            </span>-->
                                             <span class="media-body align-self-center">
                                             [<?= $lang->code; ?>] <?= $lang->name; ?>
                                             </span>
