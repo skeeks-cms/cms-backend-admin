@@ -97,7 +97,6 @@ class AdminAuthController extends BackendController
     {
         $this->view->title = \Yii::t('skeeks/cms', 'Lock Mode');
         \Yii::$app->user->identity->lockAdmin();
-
         if ($ref = UrlHelper::getCurrent()->getRef()) {
             return $this->redirect($ref);
         } else {
