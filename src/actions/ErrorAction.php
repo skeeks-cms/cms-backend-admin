@@ -15,6 +15,7 @@ use Yii;
 use yii\base\Exception;
 use yii\base\UserException;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Class ErrorAction
@@ -29,14 +30,23 @@ class ErrorAction extends \yii\web\ErrorAction
      */
     public function run()
     {
-        if (($exception = Yii::$app->getErrorHandler()->exception) === null) {
-            return '';
+        $exception = Yii::$app->getErrorHandler()->exception;
+                
+        if ($exception === null) {
+            if (\Yii::$app->user->isGuest) {
+                \Yii::$app->response->redirect(Url::to(["/admin/admin-auth/auth"]));
+                return;
+            }
         }
 
         if ($exception instanceof \HttpException) {
             $code = $exception->statusCode;
         } else {
-            $code = $exception->getCode();
+            if ($exception instanceof \Exception) {
+                $code = $exception->getCode();
+            } else {
+                $code = null;
+            }
         }
 
         if ($exception instanceof Exception) {
@@ -54,7 +64,6 @@ class ErrorAction extends \yii\web\ErrorAction
         } else {
             $message = $this->defaultMessage ?: Yii::t('yii', 'An internal server error occurred.');
         }
-
 
         if (Yii::$app->getRequest()->getIsAjax()) {
             $rr = new RequestResponse();
