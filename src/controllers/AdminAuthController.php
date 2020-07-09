@@ -34,6 +34,7 @@ class AdminAuthController extends BackendController
     public function init()
     {
         $this->permissionNames = [];
+        return parent::init();
     }
 
     /**
