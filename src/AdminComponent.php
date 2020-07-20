@@ -83,7 +83,7 @@ class AdminComponent extends BackendComponent
         }
         $theme->logoHref = Url::to(['/admin/admin-index']);
 
-        $theme->favicon = "";
+        //$theme->favicon = "";
         \skeeks\cms\themes\unify\admin\UnifyThemeAdmin::initBeforeRender();
         \Yii::$app->view->theme = $theme;
 
