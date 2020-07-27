@@ -136,7 +136,7 @@ JS
                                 <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
                             </span>
                             </a>
-                            <ul id="sx-site-menu" class="js-custom-scroll g-absolute-centered--x g-width-340 g-mt-17 rounded g-pb-15 g-pt-10" style="max-width: 340px;" aria-labelledby="profileMenuInvoker">
+                            <ul id="sx-site-menu" class="js-custom-scroll g-absolute-centered--x g-width-340 g-mt-17 rounded g-pb-15 g-pt-10" style="max-width: 340px; max-height: 340px;" aria-labelledby="profileMenuInvoker">
                                 <? if ($sites = \skeeks\cms\models\CmsSite::find()->active()->orderBy(['priority' => SORT_ASC])->all()) : ?>
                                     <?
                                     /**
