@@ -78,7 +78,33 @@ JS
 
 
             <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
-                <? if (\skeeks\cms\models\CmsSite::find()->active()->count() > 1) : ?>
+                <?
+
+                $adminRoles = (new \yii\db\Query())->select(['parent'])->indexBy(['parent'])->from(\Yii::$app->authManager->itemChildTable)->where(['child' => \skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_ACCESS])->all();
+                if ($adminRoles) {
+                    $adminRoles = array_keys($adminRoles);
+                }
+
+                if ($adminRoles) {
+                    $q = \Yii::$app->user->identity->getCmsAuthAssignments()
+                        ->joinWith("cmsSite as cmsSite")
+                        ->groupBy("cmsSite.id")
+                        ->where(['item_name' => $adminRoles])
+                        ->select(['cmsSite.id'])
+                    ;
+                    
+                    $sitesQuery = \skeeks\cms\models\CmsSite::find()->where(['id' => $q]);
+                } else {
+                    $sitesQuery = \skeeks\cms\models\CmsSite::find();
+                }
+                
+                $sitesQuery->active();
+                
+
+                
+                
+
+                if ($sitesQuery->count() > 1) : ?>
 
                     <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm my-auto">
                         <div class="g-pos-rel g-px-10--lg sx-header-user-profile">
@@ -137,7 +163,7 @@ JS
                             </span>
                             </a>
                             <ul id="sx-site-menu" class="js-custom-scroll g-absolute-centered--x g-width-340 g-mt-17 rounded g-pb-15 g-pt-10" style="max-width: 340px; max-height: 340px;" aria-labelledby="profileMenuInvoker">
-                                <? if ($sites = \skeeks\cms\models\CmsSite::find()->active()->orderBy(['priority' => SORT_ASC])->all()) : ?>
+                                <? if ($sites = $sitesQuery->orderBy(['priority' => SORT_ASC])->all()) : ?>
                                     <?
                                     /**
                                      * @var $site \skeeks\cms\models\CmsSite
