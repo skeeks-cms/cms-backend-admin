@@ -147,6 +147,14 @@ class AdminComponent extends BackendComponent
 
                 \Yii::$app->controller->setPermissionNames($result);
             }
+
+            //Для работы с системой управления сайтом, будем требовать от пользователя реальные данные
+            $user = \Yii::$app->user->identity;
+            if (\Yii::$app->controller->uniqueId != 'cms/admin-profile') {
+                if (!$user->email || !$user->first_name || !$user->last_name || !$user->image) {
+                    \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/update']));
+                }
+            }
         });
 
         \Yii::$container->setDefinitions(ArrayHelper::merge(
