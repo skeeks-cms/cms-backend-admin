@@ -61,32 +61,6 @@ use yii\helpers\Html;
 <? $fieldSet::end(); ?>
 
 
-<? $form->fieldSet(\Yii::t('skeeks/admin', 'Access')); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_ACCESS,
-        'label'                 => \Yii::t('skeeks/admin','Access to the administrate area'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_EDIT_VIEW_FILES,
-        'label'                 => \Yii::t('skeeks/admin','The ability to edit view files'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => "cms/admin-settings",
-        'label'                 => \Yii::t('skeeks/admin','The ability to edit settings'),
-    ]); ?>
-
-    <?= \skeeks\cms\rbac\widgets\adminPermissionForRoles\AdminPermissionForRolesWidget::widget([
-        'permissionName'        => \skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT,
-        'label'                 => \Yii::t('skeeks/admin','Access to edit dashboards'),
-    ]); ?>
-
-
-
-<? $fieldSet::end(); ?>
-
 
 
 
