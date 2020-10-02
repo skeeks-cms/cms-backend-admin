@@ -14,7 +14,7 @@ use yii\helpers\Html;
 
 <? $fieldSet = $form->fieldSet(\Yii::t('skeeks/cms', 'Main')); ?>
     <?= $form->field($model, 'logoSrc')->widget(
-        \skeeks\cms\modules\admin\widgets\formInputs\OneImage::class
+        \skeeks\cms\backend\widgets\SelectModelDialogStorageFileSrcWidget::class
     ); ?>
     <?= $form->field($model, 'logoTitle'); ?>
 
