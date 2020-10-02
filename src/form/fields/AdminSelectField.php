@@ -8,7 +8,7 @@
 
 namespace skeeks\cms\admin\form\fields;
 
-use skeeks\widget\chosen\Chosen;
+use skeeks\cms\widgets\Select;
 use skeeks\yii2\form\fields\SelectField;
 use yii\helpers\ArrayHelper;
 /**
@@ -35,16 +35,15 @@ class AdminSelectField extends SelectField
 
         $resultOptions = ArrayHelper::merge([
             'items'         => $items,
-            'clientOptions' => [
+            /*'clientOptions' => [
                 'search_contains' => true,
-            ],
+            ],*/
             'multiple'      => $this->multiple,
             'options'       => $this->elementOptions,
         ], $this->widgetConfig);
 
-        
         $field->widget(
-            Chosen::class,
+            Select::class,
             $resultOptions
         );
 

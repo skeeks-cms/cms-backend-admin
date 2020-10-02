@@ -9,7 +9,6 @@
 namespace skeeks\cms\admin;
 
 use skeeks\cms\admin\assets\AdminAsset;
-use skeeks\cms\admin\form\fields\AdminSelectField;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use skeeks\cms\IHasPermissions;
