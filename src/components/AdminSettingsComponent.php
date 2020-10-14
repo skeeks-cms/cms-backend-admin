@@ -223,7 +223,6 @@ class AdminSettingsComponent extends Component
         ]);
     }
 
-
     public function attributeHints()
     {
         return ArrayHelper::merge(parent::attributeHints(), [
