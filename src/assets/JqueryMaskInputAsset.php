@@ -21,7 +21,7 @@ class JqueryMaskInputAsset extends AssetBundle
     public $css = [];
 
     public $js = [
-        'jquery.maskedinput.min.js',
+        'dist/jquery.maskedinput.min.js',
     ];
 
     public $depends = [
