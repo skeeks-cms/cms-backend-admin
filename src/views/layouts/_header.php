@@ -149,7 +149,7 @@ JS
         top: 1px;
         border: 2px solid <?php echo $color; ?>;
         ">
-                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr(\Yii::$app->skeeks->site->name, 0, 1)); ?>
+                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr(\Yii::$app->skeeks->site->internalName, 0, 1)); ?>
                                         </span>
                                     </span>
                                 <?php endif; ?>
@@ -158,7 +158,7 @@ JS
 
                             </span>
                                 <span class="g-pos-rel g-top-2">
-                                <span class="g-hidden-sm-down"><?= \Yii::$app->skeeks->site->name; ?></span>
+                                <span class="g-hidden-sm-down"><?= \Yii::$app->skeeks->site->internalName; ?></span>
                                 <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
                             </span>
                             </a>
@@ -211,7 +211,7 @@ JS
                                                             font-size: 16px;
                                                             text-align: center;
                                                             font-weight: bold;">
-                                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr($site->name, 0, 1)); ?>
+                                                          <?php echo \skeeks\cms\helpers\StringHelper::ucfirst(\skeeks\cms\helpers\StringHelper::substr($site->internalName, 0, 1)); ?>
 
                                                         </span>
                                                     </span>
@@ -220,7 +220,7 @@ JS
                                                 <? endif; ?>
 
                                                 <span class="media-body align-self-center">
-                                                    <?= $site->name; ?>
+                                                    <?= $site->internalName; ?>
                                                     <div style="font-size: 10px; color: gray;"><?= $site->url; ?></div>
                                             </span>
                                             </a>
