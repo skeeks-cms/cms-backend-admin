@@ -244,11 +244,11 @@ JS
                     </a>
                 </div>
 
-                <? if (\Yii::$app->user->can('cms/admin-clear')) : ?>
+                <? if (\Yii::$app->user->can('cms/admin-cache')) : ?>
 
                     <?
                     $clearCacheOptions = \yii\helpers\Json::encode([
-                        'backend' => \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-clear/index'])->enableAdmin()->toString(),
+                        'backend' => \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-cache/invalidate'])->enableAdmin()->toString(),
                     ]);
 
                     $this->registerJs(<<<JS
