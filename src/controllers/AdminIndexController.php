@@ -133,7 +133,7 @@ class AdminIndexController extends BackendController
 
         try {
             $dashboard->delete();
-            $rr->redirect = UrlHelper::construct(['/admin/index'])->enableAdmin()->toString();
+            $rr->redirect = UrlHelper::construct(['/admin/admin-index'])->enableAdmin()->toString();
             $rr->success = true;
 
         } catch (\Exception $e) {
@@ -231,7 +231,7 @@ class AdminIndexController extends BackendController
                 $rr->success = true;
                 $rr->message = 'Сохранено';
                 $rr->redirect = UrlHelper::construct([
-                    '/admin/index/dashboard',
+                    '/admin/admin-index/dashboard',
                     'pk' => $dashboard->id
                 ])->enableAdmin()->toString();
             } else {
