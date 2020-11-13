@@ -235,16 +235,20 @@ JS
                 <? endif; ?>
 
 
-                <div class="g-pos-rel sx-btn-backend-header">
-                    <a id="messagesInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20"
-                       href="<?= \yii\helpers\Url::home(); ?>"
-                       target="_blank"
-                       title="<?= \Yii::t('skeeks/cms', 'To main page of site') ?>"
-                    >
-                        <!--<span class="u-badge-v1 g-top-7 g-right-7 g-width-18 g-height-18 g-bg-primary g-font-size-10 g-color-white rounded-circle p-0">7</span>-->
-                        <i class="fas fa-external-link-alt g-absolute-centered"></i>
-                    </a>
-                </div>
+                <?php if(\Yii::$app->skeeks->site->cmsSiteMainDomain || (!\Yii::$app->skeeks->site->cmsSiteMainDomain && Yii::$app->skeeks->site->is_default)) : ?>
+                    <div class="g-pos-rel sx-btn-backend-header">
+                        <a id="messagesInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20"
+                           href="<?= \yii\helpers\Url::home(); ?>"
+                           target="_blank"
+                           title="<?= \Yii::t('skeeks/cms', 'To main page of site') ?>"
+                        >
+                            <!--<span class="u-badge-v1 g-top-7 g-right-7 g-width-18 g-height-18 g-bg-primary g-font-size-10 g-color-white rounded-circle p-0">7</span>-->
+                            <i class="fas fa-external-link-alt g-absolute-centered"></i>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+
 
                 <? if (\Yii::$app->user->can('cms/admin-cache')) : ?>
 
