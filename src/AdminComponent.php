@@ -12,6 +12,7 @@ use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use skeeks\cms\IHasPermissions;
+use skeeks\cms\models\CmsSite;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use skeeks\yii2\form\fields\SelectField;
@@ -61,6 +62,8 @@ class AdminComponent extends BackendComponent
 
     protected function _run()
     {
+        //\Yii::$app->skeeks->setSite(CmsSite::findOne(1));
+
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
 
         $theme = new \skeeks\cms\themes\unify\admin\UnifyThemeAdmin();

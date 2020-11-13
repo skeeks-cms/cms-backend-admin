@@ -172,11 +172,11 @@ JS
                                     <? foreach ($sites as $site) : ?>
                                         <li class="g-mt-5">
 
-                                            <?php if(!$site->cmsSiteDomains && !$site->is_default) : ?>
+                                            <?php /*if(!$site->cmsSiteDomains && !$site->is_default) : */?><!--
                                                 <a class="media g-py-5 g-px-20" href="#" style="opacity: 0.2;" onclick="sx.notify.error('У этого сайта не задано доменное имя'); return false;">
-                                            <?php else: ?>
-                                                <a class="media g-py-5 g-px-20" href="<?= $site->url.\yii\helpers\Url::to(['/admin/admin-index']); ?>">
-                                            <?php endif; ?>
+                                            --><?php /*else: */?>
+                                                <a class="media g-py-5 g-px-20" href="<?= \yii\helpers\Url::current(['cms_site_id' => $site->id]); ?>">
+                                            <?php /*endif; */?>
 
 
 
@@ -221,7 +221,9 @@ JS
 
                                                 <span class="media-body align-self-center">
                                                     <?= $site->internalName; ?>
-                                                    <div style="font-size: 10px; color: gray;"><?= $site->url; ?></div>
+                                                    <?php if ($site->cmsSiteDomains) : ?>
+                                                        <div style="font-size: 10px; color: gray;"><?= $site->url; ?></div>
+                                                    <?php endif; ?>
                                             </span>
                                             </a>
                                         </li>
