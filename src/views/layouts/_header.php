@@ -238,7 +238,7 @@ JS
                 <?php if(\Yii::$app->skeeks->site->cmsSiteMainDomain || (!\Yii::$app->skeeks->site->cmsSiteMainDomain && Yii::$app->skeeks->site->is_default)) : ?>
                     <div class="g-pos-rel sx-btn-backend-header">
                         <a id="messagesInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20"
-                           href="<?= \yii\helpers\Url::home(); ?>"
+                           href="<?= \Yii::$app->skeeks->site->url; ?>"
                            target="_blank"
                            title="<?= \Yii::t('skeeks/cms', 'To main page of site') ?>"
                         >
