@@ -175,7 +175,7 @@ JS
                                             <?php /*if(!$site->cmsSiteDomains && !$site->is_default) : */?><!--
                                                 <a class="media g-py-5 g-px-20" href="#" style="opacity: 0.2;" onclick="sx.notify.error('У этого сайта не задано доменное имя'); return false;">
                                             --><?php /*else: */?>
-                                                <a class="media g-py-5 g-px-20" href="<?= \yii\helpers\Url::current(['cms_site_id' => $site->id]); ?>">
+                                                <a class="media g-py-5 g-px-20" href="<?= \yii\helpers\Url::current([\skeeks\cms\admin\AdminUrlRule::SITE_PARAM_NAME => $site->id]); ?>">
                                             <?php /*endif; */?>
 
 

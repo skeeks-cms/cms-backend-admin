@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  */
 class AdminUrlRule extends BackendUrlRule
 {
+    const SITE_PARAM_NAME = '__cms_site_id';
     /**
      * @param \yii\web\UrlManager $manager
      * @param string              $route
@@ -24,8 +25,8 @@ class AdminUrlRule extends BackendUrlRule
      */
     public function createUrl($manager, $route, $params)
     {
-        if (!isset($params['cms_site_id'])) {
-            $params['cms_site_id'] = \Yii::$app->skeeks->site->id;
+        if (!isset($params[self::SITE_PARAM_NAME])) {
+            $params[self::SITE_PARAM_NAME] = \Yii::$app->skeeks->site->id;
         }
 
         return parent::createUrl($manager, $route, $params);
@@ -39,10 +40,10 @@ class AdminUrlRule extends BackendUrlRule
     public function parseRequest($manager, $request)
     {
         $params = $request->getQueryParams();
-        if (isset($params['cms_site_id'])) {
-            if ($params['cms_site_id'] != \Yii::$app->skeeks->site->id) {
+        if (isset($params[self::SITE_PARAM_NAME])) {
+            if ($params[self::SITE_PARAM_NAME] != \Yii::$app->skeeks->site->id) {
                 $class = \Yii::$app->skeeks->siteClass;
-                \Yii::$app->skeeks->site = $class::findOne($params['cms_site_id']);
+                \Yii::$app->skeeks->site = $class::findOne($params[self::SITE_PARAM_NAME]);
             }
         }
         return parent::parseRequest($manager, $request);
