@@ -158,7 +158,11 @@ JS
 
                             </span>
                                 <span class="g-pos-rel g-top-2">
-                                <span class="g-hidden-sm-down"><?= \Yii::$app->skeeks->site->internalName; ?></span>
+                                <span class="g-hidden-sm-down" title="<?= \Yii::$app->skeeks->site->internalName; ?>" style="    max-width: 150px;
+    overflow: hidden;
+    display: inline-flex;
+    white-space: nowrap;
+}"><?= \Yii::$app->skeeks->site->internalName; ?></span>
                                 <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-5"></i>
                             </span>
                             </a>
