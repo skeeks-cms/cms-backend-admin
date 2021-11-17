@@ -8,14 +8,13 @@
 
 namespace skeeks\cms\admin\components;
 
+use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\backend\widgets\ActiveFormBackend;
 use skeeks\cms\base\Component;
-use skeeks\cms\base\Widget;
 use skeeks\cms\components\Cms;
 use skeeks\cms\models\CmsLang;
-use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\modules\admin\base\AdminDashboardWidget;
 use skeeks\cms\modules\admin\components\Menu;
 use skeeks\cms\modules\admin\dashboards\AboutCmsDashboard;
@@ -23,13 +22,7 @@ use skeeks\cms\modules\admin\dashboards\CmsInformDashboard;
 use skeeks\cms\modules\admin\dashboards\ContentElementListDashboard;
 use skeeks\cms\modules\admin\dashboards\DiscSpaceDashboard;
 use skeeks\yii2\ckeditor\CKEditorPresets;
-use yii\base\BootstrapInterface;
-use yii\base\Theme;
 use yii\helpers\ArrayHelper;
-use yii\web\Application;
-use yii\web\ForbiddenHttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /**
@@ -48,7 +41,7 @@ class AdminSettingsComponent extends Component
     static public function descriptorConfig()
     {
         return array_merge(parent::descriptorConfig(), [
-            'name' => \Yii::t('skeeks/cms', 'Admin panel'),
+            'name'  => \Yii::t('skeeks/cms', 'Admin panel'),
             'image' => [AdminAsset::class, 'img/admin.jpeg'],
         ]);
     }
@@ -271,10 +264,12 @@ class AdminSettingsComponent extends Component
             'codeSnippet_theme' => $this->ckeditorCodeSnippetTheme,
         ];
 
+        $preset = $this->getBaseCkeditorConfig();
+
         if ($this->ckeditorCodeSnippetGeshi == Cms::BOOL_Y) {
             $clientOptions['codeSnippetGeshi_url'] = '../lib/colorize.php';
 
-            $preset = CKEditorPresets::getPresets($this->ckeditorPreset);
+            //$preset = CKEditorPresets::getPresets($this->ckeditorPreset);
             $extraplugins = ArrayHelper::getValue($preset, 'extraPlugins', "");
 
             if ($extraplugins) {
@@ -287,9 +282,140 @@ class AdminSettingsComponent extends Component
             $clientOptions['extraPlugins'] = implode(',', $extraplugins);
         }
 
+        $preset = ArrayHelper::merge($preset, $clientOptions);
+
         return [
-            'preset'        => $this->ckeditorPreset,
-            'clientOptions' => $clientOptions,
+            'preset'        => false,
+            //'preset'        => $this->ckeditorPreset,
+            'clientOptions' => $preset,
+        ];
+    }
+
+    public function getBaseCkeditorConfig()
+    {
+        return [
+            'height'         => 400,
+            //'skin'              => "moonocolor",
+            'allowedContent' => true,
+            'extraPlugins'   => 'ckwebspeech,youtube,doksoft_stat,sourcedialog,codemirror,ajax,codesnippet,xml,widget,lineutils,dialog,dialogui',
+            //'indentClasses'     => ["ul-grey", "ul-red", "text-red", "ul-content-red", "circle", "style-none", "decimal", "paragraph-portfolio-top", "ul-portfolio-top", "url-portfolio-top", "text-grey"],
+            'toolbar'        => [
+                [
+                    'name'   => 'document',
+                    'groups' => ['mode', 'document', 'doctools'],
+                    'items'  => [
+                        'Source',
+                        '-',
+                        //'Save',
+                        //'NewPage',
+                        //'Preview',
+                        'Print',
+                        //'-', 'Templates'
+                    ],
+                ],
+                [
+                    'name'   => 'clipboard',
+                    'groups' => ['clipboard', 'undo'],
+                    'items'  => [
+                        //'Cut', 'Copy', 'Paste',
+                        'PasteText',
+                        'PasteFromWord',
+                        '-',
+                        'Undo',
+                        'Redo',
+                    ],
+                ],
+                ['name' => 'editing', 'groups' => ['find', 'selection', 'spellchecker'], 'items' => ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt']],
+                [
+                    'name'  => 'tools',
+                    'items' => [
+                        'Maximize',
+                        'ShowBlocks',
+                    ],
+                ],
+                //['name' => 'others', 'items' => ['-']],
+                //['name' => 'about', 'items' => ['About']],
+                [
+                    'name'  => 'extra',
+                    'items' => [
+                        'Youtube', /*'pbckcode',*/
+                        'CodeSnippet',
+                    ],
+                ],
+
+                [
+                    'name'  => 'insert',
+                    'items' => [
+
+                        'HorizontalRule',
+                        'Smiley',
+                        'SpecialChar',
+                        'PageBreak',
+                        //    'Iframe'
+                    ],
+                ],
+
+                //['name' => 'forms', 'items' => ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']],
+                '/',
+                ['name' => 'styles', 'items' => [
+                    //'Styles',
+                    'Format',
+                    //'Font',
+                    'FontSize']],
+                ['name' => 'colors', 'items' => ['TextColor', 'BGColor']],
+
+                ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup'], 'items' => ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']],
+                [
+                    'name'   => 'paragraph',
+                    'groups' => ['list', 'indent', 'blocks', 'align', 'bidi'],
+                    'items'  => [
+                        'NumberedList',
+                        'BulletedList',
+                        /*'-',
+                        'Outdent',
+                        'Indent',*/
+                        '-',
+                        'Blockquote',
+                        //CreateDiv',
+                        '-',
+                        'JustifyLeft',
+                        'JustifyCenter',
+                        'JustifyRight',
+                        'JustifyBlock',
+                        /*'-',
+                        'BidiLtr',
+                        'BidiRtl',
+                        'Language',*/
+                    ],
+                ],
+                ['name' => 'links', 'items' => ['Image',
+                        //'Flash',
+                        'Table', 'Link', 'Unlink', 'Anchor', ]],
+
+                /*'/',*/
+
+
+                //['name' => 'ckwebspeech', 'items' => ['webSpeechEnabled', 'webSpeechSettings']],
+            ],
+            'toolbarGroups'  => [
+                ['name' => 'document', 'groups' => ['mode', 'document', 'doctools']],
+                ['name' => 'clipboard', 'groups' => ['clipboard', 'undo']],
+                ['name' => 'editing', 'groups' => ['find', 'selection', 'spellchecker']],
+                ['name' => 'forms'],
+                '/',
+                ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+                ['name' => 'paragraph', 'groups' => ['list', 'indent', 'blocks', 'align', 'bidi']],
+                ['name' => 'links'],
+                ['name' => 'insert'],
+                '/',
+                ['name' => 'styles'],
+                ['name' => 'colors'],
+                ['name' => 'tools'],
+                ['name' => 'others'],
+                ['name' => 'about'],
+                ['name' => 'extra'],
+                //['name' => 'ckwebspeech'],
+            ],
         ];
     }
 

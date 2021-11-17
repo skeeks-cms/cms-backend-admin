@@ -34,7 +34,7 @@ use yii\helpers\Html;
 <? $fieldSet::end(); ?>
 
 <? $form->fieldSet(\Yii::t('skeeks/admin','Setting the visual editor')); ?>
-    <?= $form->fieldSelect($model, 'ckeditorPreset', \skeeks\yii2\ckeditor\CKEditorPresets::allowPresets()); ?>
+    <?/*= $form->fieldSelect($model, 'ckeditorPreset', \skeeks\yii2\ckeditor\CKEditorPresets::allowPresets()); */?>
     <?= $form->fieldSelect($model, 'ckeditorSkin', \skeeks\yii2\ckeditor\CKEditorPresets::skins()); ?>
     <?= $form->field($model, 'ckeditorHeight'); ?>
     <?= $form->field($model, 'ckeditorCodeSnippetGeshi')
