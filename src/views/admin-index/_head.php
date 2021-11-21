@@ -10,13 +10,13 @@ $model->columns = 1;
 ?>
 <div class="row sx-main-head sx-bg-glass sx-bg-glass-hover">
     <div class="col-md-6 pull-left">
-        <a href="#" data-toggle="modal" data-target="#sx-dashboard-create" class="btn btn-default btn-primary"><i class="fa fa-plus"></i> <?= \Yii::t('skeeks/cms', 'Add dashboard'); ?></a>
+        <a href="#" data-toggle="modal" data-target="#sx-dashboard-create" class="btn btn-primary"><i class="fa fa-plus"></i> <?= \Yii::t('skeeks/cms', 'Add dashboard'); ?></a>
     </div>
     <div class="col-md-6">
         <div class="pull-right">
-            <a href="#" data-toggle="modal" data-target="#sx-dashboard-widget-create" class="btn btn-default btn-primary"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
-            <a href="#" data-toggle="modal" data-target="#sx-dashboard-edit" class="btn btn-default btn-primary"><i class="fa fa-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
-            <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-default btn-danger"><i class="fa fa-times"></i> <?= \Yii::t('skeeks/cms', 'Delete'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#sx-dashboard-widget-create" class="btn btn-primary"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#sx-dashboard-edit" class="btn btn-primary"><i class="fa fa-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
+            <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-danger"><i class="fa fa-times"></i> <?= \Yii::t('skeeks/cms', 'Delete'); ?></a>
         </div>
     </div>
 </div>
