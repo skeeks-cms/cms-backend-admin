@@ -160,7 +160,9 @@ class AdminComponent extends BackendComponent
                     /*var_dump(\Yii::$app->controller->uniqueId);
                     die();*/
                     $user = \Yii::$app->user->identity;
-                    if (!$user->email || !$user->first_name || !$user->last_name || !$user->image) {
+                    if (!$user->email || !$user->first_name || !$user->last_name 
+                        //|| !$user->image
+                    ) {
                         \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/update']));
                     }
                 }
