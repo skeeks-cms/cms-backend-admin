@@ -32,6 +32,61 @@ $this->registerCss(<<<CSS
     margin-top: 10px;
 }
 
+
+.g-brd-gray-light-v7 {
+    border-color: #e1eaea !important;
+}
+.g-mb-20 {
+    margin-bottom: 1.42857rem !important;
+}
+
+.g-rounded-3 {
+    border-radius: 3px !important;
+}
+.card, .card-header {
+    border-color: #eee;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.g-pb-15--sm {
+    padding-bottom: 1.07143rem !important;
+}
+.g-mr-10 {
+    margin-right: 0.71429rem !important;
+}
+
+.g-color-black {
+    color: #000 !important;
+}
+.text-uppercase {
+    text-transform: uppercase!important;
+}
+.g-font-size-default--md {
+    font-size: 1rem !important;
+}
+.g-color-gray-light-v3 {
+    color: #ddd !important;
+}
+.g-ml-10 {
+    margin-left: 0.71429rem !important;
+}
+
 CSS
 );
 
