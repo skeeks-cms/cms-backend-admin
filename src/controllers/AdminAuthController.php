@@ -24,6 +24,7 @@ use skeeks\cms\modules\admin\controllers\helpers\ActionManager;
 use skeeks\cms\modules\admin\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * Class AuthController
@@ -105,7 +106,8 @@ class AdminAuthController extends BackendController
         }
     }
 
-    public function actionResetPassword()
+    
+    public function _actionResetPassword()
     {
         $this->view->title = \Yii::t('skeeks/cms', 'Password recovery');
         $this->layout = '@app/views/layouts/unauthorized.php';
@@ -204,57 +206,27 @@ class AdminAuthController extends BackendController
 
     public function actionAuth()
     {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->redirect(Url::to(['/admin/admin-index']));
+        }
+        
         $this->view->title = \Yii::t('skeeks/cms', 'Authorization');
         $this->layout = '@app/views/layouts/unauthorized';
 
-        $goUrl = "";
-        $loginModel = new LoginFormUsernameOrEmail();
-
+        $goUrl = Url::to(['/admin/admin-index']);
         if ($ref = UrlHelper::getCurrent()->getRef()) {
             $goUrl = $ref;
         }
 
-        $rr = new RequestResponse();
-
-        if (!\Yii::$app->user->isGuest) {
-            return $goUrl ? $this->redirect($goUrl) : $this->goHome();
-        }
-
-
-            if ($rr->isRequestOnValidateAjaxForm()) {
-                return $rr->ajaxValidateForm($loginModel);
-            }
-
-            if ($rr->isRequestAjaxPost()) {
-                if ($loginModel->load(\Yii::$app->request->post()) && $loginModel->login()) {
-                    if (!$goUrl) {
-                        $goUrl = \Yii::$app->getUser()->getReturnUrl($defaultUrl);
-                    }
-
-                    $rr->redirect = $goUrl;
-
-                    $rr->success = true;
-                    $rr->message = "";
-                    $rr->message = "";
-                    return (array)$rr;
-                } else {
-                    $rr->success = false;
-                    $rr->message = \Yii::t('skeeks/cms', "Unsuccessful attempt authorization");
-                    return (array)$rr;
-                }
-            }
-
-
-
+        \Yii::$app->getUser()->setReturnUrl($goUrl);
 
         return $this->render('auth', [
-            'loginModel'         => $loginModel,
             'goUrl'              => $goUrl,
         ]);
     }
 
 
-    public function actionForget()
+    public function _actionForget()
     {
         $this->view->title = \Yii::t('skeeks/cms', 'Authorization');
         $this->layout = '@app/views/layouts/unauthorized';

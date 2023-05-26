@@ -216,6 +216,14 @@ JS
                                     <span class="media-body align-self-center"><?= \Yii::t('skeeks/cms', 'Profile') ?></span>
                                 </a>
                             </li>
+                            <li>
+                                <a class="media" href="<?= \yii\helpers\Url::to(['/cms/admin-profile/password']); ?>">
+                                    <span class="d-flex align-self-center sx-i-w">
+                                      <i class="hs-admin-settings"></i>
+                                    </span>
+                                    <span class="media-body align-self-center"><?= \Yii::t('skeeks/cms', 'Security'); ?></span>
+                                </a>
+                            </li>
 
                             <li>
                                 <a class="media" href="<?= \skeeks\cms\helpers\UrlHelper::construct('admin/admin-auth/lock')->setCurrentRef(); ?>" data-method="post">

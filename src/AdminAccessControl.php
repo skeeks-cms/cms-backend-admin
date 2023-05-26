@@ -10,6 +10,7 @@ namespace skeeks\cms\admin;
 
 use skeeks\cms\helpers\RequestResponse;
 use skeeks\cms\helpers\UrlHelper;
+use skeeks\cms\rbac\CmsManager;
 use yii\web\ForbiddenHttpException;
 use yii\web\User;
 
@@ -41,8 +42,10 @@ class AdminAccessControl extends \yii\filters\AccessControl
             }
 
         } else {
-            throw new ForbiddenHttpException(\Yii::t('yii',
-                \Yii::t('skeeks/cms', 'You are not allowed to perform this action.')));
+            if (!\Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_ACCESS)) {
+                throw new ForbiddenHttpException(\Yii::t('yii',
+                    \Yii::t('skeeks/cms', 'You are not allowed to perform this action.')));
+            }
         }
     }
 }

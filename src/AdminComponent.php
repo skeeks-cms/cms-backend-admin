@@ -152,18 +152,30 @@ class AdminComponent extends BackendComponent
 
             //Для работы с системой управления сайтом, будем требовать от пользователя реальные данные
             if (\Yii::$app->user->isGuest === false) {
+                if (!in_array(\Yii::$app->controller->action->uniqueId, [
+                    'cms/admin-profile/password',
+                ])) {
+                    $user = \Yii::$app->user->identity;
+                    if (!$user->password_hash && \Yii::$app->cms->pass_is_need_change) {
+                        \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/password']));
+                        return true;
+                    }
+                }
+            }
+            
+            //Для работы с системой управления сайтом, будем требовать от пользователя реальные данные
+            if (\Yii::$app->user->isGuest === false) {
                 if (!in_array(\Yii::$app->controller->uniqueId, [
                     'admin/error',
-                    'cms/admin-profile',
-                ])) {
-                //if (\Yii::$app->controller->uniqueId != 'cms/admin-profile') {
-                    /*var_dump(\Yii::$app->controller->uniqueId);
-                    die();*/
+                ]) && !in_array(\Yii::$app->controller->action->uniqueId, [
+                    'cms/admin-profile/update',
+                ]) ) {
                     $user = \Yii::$app->user->identity;
                     if (!$user->email || !$user->first_name || !$user->last_name 
                         //|| !$user->image
                     ) {
                         \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/update']));
+                        return true;
                     }
                 }
             }
