@@ -198,7 +198,7 @@ JS
                         <a class="d-block dropdown-toggle" href="#" data-toggle="dropdown">
                             <span class="g-pos-rel">
                                 <img class="rounded-circle sx-avatar"
-                                     src="<?= \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>" alt="Image description">
+                                     src="<?= \Yii::$app->user->identity && \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>" alt="Image description">
                             </span>
                             <span class="g-pos-rel g-top-2">
                                 <span class="g-hidden-sm-down"><?= \Yii::$app->user->identity->shortDisplayName; ?></span>
