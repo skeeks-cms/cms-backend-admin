@@ -165,10 +165,12 @@ class AdminComponent extends BackendComponent
             
             //Для работы с системой управления сайтом, будем требовать от пользователя реальные данные
             if (\Yii::$app->user->isGuest === false) {
+                
                 if (!in_array(\Yii::$app->controller->uniqueId, [
                     'admin/error',
                 ]) && !in_array(\Yii::$app->controller->action->uniqueId, [
                     'cms/admin-profile/update',
+                    'cms/admin-profile/password',
                 ]) ) {
                     $user = \Yii::$app->user->identity;
                     if (!$user->email || !$user->first_name || !$user->last_name 
@@ -179,7 +181,6 @@ class AdminComponent extends BackendComponent
                     }
                 }
             }
-            
         });
 
         \Yii::$container->setDefinitions(ArrayHelper::merge(
