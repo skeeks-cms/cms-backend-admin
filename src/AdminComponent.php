@@ -163,10 +163,10 @@ class AdminComponent extends BackendComponent
                     }
                     
                     //Проверка надежности пароля
-                    if (\Yii::$app->cms->isBadPassword($user)) {
+                    /*if (\Yii::$app->cms->isBadPassword($user)) {
                         \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/password']));
                         return true;
-                    }
+                    }*/
 
                 }
             }
