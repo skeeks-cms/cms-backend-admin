@@ -13,6 +13,7 @@ use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use skeeks\cms\IHasPermissions;
 use skeeks\cms\models\CmsSite;
+use skeeks\cms\models\CmsUser;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
 use skeeks\yii2\form\fields\SelectField;
@@ -160,6 +161,13 @@ class AdminComponent extends BackendComponent
                         \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/password']));
                         return true;
                     }
+                    
+                    //Проверка надежности пароля
+                    if (\Yii::$app->cms->isBadPassword($user)) {
+                        \Yii::$app->response->redirect(Url::to(['/cms/admin-profile/password']));
+                        return true;
+                    }
+
                 }
             }
             

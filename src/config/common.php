@@ -15,7 +15,7 @@ return [
             'controllerPrefix' => 'admin',
             'urlRule'          => [
                 'urlPrefix' => '~sx',
-                'class' => \skeeks\cms\admin\AdminUrlRule::class,
+                //'class' => \skeeks\cms\admin\AdminUrlRule::class,
             ],
         ],
 

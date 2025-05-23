@@ -28,11 +28,16 @@ $langs = \skeeks\cms\models\CmsLang::find()->active()->all();
             </div>
 
             <div class="col-auto d-flex sx-breadcrumbs-wrapper">
-                <?= $this->render("@app/views/layouts/_breadcrumbs"); ?>
+                <? /*= $this->render("@app/views/layouts/_breadcrumbs"); */ ?>
+                <?= \skeeks\cms\widgets\admin\CmsUserScheduleBtnWidget::widget(); ?>
             </div>
 
 
             <div class="col-auto d-flex ml-auto sx-right-col">
+
+                <?= \skeeks\cms\widgets\admin\CmsWebNotifyWidget::widget(); ?>
+
+
                 <?php if (\Yii::$app->skeeks->site->cmsSiteMainDomain || (!\Yii::$app->skeeks->site->cmsSiteMainDomain && Yii::$app->skeeks->site->is_default)) : ?>
                     <div class="sx-btn-backend-header">
                         <a
@@ -45,7 +50,7 @@ $langs = \skeeks\cms\models\CmsLang::find()->active()->all();
                         </a>
                     </div>
                 <?php endif; ?>
-                <? if (\Yii::$app->user->can('cms/admin-cache')) : ?>
+                <? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ROLE_ADMIN_ACCESS)) : ?>
                     <?
                     $clearCacheOptions = \yii\helpers\Json::encode([
                         'backend' => \skeeks\cms\helpers\UrlHelper::construct(['/cms/admin-cache/invalidate'])->enableAdmin()->toString(),
@@ -93,8 +98,7 @@ JS
                 </li>-->
                 <? endif; ?>
 
-                <? if (\Yii::$app->user->can('cms/admin-settings')) : ?>
-
+                <? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ROLE_ADMIN_ACCESS)) : ?>
                     <div class="sx-btn-backend-header">
                         <a
                                 href="<?= \yii\helpers\Url::to(['/cms/admin-settings']); ?>"
@@ -104,7 +108,6 @@ JS
                             <i class="hs-admin-settings g-absolute-centered"></i>
                         </a>
                     </div>
-
                 <? endif; ?>
 
 
@@ -198,7 +201,8 @@ JS
                         <a class="d-block dropdown-toggle" href="#" data-toggle="dropdown">
                             <span class="g-pos-rel">
                                 <img class="rounded-circle sx-avatar"
-                                     src="<?= \Yii::$app->user->identity && \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>" alt="Image description">
+                                     src="<?= \Yii::$app->user->identity && \Yii::$app->user->identity->avatarSrc ? \Yii::$app->user->identity->avatarSrc : \skeeks\cms\helpers\Image::getCapSrc(); ?>"
+                                     alt="Image description">
                             </span>
                             <span class="g-pos-rel g-top-2">
                                 <span class="g-hidden-sm-down"><?= \Yii::$app->user->identity->shortDisplayName; ?></span>
