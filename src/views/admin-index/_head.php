@@ -34,8 +34,8 @@ $model->columns = 1;
         'id'                => 'sx-create-widget-form',
         'usePjax'           => false,
         'useAjaxSubmit'     => true,
-        'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-widget-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
-        'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-widget-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
+        'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-widget-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
+        'action'            => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-widget-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
 
         'clientCallback' => new \yii\web\JsExpression(<<<JS
     function (ActiveFormAjaxSubmit) {
@@ -78,8 +78,8 @@ JS
             'id'                => 'sx-dashboard-create-form',
             'usePjax'           => false,
             'useAjaxSubmit'     => true,
-            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
-            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
+            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-create-validate', 'pk' => $model->id])->enableAdmin()->toString(),
+            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-create-save', 'pk' => $model->id])->enableAdmin()->toString(),
 
             'clientCallback' => new \yii\web\JsExpression(<<<JS
     function (ActiveFormAjaxSubmit) {
@@ -121,8 +121,8 @@ JS
             'id'                => 'sx-dashboard-edit-form',
             'usePjax'           => false,
             'useAjaxSubmit'     => true,
-            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-validate', 'pk' => $dashboard->id])->enableAdmin()->toString(),
-            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['admin/admin-index/dashboard-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
+            'validationUrl'     => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-validate', 'pk' => $dashboard->id])->enableAdmin()->toString(),
+            'action'            => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/dashboard-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
 
             'clientCallback' => new \yii\web\JsExpression(<<<JS
     function (ActiveFormAjaxSubmit) {

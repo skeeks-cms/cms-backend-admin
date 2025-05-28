@@ -10,7 +10,7 @@
 
 use skeeks\cms\base\widgets\ActiveFormAjaxSubmit as ActiveForm;
 
-$logoutUrl = \skeeks\cms\helpers\UrlHelper::construct("admin/admin-auth/logout")->enableAdmin()->setCurrentRef();
+$logoutUrl = \skeeks\cms\helpers\UrlHelper::construct("/admin/admin-auth/logout")->enableAdmin()->setCurrentRef();
 
 $this->registerCss(<<<CSS
 .auth-clients {
