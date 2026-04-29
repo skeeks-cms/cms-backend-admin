@@ -18,19 +18,48 @@ $langs = \skeeks\cms\models\CmsLang::find()->active()->all();
 <header id="js-header" class="sx-header sx-header--sticky-top">
     <div class="<?= $theme->headerClasses; ?>">
         <nav class="navbar no-gutters">
-            <div class="col-auto d-flex flex-nowrap sx-header-logo-toggler">
-                <a href="<?= $theme->logoHref; ?>" class="navbar-brand d-flex align-self-center g-hidden-xs-down">
-                    <? if ($theme->logoSrc) : ?>
-                        <img class="default-logo" src="<?= $theme->logoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
-                    <? endif; ?>
-                    <?= $theme->logoTitle; ?>
-                </a>
-            </div>
 
-            <div class="col-auto d-flex sx-breadcrumbs-wrapper">
-                <? /*= $this->render("@app/views/layouts/_breadcrumbs"); */ ?>
-                <?= \skeeks\cms\widgets\admin\CmsUserScheduleBtnWidget::widget(); ?>
-            </div>
+            <?php if(\Yii::$app->mobileDetect->isMobile) : ?>
+                <?
+                $this->registerJs(<<<JS
+$('.navbar-toggler').on('click', function(e) {
+    e.preventDefault();
+    $('#sideNav').toggleClass('active');
+});
+JS
+                );
+                ?>
+                <div class="u-header-toggler">
+                    <a href="#sx-menu" class="navbar-toggler btn g-px-0 g-valign-middle" aria-label="Меню" title="Меню">
+                    <span class="hamburger">
+                    <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                    </span>
+                    </span>
+                    </a>
+                </div>
+            <?php else : ?>
+                <div class="col-auto d-flex flex-nowrap sx-header-logo-toggler">
+                    <a href="<?= $theme->logoHref; ?>" class="navbar-brand d-flex align-self-center g-hidden-xs-down">
+                        <? if ($theme->logoSrc) : ?>
+                            <img class="default-logo" src="<?= $theme->logoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
+                        <? endif; ?>
+                        <?= $theme->logoTitle; ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+
+
+
+
+
+            <?php if(!\Yii::$app->mobileDetect->isMobile) : ?>
+                <div class="col-auto d-flex sx-breadcrumbs-wrapper">
+                    <?= \skeeks\cms\widgets\admin\CmsUserScheduleBtnWidget::widget(); ?>
+                </div>
+            <?php endif; ?>
+
+
 
 
             <div class="col-auto d-flex ml-auto sx-right-col">
