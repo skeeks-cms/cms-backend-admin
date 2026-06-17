@@ -16,6 +16,7 @@ use skeeks\cms\models\CmsSite;
 use skeeks\cms\models\CmsUser;
 use skeeks\cms\modules\admin\filters\AdminLastActivityAccessControl;
 use skeeks\cms\rbac\CmsManager;
+use skeeks\cms\telephony\widgets\TelephonyWidget;
 use skeeks\yii2\form\fields\SelectField;
 use yii\base\Application;
 use yii\base\Theme;
@@ -199,6 +200,9 @@ class AdminComponent extends BackendComponent
                 ],*/
             ]
         ));
+
+        TelephonyWidget::widget();
+
         parent::_run();
     }
 
