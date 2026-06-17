@@ -8,7 +8,7 @@
 
 namespace skeeks\cms\admin\components;
 
-use skeeks\cms\admin\assets\AdminAsset;
+use skeeks\cms\assets\CmsAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\helpers\BackendUrlHelper;
 use skeeks\cms\backend\widgets\ActiveFormBackend;
@@ -42,7 +42,10 @@ class AdminSettingsComponent extends Component
     {
         return array_merge(parent::descriptorConfig(), [
             'name'  => \Yii::t('skeeks/cms', 'Admin panel'),
-            'image' => [AdminAsset::class, 'img/admin.jpeg'],
+            'image' => [
+                CmsAsset::class,
+                'images/icons/admin-menu/admin-panel.svg'
+            ],
         ]);
     }
 
