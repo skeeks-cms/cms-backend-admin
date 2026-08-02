@@ -16,10 +16,30 @@
 
         .sx-file-manager ul li img
         {
-            border: 2px solid silver;
+            border: 2px solid var(--sx-file-border-color, silver);
+            border-radius: var(--sx-form-field-radius, 6px);
+            transition:
+                border-color var(--sx-form-control-transition-duration, 160ms) ease-out,
+                box-shadow var(--sx-form-control-transition-duration, 160ms) ease-out;
         }
 
             .sx-file-manager ul li img:hover
             {
-                border: 2px solid deepskyblue;
+                border-color: var(--sx-color-accent, deepskyblue);
+                box-shadow: 0 0 0 3px var(--sx-color-focus-ring, rgba(0, 191, 255, .2));
             }
+
+            .sx-file-manager ul li img:focus-visible
+            {
+                outline: 0;
+                border-color: var(--sx-color-accent, deepskyblue);
+                box-shadow: 0 0 0 3px var(--sx-color-focus-ring, rgba(0, 191, 255, .2));
+            }
+
+@media (prefers-reduced-motion: reduce)
+{
+    .sx-file-manager ul li img
+    {
+        transition: none;
+    }
+}

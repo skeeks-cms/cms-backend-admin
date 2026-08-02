@@ -8,6 +8,7 @@
 
 namespace skeeks\cms\admin\widgets;
 
+use skeeks\cms\admin\assets\AdminPanelAsset;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -48,7 +49,7 @@ class AdminPanelWidget extends Widget
      * @var array
      */
     public $headingOptions = [
-        'class' => 'panel-heading card-header g-brd-bottom-none g-px-15 g-px-30--sm g-pt-15 g-pt-20--sm g-pb-10 g-pb-15--sm'
+        'class' => 'panel-heading card-header sx-admin-panel__header',
     ];
 
 
@@ -83,7 +84,8 @@ class AdminPanelWidget extends Widget
     public function init()
     {
         Html::addCssClass($this->options, ['panel', 'sx-panel', $this->color]);
-        Html::addCssClass($this->options, ['card', 'g-brd-gray-light-v7', 'g-rounded-3', 'g-mb-20']);
+        AdminPanelAsset::register($this->view);
+        Html::addCssClass($this->options, ['card', 'sx-admin-panel']);
 
         $options = ArrayHelper::merge($this->options, [
             'id' => $this->id,
@@ -96,7 +98,7 @@ class AdminPanelWidget extends Widget
         echo <<<HTML
 
                 <div class="media">
-                    <h3 class="d-flex align-self-center text-uppercase g-font-size-12 g-font-size-default--md g-color-black g-mr-10 mb-0">
+                    <h3 class="d-flex align-self-center text-uppercase sx-admin-panel__title mb-0">
                         {$this->name}
                     </h3>
                     <div class="panel-actions panel-hidden-actions media-body d-flex justify-content-end">
@@ -137,23 +139,6 @@ HTML;
         }
 
         self::$_isRegisteredJs = true;
-
-        \Yii::$app->view->registerCss(<<<CSS
-
-.sx-panel-full
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-
-
-CSS
-        );
 
         \Yii::$app->view->registerJs(<<<JS
         $(".sx-btn-trigger-full").on('click', function()

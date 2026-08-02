@@ -1,0 +1,86 @@
+.sx-auth-widget .auth-clients {
+    padding-left: 0;
+}
+
+.sx-auth-widget .sx-auth-action {
+    display: none;
+}
+
+.sx-auth-widget .form-control {
+    padding: var(--sx-form-control-padding-y) var(--sx-form-control-padding-x);
+    color: var(--sx-form-control-color);
+    background: var(--sx-form-control-background);
+    border-color: var(--sx-form-control-border-color);
+}
+
+.sx-auth-widget a:not(.btn) {
+    color: var(--sx-color-accent);
+}
+
+.sx-auth-widget a:not(.btn):hover,
+.sx-auth-widget a:not(.btn):focus {
+    color: var(--sx-color-accent-hover);
+}
+
+.sx-auth-widget .sx-dashed {
+    border-bottom: 1px dashed currentColor;
+}
+
+.sx-auth-widget .sx-dashed:hover {
+    text-decoration: none;
+}
+
+.sx-auth-widget .sx-email-code-wait,
+.sx-auth-widget .sx-phone-code-wait {
+    color: var(--sx-color-text-muted);
+}
+
+.sx-auth-widget .sx-callcheck-info {
+    margin-bottom: 10px;
+    color: var(--sx-color-text-muted);
+}
+
+.sx-auth-widget .sx-auth-visually-hidden {
+    display: none;
+}
+
+.sx-auth-widget .input-group {
+    position: relative;
+}
+
+.sx-auth-widget .input-group > .form-control {
+    width: 100%;
+    border-radius: var(--sx-form-control-radius);
+}
+
+.sx-auth-password-toggle {
+    display: inline-flex;
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    right: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    color: var(--sx-color-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: var(--sx-radius-control);
+    transform: translateY(-50%);
+}
+
+.sx-auth-password-toggle:hover {
+    color: var(--sx-color-text);
+    background: var(--sx-color-surface-hover);
+}
+
+.sx-auth-password-toggle:focus-visible {
+    outline: 2px solid var(--sx-color-focus-ring);
+    outline-offset: 1px;
+}
+
+.sx-auth-widget .sx-auth-password-toggle + .form-control {
+    padding-right: 48px;
+}

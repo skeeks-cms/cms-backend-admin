@@ -1,0 +1,231 @@
+body.sx-auth-layout {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--sx-color-text);
+    background:
+        radial-gradient(circle at 50% 32%, var(--sx-color-accent-soft), transparent 30rem),
+        radial-gradient(circle at 8% 8%, var(--sx-color-surface-raised), transparent 34rem),
+        radial-gradient(circle at 92% 92%, var(--sx-color-surface-muted), transparent 36rem),
+        var(--sx-color-canvas);
+    background-attachment: fixed;
+    font-family: var(--sx-font-family-base, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+}
+
+.sx-auth-theme-switcher {
+    position: fixed;
+    z-index: var(--sx-z-sticky);
+    top: 20px;
+    right: 20px;
+    padding: 5px;
+    border: 1px solid var(--sx-color-border);
+    border-radius: 999px;
+    background: var(--sx-color-surface-raised);
+    box-shadow: 0 2px 8px rgba(23, 25, 35, .12);
+    --sx-theme-switcher-track-color: var(--sx-color-text-muted);
+    --sx-theme-switcher-track-border: var(--sx-color-border-strong);
+    --sx-theme-switcher-track-background: var(--sx-color-surface-muted);
+    --sx-theme-switcher-track-shadow: inset 0 1px 0 var(--sx-color-surface);
+    --sx-theme-switcher-track-hover-border: var(--sx-color-accent);
+    --sx-theme-switcher-track-hover-background: var(--sx-color-surface-hover);
+    --sx-theme-switcher-inactive-icon: var(--sx-color-text-subtle);
+}
+
+.sx-auth-layout .sx-preloader {
+    display: flex;
+    position: fixed;
+    z-index: var(--sx-z-blocker);
+    inset: 0;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background: var(--sx-blocker-background);
+    transition: opacity .18s ease, visibility .18s ease;
+}
+
+.sx-auth-layout .sx-preloader::before {
+    position: absolute;
+    inset: 0;
+    width: 60%;
+    content: "";
+    background: linear-gradient(100deg, transparent, var(--sx-blocker-shimmer-color), transparent);
+    pointer-events: none;
+    transform: translateX(-170%);
+    animation: sx-blocker-shimmer var(--sx-blocker-shimmer-duration) cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+html[data-sx-auth-ready] .sx-auth-layout .sx-preloader {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sx-auth-layout .sx-loader-image {
+    position: relative;
+    width: var(--sx-blocker-spinner-size);
+    height: var(--sx-blocker-spinner-size);
+    border: 2px solid var(--sx-blocker-spinner-track);
+    border-top-color: var(--sx-blocker-spinner-color);
+    border-radius: 50%;
+    animation: sx-blocker-spin .72s linear infinite;
+}
+
+.sx-auth-layout__main {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.sx-auth-layout__content {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px 24px;
+}
+
+.sx-auth-page {
+    width: min(100%, 460px);
+}
+
+.sx-auth-card {
+    padding: clamp(24px, 5vw, 40px);
+    background: var(--sx-color-surface);
+    border: 1px solid var(--sx-color-border);
+    border-radius: var(--sx-radius-panel);
+    box-shadow: var(--sx-shadow-popup);
+}
+
+.sx-auth-card__title {
+    margin: 0 0 24px;
+    color: var(--sx-color-text);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.sx-auth-card__avatar {
+    display: block;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 18px;
+    object-fit: cover;
+    border: 2px solid var(--sx-color-surface);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--sx-color-border);
+}
+
+.sx-auth-card__description {
+    margin: 20px 0 0;
+    color: var(--sx-color-text-muted);
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: center;
+}
+
+.sx-auth-card__actions {
+    margin-top: 18px;
+}
+
+.sx-auth-card__secondary-action {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.sx-auth-card__message {
+    color: var(--sx-color-text);
+    line-height: 1.55;
+    text-align: center;
+}
+
+.sx-auth-card .btn {
+    border-radius: var(--sx-radius-control);
+}
+
+.sx-auth-card .btn-primary {
+    color: var(--sx-color-accent-contrast);
+    background: var(--sx-color-accent);
+    border-color: var(--sx-color-accent);
+}
+
+.sx-auth-card .btn-primary:hover,
+.sx-auth-card .btn-primary:focus {
+    background: var(--sx-color-accent-hover);
+    border-color: var(--sx-color-accent-hover);
+}
+
+.sx-auth-card .form-control {
+    color: var(--sx-form-control-color);
+    background: var(--sx-form-control-background);
+    border-color: var(--sx-form-control-border-color);
+}
+
+.sx-auth-card a:not(.btn) {
+    color: var(--sx-color-accent);
+}
+
+.sx-auth-card a:not(.btn):hover,
+.sx-auth-card a:not(.btn):focus {
+    color: var(--sx-color-accent-hover);
+}
+
+.sx-auth-card .btn-danger {
+    color: var(--sx-button-danger-color);
+    background: var(--sx-button-danger-background);
+    border-color: var(--sx-button-danger-border-color);
+}
+
+.sx-auth-card .btn-danger:hover,
+.sx-auth-card .btn-danger:focus {
+    color: var(--sx-button-danger-color);
+    background: var(--sx-button-danger-hover-background);
+    border-color: var(--sx-button-danger-hover-border-color);
+}
+
+.sx-auth-layout__footer {
+    flex: 0 0 auto;
+    padding: 0 20px 24px;
+    color: var(--sx-color-text-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+.sx-auth-layout__footer a {
+    color: var(--sx-color-text-muted);
+}
+
+.sx-auth-layout__footer a:hover,
+.sx-auth-layout__footer a:focus {
+    color: var(--sx-color-accent);
+}
+
+@media (max-width: 575.98px) {
+    .sx-auth-theme-switcher {
+        top: 12px;
+        right: 12px;
+    }
+
+    .sx-auth-layout__content {
+        align-items: flex-start;
+        padding: 76px 12px 16px;
+    }
+
+    .sx-auth-card {
+        padding: 24px 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sx-auth-layout .sx-preloader {
+        transition: none;
+    }
+
+    .sx-auth-layout .sx-loader-image {
+        animation-duration: 1.4s;
+    }
+
+    .sx-auth-layout .sx-preloader::before {
+        animation: none;
+    }
+}

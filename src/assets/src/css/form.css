@@ -2,21 +2,22 @@
 
 form.sx-form-admin
 {
-    border: 1px solid rgba(32, 168, 216, 0.23);
-    padding: 10px;
+    color: var(--sx-color-text);
+    border: 1px solid var(--sx-form-border-color);
+    border-radius: var(--sx-form-border-radius);
+    background: var(--sx-form-background);
+    padding: var(--sx-form-padding);
+    max-width: var(--sx-form-max-width);
 }
 
     form.sx-form-admin .error-summary
     {
-        background: #fee5e5;
-        border-color: #f86c6b;
-        color: #c10a09;
-        padding: 15px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px;
-        border-color: transparent;
+        color: var(--sx-form-error-color);
+        background: var(--sx-form-error-background);
+        padding: var(--sx-form-error-summary-padding);
+        margin-block: var(--sx-form-error-summary-margin-block);
+        border: 1px solid var(--sx-form-error-border-color);
+        border-radius: var(--sx-form-error-summary-radius);
     }
 
         form.sx-form-admin .error-summary p
@@ -27,16 +28,23 @@ form.sx-form-admin
     form.sx-form-admin .hint-block
     {
         font-size: 11px;
+        color: var(--sx-form-help-color);
+        opacity: var(--sx-form-hint-opacity);
+    }
+
+    form.sx-form-admin .hint-block:hover
+    {
+        opacity: var(--sx-form-hint-hover-opacity);
     }
 
     form.sx-form-admin .sx-from-required
     {
-        color: red;
+        color: var(--sx-form-required-color);
     }
 
         form.sx-form-admin .tab-content
         {
-            background: #ffffff;
+            background: var(--sx-tabs-content-background, var(--sx-form-section-background, #ffffff));
         }
 
         form.sx-form-admin .sx-buttons-standart-wrapper {
@@ -49,7 +57,6 @@ form.sx-form-admin
 
     form.sx-form-admin .sx-buttons-standart
     {
-        /*border-top: 1px solid #ddd;*/
         padding-top: 10px;
         margin-bottom: 0px;
         /*margin-top: 15px;*/
@@ -62,29 +69,29 @@ form.sx-form-admin
 
     form.sx-form-admin .nav-tabs>li>a
     {
-        font-size: 14px;
+        font-size: var(--sx-tabs-font-size, 14px);
     }
 
     form.sx-form-admin .form-group
     {
-        padding: 5px;
+        padding: var(--sx-form-field-padding);
         margin-bottom: 0px;
+        border-radius: var(--sx-form-field-radius);
     }
     form.sx-form-admin .form-group:hover
     {
-        background: rgba(93, 195, 231, 0.15);
+        background: var(--sx-form-field-hover-background);
     }
 
 
 .sx-form-admin .error-summary
 {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    background: #fee5e5;
-    color: #c10a09;
-    border-radius: 2px;
-    border-color: transparent!important;
+    padding: var(--sx-form-error-summary-padding);
+    margin-block: var(--sx-form-error-summary-margin-block);
+    color: var(--sx-form-error-color);
+    background: var(--sx-form-error-background);
+    border: 1px solid var(--sx-form-error-border-color) !important;
+    border-radius: var(--sx-form-error-summary-radius);
 }
     .sx-form-admin .error-summary p
     {
@@ -94,4 +101,111 @@ form.sx-form-admin
 
 .sx-form-admin .sx-inline-row label {
     margin-bottom: 0px;
+}
+
+form.sx-form-admin .has-error .form-control,
+form.sx-form-admin .has-error .select2-selection {
+    border-color: var(--sx-form-error-border-color);
+}
+
+form.sx-form-admin .has-error .form-control:focus,
+form.sx-form-admin .has-error .select2-selection:focus {
+    box-shadow: 0 0 0 3px var(--sx-form-error-focus-ring);
+}
+
+form.sx-form-admin .has-error .help-block,
+form.sx-form-admin .has-error .control-label {
+    color: var(--sx-form-error-color);
+}
+
+form.sx-form-admin .help-block {
+    font-size: var(--sx-form-help-font-size);
+    color: var(--sx-form-help-color);
+}
+
+/*
+ * Legacy ActiveForm adapter. Keep old markup, but consume the same control
+ * geometry and interaction palette as ActiveFormBackend.
+ */
+form.sx-form-admin .control-label {
+    color: var(--sx-form-label-color);
+    font-weight: var(--sx-form-label-font-weight);
+}
+
+form.sx-form-admin .form-control,
+form.sx-form-admin input[type="text"],
+form.sx-form-admin input[type="email"],
+form.sx-form-admin input[type="tel"],
+form.sx-form-admin input[type="url"],
+form.sx-form-admin input[type="number"],
+form.sx-form-admin input[type="password"],
+form.sx-form-admin input[type="search"],
+form.sx-form-admin textarea,
+form.sx-form-admin select {
+    min-height: var(--sx-form-control-height);
+    color: var(--sx-form-control-color);
+    border-color: var(--sx-form-control-border-color);
+    border-radius: var(--sx-form-control-radius);
+    background-color: var(--sx-form-control-background);
+    padding:
+        var(--sx-form-control-padding-y)
+        var(--sx-form-control-padding-x);
+    box-shadow: none;
+    transition:
+        color var(--sx-form-control-transition-duration) var(--sx-form-control-transition-easing),
+        background-color var(--sx-form-control-transition-duration) var(--sx-form-control-transition-easing),
+        border-color var(--sx-form-control-transition-duration) var(--sx-form-control-transition-easing),
+        box-shadow var(--sx-form-control-transition-duration) var(--sx-form-control-transition-easing);
+}
+
+form.sx-form-admin textarea.form-control,
+form.sx-form-admin textarea {
+    min-height: var(--sx-form-control-textarea-min-height);
+}
+
+form.sx-form-admin .form-control::placeholder,
+form.sx-form-admin input::placeholder,
+form.sx-form-admin textarea::placeholder {
+    color: var(--sx-form-control-placeholder-color);
+    opacity: 1;
+}
+
+form.sx-form-admin .form-control:hover:not(:disabled):not([readonly]),
+form.sx-form-admin input:hover:not(:disabled):not([readonly]),
+form.sx-form-admin textarea:hover:not(:disabled):not([readonly]),
+form.sx-form-admin select:hover:not(:disabled) {
+    border-color: var(--sx-form-control-hover-border-color);
+}
+
+form.sx-form-admin .form-control:focus,
+form.sx-form-admin input:focus,
+form.sx-form-admin textarea:focus,
+form.sx-form-admin select:focus {
+    color: var(--sx-form-control-color);
+    border-color: var(--sx-form-control-focus-border-color);
+    background-color: var(--sx-form-control-background);
+    box-shadow: var(--sx-form-control-focus-shadow);
+    outline: 0;
+}
+
+form.sx-form-admin .form-control:disabled,
+form.sx-form-admin .form-control[readonly],
+form.sx-form-admin input:disabled,
+form.sx-form-admin input[readonly],
+form.sx-form-admin textarea:disabled,
+form.sx-form-admin textarea[readonly],
+form.sx-form-admin select:disabled {
+    color: var(--sx-form-control-disabled-color);
+    border-color: var(--sx-form-control-border-color);
+    background-color: var(--sx-form-control-disabled-background);
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    form.sx-form-admin .form-control,
+    form.sx-form-admin input,
+    form.sx-form-admin textarea,
+    form.sx-form-admin select {
+        transition: none;
+    }
 }

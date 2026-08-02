@@ -9,6 +9,7 @@
 namespace skeeks\cms\admin;
 
 use skeeks\cms\admin\assets\AdminAsset;
+use skeeks\cms\admin\themes\AdminTheme;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
 use skeeks\cms\IHasPermissions;
@@ -62,20 +63,23 @@ class AdminComponent extends BackendComponent
             'timeout' => 30000,
         ];
 
+    /**
+     * Configurable administration theme class.
+     *
+     * Projects may subclass AdminTheme to replace an asset hook, a shell slot
+     * or brand values without copying the administration component.
+     *
+     * @var string|array
+     */
+    public $themeClass = AdminTheme::class;
+
     protected function _run()
     {
         //\Yii::$app->skeeks->setSite(CmsSite::findOne(1));
 
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
 
-        $theme = new \skeeks\cms\themes\unify\admin\UnifyThemeAdmin();
-        $theme->pathMap = [
-            '@app/views' => [
-                '@skeeks/cms/admin/views',
-                '@skeeks/cms/themes/unify/admin/views',
-                //'@skeeks/cms/admin/views',
-            ],
-        ];
+        $theme = \Yii::createObject($this->themeClass);
 
         $theme->logoTitle = \Yii::$app->admin->logoTitle;
         if (\Yii::$app->admin->logoSrc) {
@@ -88,13 +92,12 @@ class AdminComponent extends BackendComponent
         $theme->logoHref = Url::to(['/admin/admin-index']);
 
         //$theme->favicon = "";
-        \skeeks\cms\themes\unify\admin\UnifyThemeAdmin::initBeforeRender();
+        $theme::initBeforeRender();
         \Yii::$app->view->theme = $theme;
 
         /*\Yii::$app->view->theme = new Theme([
             'pathMap' => [
                 '@app/views' => [
-                    //'@skeeks/crm/themes/unifyAdmin/views',
                     '@skeeks/cms/admin/views',
                 ],
             ],

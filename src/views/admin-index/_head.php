@@ -14,7 +14,7 @@ $model->columns = 1;
     </div>
     <div class="col-md-6">
         <div class="pull-right">
-            <a href="#" data-toggle="modal" data-target="#sx-dashboard-widget-create" class="btn btn-primary"><i class="icon-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
+            <a href="#" data-toggle="modal" data-target="#sx-dashboard-widget-create" class="btn btn-primary"><i class="fas fa-calculator"></i> <?= \Yii::t('skeeks/cms', 'Add widget'); ?></a>
             <a href="#" data-toggle="modal" data-target="#sx-dashboard-edit" class="btn btn-primary"><i class="fa fa-cog"></i>  <?= \Yii::t('skeeks/cms', 'Settings'); ?></a>
             <a href="#" onclick="sx.DashboardsControll.remove(); return false;" class="btn btn-danger"><i class="fa fa-times"></i> <?= \Yii::t('skeeks/cms', 'Delete'); ?></a>
         </div>

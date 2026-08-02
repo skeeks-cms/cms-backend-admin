@@ -8,6 +8,8 @@
 
 namespace skeeks\cms\admin\assets;
 
+use skeeks\cms\backend\assets\BackendUiAsset;
+
 /**
  * Class AdminFormAsset
  * @package skeeks\cms\admin\assets
@@ -26,6 +28,7 @@ class AdminFormAsset extends AdminAsset
     public $depends =
         [
             //'skeeks\cms\admin\assets\AdminAsset',
+            BackendUiAsset::class,
             'skeeks\sx\assets\Core',
         ];
 }
