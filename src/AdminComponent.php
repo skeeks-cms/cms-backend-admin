@@ -82,13 +82,7 @@ class AdminComponent extends BackendComponent
         $theme = \Yii::createObject($this->themeClass);
 
         $theme->logoTitle = \Yii::$app->admin->logoTitle;
-        if (\Yii::$app->admin->logoSrc) {
-            $theme->logoSrc = \Yii::$app->admin->logoSrc;
-        } else {
-            if (\Yii::$app->skeeks->site && \Yii::$app->skeeks->site->image) {
-                $theme->logoSrc = \Yii::$app->skeeks->site->image->src;
-            }
-        }
+        \Yii::$app->admin->applyLogoSources($theme, \Yii::$app->skeeks->site);
         $theme->logoHref = Url::to(['/admin/admin-index']);
 
         //$theme->favicon = "";

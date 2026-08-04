@@ -11,10 +11,12 @@ namespace skeeks\cms\admin\components;
 use skeeks\cms\assets\CmsAsset;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\helpers\BackendUrlHelper;
+use skeeks\cms\backend\themes\BackendTheme;
 use skeeks\cms\backend\widgets\ActiveFormBackend;
 use skeeks\cms\base\Component;
 use skeeks\cms\components\Cms;
 use skeeks\cms\models\CmsLang;
+use skeeks\cms\models\CmsSite;
 use skeeks\cms\modules\admin\base\AdminDashboardWidget;
 use skeeks\cms\modules\admin\components\Menu;
 use skeeks\cms\modules\admin\dashboards\AboutCmsDashboard;
@@ -80,7 +82,38 @@ class AdminSettingsComponent extends Component
 
 
     public $logoSrc = "";
+    public $logoSrcLight = "";
+    public $logoSrcDark = "";
     public $logoTitle = "";
+
+    /**
+     * Applies legacy theme overrides and falls back to company logo variants.
+     * The existing company logo remains the universal fallback for old sites.
+     *
+     * @param BackendTheme $theme
+     * @param CmsSite|null $site
+     * @return $this
+     */
+    public function applyLogoSources(BackendTheme $theme, CmsSite $site = null)
+    {
+        if ($this->logoSrc) {
+            $theme->logoSrc = $this->logoSrc;
+        } elseif ($site && $site->image) {
+            $theme->logoSrc = $site->image->src;
+        }
+
+        if ($this->logoSrcLight) {
+            $theme->logoSrcLight = $this->logoSrcLight;
+        } elseif ($site && $site->logoLightImage) {
+            $theme->logoSrcLight = $site->logoLightImage->src;
+        }
+
+        if ($this->logoSrcDark) {
+            $theme->logoSrcDark = $this->logoSrcDark;
+        }
+
+        return $this;
+    }
 
     //Настройки таблиц
     public $enabledPjaxPagination = Cms::BOOL_Y;
@@ -179,7 +212,7 @@ class AdminSettingsComponent extends Component
         return ArrayHelper::merge(parent::rules(), [
             [['languageCode', 'pageParamName', 'enabledPjaxPagination'], 'string'],
             [['pageSize'], 'integer'],
-            [['logoSrc'], 'string'],
+            [['logoSrc', 'logoSrcLight', 'logoSrcDark'], 'string'],
             [['logoTitle'], 'string'],
             [['pageSizeLimitMin'], 'integer'],
             [['pageSizeLimitMax'], 'integer'],
@@ -214,16 +247,20 @@ class AdminSettingsComponent extends Component
 
             'blockedTime' => \Yii::t('skeeks/cms', 'Time through which block user'),
 
-            'logoSrc'   => "Логотип",
-            'logoTitle' => "Текст рядом с логотипом",
+            'logoSrc'      => "Логотип по умолчанию",
+            'logoSrcLight' => "Логотип для светлого фона шапки",
+            'logoSrcDark'  => "Логотип для тёмного фона шапки",
+            'logoTitle'    => "Текст рядом с логотипом",
         ]);
     }
 
     public function attributeHints()
     {
         return ArrayHelper::merge(parent::attributeHints(), [
-            'logoSrc'   => "Этот логотип показывается сверху-слева",
-            'logoTitle' => "Текст задавать не обязательно. Но если задать то он будет показан рядом с логотипом.",
+            'logoSrc'      => "Используется как запасной вариант, если отдельный логотип для фона шапки не задан.",
+            'logoSrcLight' => "Необязательно. Загрузите вариант, который хорошо читается на светлом фоне.",
+            'logoSrcDark'  => "Необязательно. Загрузите вариант, который хорошо читается на тёмном фоне.",
+            'logoTitle'    => "Текст задавать не обязательно. Но если задать то он будет показан рядом с логотипом.",
         ]);
     }
 

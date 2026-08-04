@@ -38,9 +38,9 @@ echo BackendShellHeaderWidget::widget([
         'quickCreateItems' => $quickCreateItems,
     ]),
     'profile' => $this->render('_header-profile'),
-    'surfaceOptions' => [
+    'surfaceOptions' => array_merge([
         'class' => $theme->headerClasses,
-    ],
+    ], $theme->headerAppearanceAttributes),
     'navOptions' => [
         'class' => 'navbar no-gutters',
     ],

@@ -13,9 +13,6 @@ use yii\helpers\Html;
 
 
 <? $fieldSet = $form->fieldSet(\Yii::t('skeeks/cms', 'Main')); ?>
-    <?= $form->field($model, 'logoSrc')->widget(
-        \skeeks\cms\backend\widgets\SelectModelDialogStorageFileSrcWidget::class
-    ); ?>
     <?= $form->field($model, 'logoTitle'); ?>
 
 <?= $form->fieldSelect($model, 'languageCode', \yii\helpers\ArrayHelper::map(

@@ -21,9 +21,25 @@
         </span>
     </a>
 <?php else : ?>
-    <a href="<?= $theme->logoHref; ?>" class="navbar-brand d-flex align-self-center sx-shell-hidden-xs-down">
-        <?php if ($theme->logoSrc) : ?>
-            <img class="default-logo" src="<?= $theme->logoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
+    <?php
+    $brandClasses = ['navbar-brand', 'd-flex', 'align-self-center', 'sx-shell-hidden-xs-down'];
+    if ($theme->logoSrcLight) {
+        $brandClasses[] = 'sx-shell-header__brand--has-light-logo';
+    }
+    if ($theme->logoSrcDark) {
+        $brandClasses[] = 'sx-shell-header__brand--has-dark-logo';
+    }
+    $fallbackLogoSrc = $theme->logoSrc ?: ($theme->logoSrcLight ?: $theme->logoSrcDark);
+    ?>
+    <a href="<?= $theme->logoHref; ?>" class="<?= implode(' ', $brandClasses); ?>">
+        <?php if ($fallbackLogoSrc) : ?>
+            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--fallback" src="<?= $fallbackLogoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
+        <?php endif; ?>
+        <?php if ($theme->logoSrcLight) : ?>
+            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--light" src="<?= $theme->logoSrcLight; ?>" alt="<?= $theme->logoTitle; ?>">
+        <?php endif; ?>
+        <?php if ($theme->logoSrcDark) : ?>
+            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--dark" src="<?= $theme->logoSrcDark; ?>" alt="<?= $theme->logoTitle; ?>">
         <?php endif; ?>
         <?= $theme->logoTitle; ?>
     </a>
