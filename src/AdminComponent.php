@@ -12,6 +12,8 @@ use skeeks\cms\admin\assets\AdminAsset;
 use skeeks\cms\admin\themes\AdminTheme;
 use skeeks\cms\backend\BackendComponent;
 use skeeks\cms\backend\BackendMenu;
+use skeeks\cms\backend\themes\BackendTheme;
+use skeeks\cms\components\BackendThemePaletteSettings;
 use skeeks\cms\IHasPermissions;
 use skeeks\cms\models\CmsSite;
 use skeeks\cms\models\CmsUser;
@@ -73,21 +75,53 @@ class AdminComponent extends BackendComponent
      */
     public $themeClass = AdminTheme::class;
 
+    /**
+     * Whether the standard saved palette/header settings and lazy customizer
+     * are applied to the administration theme.
+     *
+     * @var bool
+     */
+    public $enableThemeCustomization = true;
+
+    /**
+     * Applies the standard administration theme contract. Projects normally
+     * only replace themeClass; explicit non-empty theme options take priority.
+     *
+     * @param BackendTheme $theme
+     */
+    protected function configureTheme(BackendTheme $theme)
+    {
+        parent::configureTheme($theme);
+
+        if ($this->enableThemeCustomization) {
+            $settings = new BackendThemePaletteSettings([
+                'namespace' => 'backend-theme-admin',
+            ]);
+
+            if (!$theme->palette) {
+                $theme->palette = $settings->getValidatedPalette();
+            }
+            if (!$theme->headerModes) {
+                $theme->headerModes = $settings->getValidatedHeaderModes();
+            }
+            if ($theme->themeCustomizer === []) {
+                $theme->themeCustomizer = [
+                    'scope'    => 'admin',
+                    'panelUrl' => Url::to(['/cms/theme-palette/panel', 'scope' => 'admin']),
+                ];
+            }
+        }
+
+        $theme->logoTitle = \Yii::$app->admin->logoTitle;
+        \Yii::$app->admin->applyLogoSources($theme, \Yii::$app->skeeks->site);
+        $theme->logoHref = Url::to(['/admin/admin-index']);
+    }
+
     protected function _run()
     {
         //\Yii::$app->skeeks->setSite(CmsSite::findOne(1));
 
         \Yii::$app->errorHandler->errorAction = 'admin/error/error';
-
-        $theme = \Yii::createObject($this->themeClass);
-
-        $theme->logoTitle = \Yii::$app->admin->logoTitle;
-        \Yii::$app->admin->applyLogoSources($theme, \Yii::$app->skeeks->site);
-        $theme->logoHref = Url::to(['/admin/admin-index']);
-
-        //$theme->favicon = "";
-        $theme::initBeforeRender();
-        \Yii::$app->view->theme = $theme;
 
         /*\Yii::$app->view->theme = new Theme([
             'pathMap' => [
