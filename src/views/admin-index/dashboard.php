@@ -2,57 +2,25 @@
 /* @var $this yii\web\View */
 /* @var $dashboard skeeks\cms\models\CmsDashboard */
 
+use skeeks\cms\admin\assets\AdminDashboardAsset;
+use skeeks\cms\rbac\CmsManager;
+
 $this->title = $dashboard->name . " / " . \Yii::t('skeeks/cms','Dashboard');
-
-
-$this->registerCss(<<<CSS
-.sx-dashboard-head
-{
-    padding: 10px 0;
-    margin-bottom: 10px;
-    border-left: 1px solid var(--sx-color-border);
-}
-
-.sx-dashboard table tr td.sx-columns
-{
-    vertical-align: top;
-}
-
-.sx-dashboard table tr td.sx-first
-{
-    padding-left: 0;
-}
-
-#sx-dashboard-table {
-    width: 100%;
-}
-
-.sx-dashboard-body
-{
-    margin-top: 10px;
-}
-
-
-.text-uppercase {
-    text-transform: uppercase!important;
-}
-
-CSS
-);
+AdminDashboardAsset::register($this);
 
 $sortableString = [];
+$canEditDashboard = \Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT);
 ?>
-<div class="col-md-12 sx-dashboard" id="sx-dashboard">
+<div class="sx-dashboard" id="sx-dashboard" data-editable="<?= $canEditDashboard ? 'true' : 'false'; ?>">
 
-    <? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT)) : ?>
+    <? if ($canEditDashboard) : ?>
         <? echo $this->render('_head', [
             'dashboard' => $dashboard
         ]); ?>
     <? endif; ?>
 
 
-    <div class="row sx-dashboard-body">
-        <div class="col-lg-12 col-md-12">
+    <div class="sx-dashboard-body">
             <? if (!$dashboard->cmsDashboardWidgets) : ?>
 
                 <?=
@@ -67,13 +35,12 @@ $sortableString = [];
             <? else : ?>
 
 
-                <table id="sx-dashboard-table">
-                    <tr>
+                <div class="sx-dashboard-grid" style="--sx-dashboard-columns: <?= (int) $dashboard->columns; ?>">
                         <? for($i = 1; $i <= $dashboard->columns; $i++) : ?>
                             <?
                             $sortableString[] = "#sx-column-" . $i;
                             ?>
-                            <td style="width: <? echo round(100/$dashboard->columns); ?>%;" id="sx-column-<?= $i; ?>" class="sx-columns <?= $i == 1 ? "sx-first": ""?>" data-column="<?= $i; ?>">
+                            <section id="sx-column-<?= $i; ?>" class="sx-dashboard-column" data-column="<?= $i; ?>" aria-label="<?= \Yii::t('skeeks/cms', 'Column'); ?> <?= $i; ?>">
                                 <? $widgets = $dashboard->getCmsDashboardWidgets()->andWhere(['cms_dashboard_column' => $i])->orderBy(['priority' => SORT_ASC])->all(); ?>
                                 <? if ($widgets) : ?>
 
@@ -83,7 +50,6 @@ $sortableString = [];
                                      */
                                     foreach($widgets as $cmsDashboardWidget) : ?>
 
-                                        <? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT)) : ?>
                                         <?
                                             $cmsWidgetData = $cmsDashboardWidget->toArray(['id']);
 
@@ -101,26 +67,32 @@ $sortableString = [];
                                             $cmsWidgetData = \yii\helpers\Json::encode($cmsWidgetData);
 
                                             $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse');
+                                            $configureLabel = \yii\helpers\Html::encode(\Yii::t('skeeks/cms', 'Settings'));
+                                            $removeLabel = \yii\helpers\Html::encode(\Yii::t('skeeks/cms', 'Delete'));
 
-                                        $actions = <<<HTML
+                                        $actions = '';
+                                        if ($canEditDashboard) {
+                                            $actions = <<<HTML
 <a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'
-class="sx-admin-panel__action"
+class="sx-admin-panel__action" aria-label="{$configureLabel}"
 >
-    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="Настроить"></i>
+    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="{$configureLabel}"></i>
 </a>
 
 <a href="#"
 class="sx-btn-trigger-full sx-admin-panel__action"
+aria-label="{$openClose}"
 >
     <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}"></i>
 </a>
 
 <a href="#sx-permissions-for-controller" onclick='sx.Dashboard.removeWidget({$cmsWidgetData}); return false;'
-class="sx-admin-panel__action"
+class="sx-admin-panel__action" aria-label="{$removeLabel}"
 >
-    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="Удалить"></i>
+    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="{$removeLabel}"></i>
 </a>
 HTML;
+                                        }
                                         ?>
 
 
@@ -150,35 +122,22 @@ HTML;
                                             <? endif; ?>
                                         <? $w::end(); ?>
 
-                                        <? endif; ?>
                                     <? endforeach; ?>
 
                                 <? endif; ?>
-                            </td>
-                            <? if ($dashboard->columns > 1 && $i != $dashboard->columns) : ?>
-                                <td width="20">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <? endif; ?>
+                            </section>
                         <? endfor; ?>
-                    </tr>
-                </table>
+                </div>
 
             <? endif; ?>
 
-        </div>
     </div>
 </div>
 
-<? if (\Yii::$app->user->can(\skeeks\cms\rbac\CmsManager::PERMISSION_ADMIN_DASHBOARDS_EDIT)) : ?>
+<? if ($canEditDashboard) : ?>
 
     <?
 
-    $this->registerCss(<<<CSS
-.sx-panel .panel-heading
-{
-    cursor: move;
-}
-CSS
-);
     \yii\jui\Sortable::widget();
 
     $sortableString = implode(', ', $sortableString);
@@ -228,9 +187,9 @@ CSS
             */
             getData: function()
             {
-                data = {};
+                var data = {};
 
-                $('table tr td.sx-columns', this.getJWrapper()).each(function()
+                $('.sx-dashboard-column', this.getJWrapper()).each(function()
                 {
                     var ids = [];
                     $(".sx-dashboard-widget", $(this)).each(function()
@@ -290,9 +249,9 @@ CSS
 
                 $(self.get('sortableSelector')).sortable(
                 {
-                    connectWith: ".sx-columns",
+                    connectWith: ".sx-dashboard-column",
                     cursor: "move",
-                    handle: ".panel-heading",
+                    handle: ".sx-panel__header",
                     forceHelperSize: true,
                     forcePlaceholderSize: true,
                     //delay: 150,

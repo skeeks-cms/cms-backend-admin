@@ -4,20 +4,12 @@
     min-width: 0;
     flex-direction: column;
     margin-bottom: 1.42857rem;
-    color: var(--sx-color-text);
     word-wrap: break-word;
-    border: 1px solid var(--sx-color-border);
-    border-radius: 3px;
-    background-color: var(--sx-color-surface);
     background-clip: border-box;
 }
 
 .sx-admin-panel__header {
-    padding: 15px 15px 10px;
-    color: var(--sx-color-text);
-    border-color: var(--sx-color-border);
-    border-bottom: 0;
-    border-radius: 2px 2px 0 0;
+    cursor: default;
 }
 
 .sx-admin-panel__title {
@@ -45,12 +37,6 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-}
-
-@media (min-width: 576px) {
-    .sx-admin-panel__header {
-        padding: 20px 30px 15px;
-    }
 }
 
 @media (min-width: 768px) {

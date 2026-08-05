@@ -7,20 +7,18 @@
 
 namespace skeeks\cms\admin\assets;
 
-use skeeks\cms\backend\assets\BackendPanelAsset;
-
 /**
- * Semantic administration dashboard panel.
+ * Dashboard-only layout. Widget-specific assets remain owned by each widget.
  */
-class AdminPanelAsset extends \skeeks\cms\base\AssetBundle
+class AdminDashboardAsset extends \skeeks\cms\base\AssetBundle
 {
     public $sourcePath = '@skeeks/cms/admin/assets/src';
 
     public $css = [
-        'css/admin-panel.css',
+        'css/dashboard.css',
     ];
 
     public $depends = [
-        BackendPanelAsset::class,
+        AdminPanelAsset::class,
     ];
 }

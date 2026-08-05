@@ -49,7 +49,7 @@ class AdminPanelWidget extends Widget
      * @var array
      */
     public $headingOptions = [
-        'class' => 'panel-heading card-header sx-admin-panel__header',
+        'class' => 'panel-heading card-header sx-admin-panel__header sx-panel__header sx-panel__header--bordered',
     ];
 
 
@@ -59,7 +59,14 @@ class AdminPanelWidget extends Widget
      * @var array
      */
     public $bodyOptions = [
-        'class' => 'panel-body'
+        'class' => 'panel-body sx-panel__body'
+    ];
+
+    /**
+     * @var array Footer container options.
+     */
+    public $footerOptions = [
+        'class' => 'panel-footer card-footer sx-panel__footer',
     ];
 
 
@@ -78,12 +85,19 @@ class AdminPanelWidget extends Widget
     public $actions;
 
     /**
+     * Optional panel footer. Kept outside the streamed body content.
+     *
+     * @var string|null
+     */
+    public $footer;
+
+    /**
      * Initializes the widget.
      * This renders the form open tag.
      */
     public function init()
     {
-        Html::addCssClass($this->options, ['panel', 'sx-panel', $this->color]);
+        Html::addCssClass($this->options, ['panel', 'sx-panel', 'sx-panel--responsive', $this->color]);
         AdminPanelAsset::register($this->view);
         Html::addCssClass($this->options, ['card', 'sx-admin-panel']);
 
@@ -96,16 +110,12 @@ class AdminPanelWidget extends Widget
         echo Html::beginTag('div', $this->headingOptions);
 
         echo <<<HTML
-
-                <div class="media">
-                    <h3 class="d-flex align-self-center text-uppercase sx-admin-panel__title mb-0">
-                        {$this->name}
-                    </h3>
-                    <div class="panel-actions panel-hidden-actions media-body d-flex justify-content-end">
-                        {$this->actions}
-                    </div>
+                <h3 class="text-uppercase sx-admin-panel__title sx-panel__title mb-0">
+                    {$this->name}
+                </h3>
+                <div class="panel-actions panel-hidden-actions sx-panel__actions">
+                    {$this->actions}
                 </div>
-                
 HTML;
 
         echo Html::endTag('div');
@@ -125,6 +135,11 @@ HTML;
     public function run()
     {
         echo Html::endTag('div');
+
+        if ($this->footer !== null && $this->footer !== '') {
+            echo Html::tag('div', $this->footer, $this->footerOptions);
+        }
+
         echo Html::endTag('div');
 
         self::registerJs();
