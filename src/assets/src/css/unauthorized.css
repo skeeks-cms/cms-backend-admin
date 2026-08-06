@@ -139,22 +139,6 @@ html[data-sx-auth-ready] .sx-auth-layout .sx-preloader {
     text-align: center;
 }
 
-.sx-auth-card .btn {
-    border-radius: var(--sx-radius-control);
-}
-
-.sx-auth-card .btn-primary {
-    color: var(--sx-color-accent-contrast);
-    background: var(--sx-color-accent);
-    border-color: var(--sx-color-accent);
-}
-
-.sx-auth-card .btn-primary:hover,
-.sx-auth-card .btn-primary:focus {
-    background: var(--sx-color-accent-hover);
-    border-color: var(--sx-color-accent-hover);
-}
-
 .sx-auth-card .form-control {
     color: var(--sx-form-control-color);
     background: var(--sx-form-control-background);
@@ -168,19 +152,6 @@ html[data-sx-auth-ready] .sx-auth-layout .sx-preloader {
 .sx-auth-card a:not(.btn):hover,
 .sx-auth-card a:not(.btn):focus {
     color: var(--sx-color-accent-hover);
-}
-
-.sx-auth-card .btn-danger {
-    color: var(--sx-button-danger-color);
-    background: var(--sx-button-danger-background);
-    border-color: var(--sx-button-danger-border-color);
-}
-
-.sx-auth-card .btn-danger:hover,
-.sx-auth-card .btn-danger:focus {
-    color: var(--sx-button-danger-color);
-    background: var(--sx-button-danger-hover-background);
-    border-color: var(--sx-button-danger-hover-border-color);
 }
 
 .sx-auth-layout__footer {

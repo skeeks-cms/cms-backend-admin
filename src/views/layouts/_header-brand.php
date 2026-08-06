@@ -7,7 +7,7 @@
 <?php if (\Yii::$app->mobileDetect->isMobile) : ?>
     <a
         href="#sideNav"
-        class="navbar-toggler btn sx-shell-header__mobile-button"
+        class="sx-shell-header__mobile-button"
         data-sx-shell-nav-toggle
         aria-controls="sideNav"
         aria-expanded="false"
@@ -22,7 +22,7 @@
     </a>
 <?php else : ?>
     <?php
-    $brandClasses = ['navbar-brand', 'd-flex', 'align-self-center', 'sx-shell-hidden-xs-down'];
+    $brandClasses = ['sx-shell-header__brand-link', 'sx-shell-hidden-xs-down'];
     if ($theme->logoSrcLight) {
         $brandClasses[] = 'sx-shell-header__brand--has-light-logo';
     }
@@ -33,13 +33,13 @@
     ?>
     <a href="<?= $theme->logoHref; ?>" class="<?= implode(' ', $brandClasses); ?>">
         <?php if ($fallbackLogoSrc) : ?>
-            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--fallback" src="<?= $fallbackLogoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
+            <img class="sx-shell-header__brand-logo sx-shell-header__brand-logo--fallback" src="<?= $fallbackLogoSrc; ?>" alt="<?= $theme->logoTitle; ?>">
         <?php endif; ?>
         <?php if ($theme->logoSrcLight) : ?>
-            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--light" src="<?= $theme->logoSrcLight; ?>" alt="<?= $theme->logoTitle; ?>">
+            <img class="sx-shell-header__brand-logo sx-shell-header__brand-logo--light" src="<?= $theme->logoSrcLight; ?>" alt="<?= $theme->logoTitle; ?>">
         <?php endif; ?>
         <?php if ($theme->logoSrcDark) : ?>
-            <img class="default-logo sx-shell-header__brand-logo sx-shell-header__brand-logo--dark" src="<?= $theme->logoSrcDark; ?>" alt="<?= $theme->logoTitle; ?>">
+            <img class="sx-shell-header__brand-logo sx-shell-header__brand-logo--dark" src="<?= $theme->logoSrcDark; ?>" alt="<?= $theme->logoTitle; ?>">
         <?php endif; ?>
         <?= $theme->logoTitle; ?>
     </a>

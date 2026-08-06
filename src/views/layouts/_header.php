@@ -42,17 +42,14 @@ echo BackendShellHeaderWidget::widget([
         'class' => $theme->headerClasses,
     ], $theme->headerAppearanceAttributes),
     'navOptions' => [
-        'class' => 'navbar no-gutters',
+        'aria-label' => \Yii::t('skeeks/cms', 'Backend navigation'),
     ],
     'brandOptions' => [
         'class' => \Yii::$app->mobileDetect->isMobile
             ? 'sx-shell-header__mobile-toggle'
-            : 'col-auto d-flex flex-nowrap sx-header-logo-toggler',
+            : '',
     ],
     'contextOptions' => [
-        'class' => 'col-auto d-flex sx-breadcrumbs-wrapper',
-    ],
-    'actionsOptions' => [
-        'class' => 'col-auto d-flex ml-auto sx-right-col',
+        'class' => 'sx-shell-header__context--admin',
     ],
 ]);

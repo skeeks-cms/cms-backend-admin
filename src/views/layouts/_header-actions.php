@@ -38,12 +38,12 @@ JS
 );
 ?>
 <?= \skeeks\cms\backend\widgets\BackendThemeModeSwitcher::widget([
-    'containerClass' => 'sx-btn-backend-header',
+    'containerClass' => 'sx-shell-header__theme',
 ]); ?>
 
 <div class="sx-btn-backend-header dropdown sx-header-quick-create">
-    <a href="#" data-toggle="dropdown" title="Быстро добавить" aria-haspopup="true" aria-expanded="false">
-        <?= BackendIcon::render('plus', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+    <a class="sx-shell-header__action sx-shell-header__action--icon" href="#" data-toggle="dropdown" title="Быстро добавить" aria-haspopup="true" aria-expanded="false">
+        <?= BackendIcon::render('plus', ['size' => 20]); ?>
     </a>
     <div class="dropdown-menu dropdown-menu-right sx-shell-header__menu">
         <?php foreach ($quickCreateItems as $quickCreateItem) : ?>
@@ -60,13 +60,13 @@ JS
 </div>
 
 <div class="sx-btn-backend-header">
-    <a href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="users" title="Сотрудники">
-        <?= BackendIcon::render('users', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+    <a class="sx-shell-header__action sx-shell-header__action--icon" href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="users" title="Сотрудники">
+        <?= BackendIcon::render('users', ['size' => 20]); ?>
     </a>
 </div>
 <div class="sx-btn-backend-header">
-    <a href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="favorites" title="Избранное">
-        <?= BackendIcon::render('star', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+    <a class="sx-shell-header__action sx-shell-header__action--icon" href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="favorites" title="Избранное">
+        <?= BackendIcon::render('star', ['size' => 20]); ?>
     </a>
 </div>
 
@@ -76,11 +76,12 @@ JS
     || (!\Yii::$app->skeeks->site->cmsSiteMainDomain && \Yii::$app->skeeks->site->is_default)) : ?>
     <div class="sx-btn-backend-header">
         <a
+            class="sx-shell-header__action sx-shell-header__action--icon"
             href="<?= \Yii::$app->skeeks->site->url; ?>"
             target="_blank"
             title="<?= \Yii::t('skeeks/cms', 'To main page of site') ?>"
         >
-            <?= BackendIcon::render('external-link', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+            <?= BackendIcon::render('external-link', ['size' => 20]); ?>
         </a>
     </div>
 <?php endif; ?>
@@ -117,20 +118,22 @@ JS
     ?>
     <div class="sx-btn-backend-header">
         <a
+            class="sx-shell-header__action sx-shell-header__action--icon"
             href="#"
             onclick="sx.ClearCache.execute(); return false;"
             title="<?= \Yii::t('skeeks/cms', 'Clear cache and temporary files') ?>"
         >
-            <?= BackendIcon::render('refresh', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+            <?= BackendIcon::render('refresh', ['size' => 20]); ?>
         </a>
     </div>
 
     <div class="sx-btn-backend-header">
         <a
+            class="sx-shell-header__action sx-shell-header__action--icon"
             href="<?= Url::to(['/cms/admin-settings']); ?>"
             title="<?= \Yii::t('skeeks/cms', 'Project settings') ?>"
         >
-            <?= BackendIcon::render('settings', ['size' => 20, 'class' => 'sx-icon-centered']); ?>
+            <?= BackendIcon::render('settings', ['size' => 20]); ?>
         </a>
     </div>
 <?php endif; ?>
@@ -170,9 +173,9 @@ JS
 JS
     );
     ?>
-    <div class="col-auto d-flex sx-lang-col">
+    <div class="sx-lang-col">
         <div class="dropdown">
-            <a class="d-block dropdown-toggle" href="#" data-toggle="dropdown">
+            <a class="sx-shell-header__action dropdown-toggle" href="#" data-toggle="dropdown">
                 <span class="sx-shell-header__label">
                     <span class="sx-shell-hidden-sm-down"><?= \Yii::$app->admin->cmsLanguage->name; ?></span>
                 </span>
