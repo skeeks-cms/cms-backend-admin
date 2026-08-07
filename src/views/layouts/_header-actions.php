@@ -70,7 +70,9 @@ JS
     </a>
 </div>
 
-<?= \skeeks\cms\widgets\admin\CmsWebNotifyWidget::widget(); ?>
+<?= \skeeks\cms\widgets\admin\CmsWebNotifyWidget::widget([
+    'enableWorkReminders' => true,
+]); ?>
 
 <?php if (\Yii::$app->skeeks->site->cmsSiteMainDomain
     || (!\Yii::$app->skeeks->site->cmsSiteMainDomain && \Yii::$app->skeeks->site->is_default)) : ?>
