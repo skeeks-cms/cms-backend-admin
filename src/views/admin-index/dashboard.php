@@ -3,7 +3,10 @@
 /* @var $dashboard skeeks\cms\models\CmsDashboard */
 
 use skeeks\cms\admin\assets\AdminDashboardAsset;
+use skeeks\cms\backend\helpers\BackendIcon;
+use skeeks\cms\backend\widgets\BackendSurfaceWidget;
 use skeeks\cms\rbac\CmsManager;
+use yii\helpers\Html;
 
 $this->title = $dashboard->name . " / " . \Yii::t('skeeks/cms','Dashboard');
 AdminDashboardAsset::register($this);
@@ -67,44 +70,72 @@ $canEditDashboard = \Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_DASHBOARD
                                             $cmsWidgetData = \yii\helpers\Json::encode($cmsWidgetData);
 
                                             $openClose = \Yii::t('skeeks/cms', 'Expand/Collapse');
-                                            $configureLabel = \yii\helpers\Html::encode(\Yii::t('skeeks/cms', 'Settings'));
-                                            $removeLabel = \yii\helpers\Html::encode(\Yii::t('skeeks/cms', 'Delete'));
+                                            $configureLabel = \Yii::t('skeeks/cms', 'Settings');
+                                            $removeLabel = \Yii::t('skeeks/cms', 'Delete');
 
-                                        $actions = '';
-                                        if ($canEditDashboard) {
-                                            $actions = <<<HTML
-<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;'
-class="sx-admin-panel__action" aria-label="{$configureLabel}"
->
-    <i class="fa fa-cog" data-sx-widget="tooltip-b" data-original-title="{$configureLabel}"></i>
-</a>
+                                            $widgetId = 'sx-dashboard-widget-'.$cmsDashboardWidget->id;
+                                            $actions = '';
+                                            if ($canEditDashboard) {
+                                                $actionOptions = [
+                                                    'class' => 'sx-icon-action sx-dashboard-widget__action',
+                                                ];
 
-<a href="#"
-class="sx-btn-trigger-full sx-admin-panel__action"
-aria-label="{$openClose}"
->
-    <i class="fa fa-expand" data-sx-widget="tooltip-b" data-original-title="{$openClose}"></i>
-</a>
-
-<a href="#sx-permissions-for-controller" onclick='sx.Dashboard.removeWidget({$cmsWidgetData}); return false;'
-class="sx-admin-panel__action" aria-label="{$removeLabel}"
->
-    <i class="fa fa-times" data-sx-widget="tooltip-b" data-original-title="{$removeLabel}"></i>
-</a>
-HTML;
-                                        }
+                                                $actions = Html::a(
+                                                    BackendIcon::render('settings', ['size' => 16]),
+                                                    '#sx-permissions-for-controller',
+                                                    array_merge($actionOptions, [
+                                                        'aria-label' => $configureLabel,
+                                                        'title' => $configureLabel,
+                                                        'onclick' => "sx.Dashboard.editConfigWidget({$cmsWidgetData}); return false;",
+                                                    ])
+                                                );
+                                                $actions .= Html::button(
+                                                    BackendIcon::render('expand', ['size' => 16]),
+                                                    array_merge($actionOptions, [
+                                                        'type' => 'button',
+                                                        'aria-label' => $openClose,
+                                                        'aria-controls' => $widgetId,
+                                                        'aria-pressed' => 'false',
+                                                        'title' => $openClose,
+                                                        'data-sx-dashboard-action' => 'fullscreen',
+                                                    ])
+                                                );
+                                                $actions .= Html::a(
+                                                    BackendIcon::render('trash', ['size' => 16]),
+                                                    '#sx-permissions-for-controller',
+                                                    array_merge($actionOptions, [
+                                                        'aria-label' => $removeLabel,
+                                                        'title' => $removeLabel,
+                                                        'onclick' => "sx.Dashboard.removeWidget({$cmsWidgetData}); return false;",
+                                                    ])
+                                                );
+                                            }
                                         ?>
 
 
 
-                                        <? $w = \skeeks\cms\admin\widgets\AdminPanelWidget::begin([
-                                            'name'      => $cmsDashboardWidget->name,
-                                            'actions'   => $actions,
-
-                                            'options' =>
-                                            [
+                                        <?php BackendSurfaceWidget::begin([
+                                            'title' => $cmsDashboardWidget->name,
+                                            'actions' => $actions,
+                                            'raised' => true,
+                                            'clip' => true,
+                                            'responsive' => true,
+                                            'headerBordered' => true,
+                                            'titleTag' => 'h3',
+                                            'options' => [
+                                                'id' => $widgetId,
                                                 'class' => 'sx-dashboard-widget',
-                                                'data'      => $cmsDashboardWidget->toArray(['id']),
+                                                'data' => $cmsDashboardWidget->toArray(['id']),
+                                            ],
+                                            'headerOptions' => [
+                                                'class' => 'sx-dashboard-widget__header',
+                                                'data-sx-dashboard-drag-handle' => true,
+                                            ],
+                                            'titleOptions' => [
+                                                'class' => 'sx-dashboard-widget__title',
+                                            ],
+                                            'actionsOptions' => [
+                                                'class' => 'sx-dashboard-widget__actions',
                                             ],
                                         ]); ?>
                                             <? if ($cmsDashboardWidget->widget) : ?>
@@ -120,7 +151,7 @@ HTML;
                                             <? else : ?>
                                                 Виджет удален
                                             <? endif; ?>
-                                        <? $w::end(); ?>
+                                        <?php BackendSurfaceWidget::end(); ?>
 
                                     <? endforeach; ?>
 
@@ -251,7 +282,7 @@ HTML;
                 {
                     connectWith: ".sx-dashboard-column",
                     cursor: "move",
-                    handle: ".sx-panel__header",
+                    handle: "[data-sx-dashboard-drag-handle]",
                     forceHelperSize: true,
                     forcePlaceholderSize: true,
                     //delay: 150,

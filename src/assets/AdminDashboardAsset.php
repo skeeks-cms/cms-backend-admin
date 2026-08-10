@@ -7,6 +7,8 @@
 
 namespace skeeks\cms\admin\assets;
 
+use skeeks\cms\backend\assets\BackendUiAsset;
+
 /**
  * Dashboard-only layout. Widget-specific assets remain owned by each widget.
  */
@@ -18,7 +20,11 @@ class AdminDashboardAsset extends \skeeks\cms\base\AssetBundle
         'css/dashboard.css',
     ];
 
+    public $js = [
+        'js/dashboard.js',
+    ];
+
     public $depends = [
-        AdminPanelAsset::class,
+        BackendUiAsset::class,
     ];
 }

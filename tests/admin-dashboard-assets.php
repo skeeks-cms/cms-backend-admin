@@ -29,6 +29,7 @@ use skeeks\cms\admin\assets\AdminDashboardAsset;
 use skeeks\cms\admin\assets\BackendAdminAppAsset;
 use skeeks\cms\admin\assets\AdminPanelAsset;
 use skeeks\cms\backend\assets\BackendBlockAsset;
+use skeeks\cms\backend\assets\BackendUiAsset;
 
 Yii::setAlias('@skeeks/cms/admin', dirname(__DIR__).'/src');
 
@@ -41,20 +42,31 @@ function dashboardExpect($condition, $message)
 
 $dashboardAsset = (new ReflectionClass(AdminDashboardAsset::class))->newInstanceWithoutConstructor();
 $appAsset = (new ReflectionClass(BackendAdminAppAsset::class))->newInstanceWithoutConstructor();
-dashboardExpect(in_array(AdminPanelAsset::class, (array)$dashboardAsset->depends, true), 'Dashboard panel dependency is missing.');
+dashboardExpect(in_array(BackendUiAsset::class, (array)$dashboardAsset->depends, true), 'Dashboard semantic UI dependency is missing.');
+dashboardExpect(!in_array(AdminPanelAsset::class, (array)$dashboardAsset->depends, true), 'Dashboard still loads deprecated admin panel compatibility.');
 dashboardExpect($dashboardAsset->css === ['css/dashboard.css'], 'Dashboard asset must own only dashboard.css.');
+dashboardExpect($dashboardAsset->js === ['js/dashboard.js'], 'Dashboard asset must own dashboard.js.');
 dashboardExpect(!in_array(BackendBlockAsset::class, (array)$appAsset->depends, true), 'Active admin shell still loads deprecated block compatibility.');
 
 $view = file_get_contents(dirname(__DIR__).'/src/views/admin-index/dashboard.php');
 $css = file_get_contents(dirname(__DIR__).'/src/assets/src/css/dashboard.css');
+$js = file_get_contents(dirname(__DIR__).'/src/assets/src/js/dashboard.js');
 $theme = file_get_contents(dirname(__DIR__).'/src/themes/AdminTheme.php');
 
 dashboardExpect(strpos($view, 'AdminDashboardAsset::register($this)') !== false, 'Dashboard asset is not registered by its page.');
 dashboardExpect(strpos($view, 'sx-dashboard-grid') !== false, 'Dashboard grid markup is missing.');
 dashboardExpect(strpos($view, '<table id="sx-dashboard-table">') === false, 'Legacy dashboard table layout remains.');
 dashboardExpect(strpos($view, "if (\$canEditDashboard) {") !== false, 'Edit actions are not permission-scoped.');
+dashboardExpect(strpos($view, 'BackendSurfaceWidget::begin') !== false, 'Dashboard widgets do not use the canonical surface widget.');
+dashboardExpect(strpos($view, 'AdminPanelWidget') === false, 'Dashboard still uses the deprecated admin panel widget.');
+dashboardExpect(strpos($view, 'sx-panel') === false, 'Dashboard still emits deprecated panel markup or hooks.');
+dashboardExpect(strpos($view, 'data-sx-dashboard-drag-handle') !== false, 'Dashboard semantic drag handle is missing.');
+dashboardExpect(strpos($view, "BackendIcon::render('expand'") !== false, 'Dashboard fullscreen action does not use the semantic icon contract.');
 dashboardExpect(strpos($view, '\\yii\\jui\\Sortable::widget()') !== false, 'Editable dashboard sortable adapter is missing.');
+dashboardExpect(strpos($css, 'sx-panel') === false, 'Dashboard CSS still depends on deprecated panel selectors or tokens.');
 dashboardExpect(strpos($css, '@media (max-width: 991.98px)') !== false, 'Dashboard mobile layout is missing.');
+dashboardExpect(strpos($js, 'data-sx-dashboard-action="fullscreen"') !== false, 'Dashboard fullscreen behavior hook is missing.');
+dashboardExpect(strpos($js, "event.key !== 'Escape'") !== false, 'Dashboard fullscreen behavior has no keyboard escape path.');
 dashboardExpect(strpos($theme, 'public $appAssetClass = BackendAdminAppAsset::class;') !== false, 'AdminTheme does not use BackendAdminAppAsset.');
 
 echo "Admin dashboard asset contract: OK\n";
