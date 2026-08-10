@@ -43,7 +43,7 @@ $dashboardAsset = (new ReflectionClass(AdminDashboardAsset::class))->newInstance
 $appAsset = (new ReflectionClass(BackendAdminAppAsset::class))->newInstanceWithoutConstructor();
 dashboardExpect(in_array(AdminPanelAsset::class, (array)$dashboardAsset->depends, true), 'Dashboard panel dependency is missing.');
 dashboardExpect($dashboardAsset->css === ['css/dashboard.css'], 'Dashboard asset must own only dashboard.css.');
-dashboardExpect(in_array(BackendBlockAsset::class, (array)$appAsset->depends, true), 'Active admin shell does not load deprecated block compatibility.');
+dashboardExpect(!in_array(BackendBlockAsset::class, (array)$appAsset->depends, true), 'Active admin shell still loads deprecated block compatibility.');
 
 $view = file_get_contents(dirname(__DIR__).'/src/views/admin-index/dashboard.php');
 $css = file_get_contents(dirname(__DIR__).'/src/assets/src/css/dashboard.css');

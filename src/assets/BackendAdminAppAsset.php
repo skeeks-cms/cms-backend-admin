@@ -8,7 +8,6 @@
 namespace skeeks\cms\admin\assets;
 
 use skeeks\cms\backend\assets\BackendAppAsset;
-use skeeks\cms\backend\assets\BackendBlockAsset;
 use skeeks\cms\backend\assets\BackendLegacyIconAsset;
 
 /**
@@ -18,7 +17,6 @@ class BackendAdminAppAsset extends \skeeks\cms\base\AssetBundle
 {
     public $depends = [
         BackendAppAsset::class,
-        BackendBlockAsset::class,
         BackendLegacyIconAsset::class,
     ];
 }
