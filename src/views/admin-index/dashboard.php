@@ -5,6 +5,7 @@
 use skeeks\cms\admin\assets\AdminDashboardAsset;
 use skeeks\cms\backend\helpers\BackendIcon;
 use skeeks\cms\backend\widgets\BackendSurfaceWidget;
+use skeeks\cms\backend\widgets\sortable\assets\BackendSortableAdapterAsset;
 use skeeks\cms\rbac\CmsManager;
 use yii\helpers\Html;
 
@@ -169,13 +170,14 @@ $canEditDashboard = \Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_DASHBOARD
 
     <?
 
-    \yii\jui\Sortable::widget();
+    BackendSortableAdapterAsset::register($this);
 
     $sortableString = implode(', ', $sortableString);
 
     $jsonData = \yii\helpers\Json::encode([
         'model'                     => $dashboard,
         'sortableSelector'          => $sortableString,
+        'sortableGroup'             => 'cms-dashboard-' . $dashboard->id,
         'backendPrioritySave'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/widget-priority-save', 'pk' => $dashboard->id])->enableAdmin()->toString(),
         'backendWidgetRemove'       => \skeeks\cms\helpers\UrlHelper::construct(['/admin/admin-index/widget-remove'])->enableAdmin()->toString(),
     ]);
@@ -278,25 +280,22 @@ $canEditDashboard = \Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_DASHBOARD
             {
                 var self = this;
 
-                $(self.get('sortableSelector')).sortable(
-                {
-                    connectWith: ".sx-dashboard-column",
-                    cursor: "move",
+                this.Sortable = sx.backend.sortable.create($(self.get('sortableSelector')), {
+                    group: this.get('sortableGroup'),
                     handle: "[data-sx-dashboard-drag-handle]",
-                    forceHelperSize: true,
-                    forcePlaceholderSize: true,
-                    //delay: 150,
-                    opacity: 0.5,
-                    placeholder: "ui-state-highlight",
-                    stop: function( event, ui )
+                    cancel: "a, button, input, textarea, select, option, [data-sx-dashboard-action]",
+                    itemSelector: "> .sx-dashboard-widget",
+                    placeholderClass: "ui-state-highlight",
+                    providerOptions: {
+                        direction: "vertical"
+                    },
+                    onUpdate: function(event)
                     {
                         self.trigger('change', {
-                            'event' : event,
-                            'ui' : ui,
+                            'event' : event
                         });
                     }
-
-                }).disableSelection();
+                });
             }
         });
 

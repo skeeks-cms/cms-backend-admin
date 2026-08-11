@@ -62,7 +62,12 @@ dashboardExpect(strpos($view, 'AdminPanelWidget') === false, 'Dashboard still us
 dashboardExpect(strpos($view, 'sx-panel') === false, 'Dashboard still emits deprecated panel markup or hooks.');
 dashboardExpect(strpos($view, 'data-sx-dashboard-drag-handle') !== false, 'Dashboard semantic drag handle is missing.');
 dashboardExpect(strpos($view, "BackendIcon::render('expand'") !== false, 'Dashboard fullscreen action does not use the semantic icon contract.');
-dashboardExpect(strpos($view, '\\yii\\jui\\Sortable::widget()') !== false, 'Editable dashboard sortable adapter is missing.');
+dashboardExpect(strpos($view, 'BackendSortableAdapterAsset::register($this)') !== false, 'Editable dashboard sortable adapter asset is missing.');
+dashboardExpect(strpos($view, 'sx.backend.sortable.create(') !== false, 'Editable dashboard does not use the shared sortable adapter.');
+dashboardExpect(strpos($view, 'itemSelector: "> .sx-dashboard-widget"') !== false, 'Dashboard sortable item contract is missing.');
+dashboardExpect(strpos($view, "'sortableGroup'             => 'cms-dashboard-' . \$dashboard->id") !== false && strpos($view, "group: this.get('sortableGroup')") !== false, 'Dashboard columns are not connected within their dashboard.');
+dashboardExpect(strpos($view, 'onUpdate: function(event)') !== false, 'Dashboard layout is not saved after adapter updates.');
+dashboardExpect(strpos($view, '\\yii\\jui\\Sortable::widget()') === false && strpos($view, '.sortable(') === false, 'Dashboard still uses jQuery UI Sortable directly.');
 dashboardExpect(strpos($css, 'sx-panel') === false, 'Dashboard CSS still depends on deprecated panel selectors or tokens.');
 dashboardExpect(strpos($css, '@media (max-width: 991.98px)') !== false, 'Dashboard mobile layout is missing.');
 dashboardExpect(strpos($js, 'data-sx-dashboard-action="fullscreen"') !== false, 'Dashboard fullscreen behavior hook is missing.');
