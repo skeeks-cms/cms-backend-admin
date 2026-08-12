@@ -5,11 +5,10 @@
 
 use skeeks\cms\backend\helpers\BackendIcon;
 use skeeks\cms\backend\widgets\BackendShellProfileWidget;
-use skeeks\cms\helpers\Image;
 use yii\helpers\Url;
 
 $user = \Yii::$app->user->identity;
-$avatarSrc = $user && $user->avatarSrc ? $user->avatarSrc : Image::getCapSrc();
+$avatarSrc = $user && $user->image ? (string)$user->avatarSrc : '';
 $displayName = $user ? $user->shortDisplayName : '';
 
 ob_start();
