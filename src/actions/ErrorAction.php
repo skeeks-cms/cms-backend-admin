@@ -79,9 +79,9 @@ class ErrorAction extends \yii\web\ErrorAction
                     'message' => nl2br(Html::encode($message))
                 ]);
             } else {
-                $this->controller->layout = '@app/views/layouts/unauthorized';
+                $this->controller->layout = '@skeeks/cms/admin/views/layouts/unauthorized';
 
-                return $this->controller->render('@app/views/error/unauthorized-403', [
+                return $this->controller->render('@skeeks/cms/admin/views/error/unauthorized-403', [
                     'message' => nl2br(Html::encode($message))
                 ]);
             }
