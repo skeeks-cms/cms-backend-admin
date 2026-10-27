@@ -39,7 +39,7 @@ class ErrorAction extends \yii\web\ErrorAction
             }
         }
 
-        if ($exception instanceof \HttpException) {
+        if ($exception instanceof \yii\web\HttpException) {
             $code = $exception->statusCode;
         } else {
             if ($exception instanceof \Exception) {
@@ -75,8 +75,15 @@ class ErrorAction extends \yii\web\ErrorAction
         } else {
             if (\Yii::$app->user->can(CmsManager::PERMISSION_ADMIN_ACCESS)) {
                 $this->controller->layout = \Yii::$app->cms->moduleAdmin->layout;
-                return $this->controller->render('@app/views/error/error', [
-                    'message' => nl2br(Html::encode($message))
+                //Вид проекта — только если он есть, иначе встроенный вид пакета
+                $view = '@app/views/error/error';
+                if (!file_exists(Yii::getAlias($view).'.php')) {
+                    $view = '@skeeks/cms/admin/views/error/error';
+                }
+
+                return $this->controller->render($view, [
+                    'message' => nl2br(Html::encode($message)),
+                    'code'    => $code,
                 ]);
             } else {
                 $this->controller->layout = '@skeeks/cms/admin/views/layouts/unauthorized';
