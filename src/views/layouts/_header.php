@@ -23,7 +23,7 @@ $quickCreateItems = [
     ['label' => 'Задачу', 'icon' => 'tasks', 'url' => BackendUrlHelper::createByParams(['/cms/admin-cms-task/create'])->enableEmptyLayout()->enableNoActions()->url],
     ['label' => 'Компанию', 'icon' => 'building', 'url' => BackendUrlHelper::createByParams(['/cms/admin-cms-company/create'])->enableEmptyLayout()->enableNoActions()->url],
     ['label' => 'Клиента', 'icon' => 'user', 'url' => BackendUrlHelper::createByParams(['/cms/admin-user/create'])->enableEmptyLayout()->enableNoActions()->url],
-    ['label' => 'Сделку', 'icon' => 'handshake', 'url' => BackendUrlHelper::createByParams(['/cms/admin-cms-deal/create'])->enableEmptyLayout()->enableNoActions()->url],
+    ['label' => 'Услугу', 'icon' => 'handshake', 'url' => BackendUrlHelper::createByParams(['/cms/admin-cms-deal/create'])->enableEmptyLayout()->enableNoActions()->url],
     ['label' => 'Счет', 'icon' => 'invoice', 'url' => BackendUrlHelper::createByParams(['/cms/admin-cms-bill/create'])->enableEmptyLayout()->enableNoActions()->url],
     ['label' => 'Платеж', 'icon' => 'credit-card', 'url' => BackendUrlHelper::createByParams(['/shop/admin-payment/create'])->enableEmptyLayout()->enableNoActions()->url],
 ];
