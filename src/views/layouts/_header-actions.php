@@ -59,12 +59,12 @@ JS
     </div>
 </div>
 
-<div class="sx-btn-backend-header">
+<div class="sx-btn-backend-header sx-shell-hidden-xs-down">
     <a class="sx-shell-header__action sx-shell-header__action--icon" href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="users" title="Сотрудники">
         <?= BackendIcon::render('users', ['size' => 20]); ?>
     </a>
 </div>
-<div class="sx-btn-backend-header">
+<div class="sx-btn-backend-header sx-shell-hidden-xs-down">
     <a class="sx-shell-header__action sx-shell-header__action--icon" href="#" data-sx-quick-access-toggle data-sx-quick-access-tab="favorites" title="Избранное">
         <?= BackendIcon::render('star', ['size' => 20]); ?>
     </a>
@@ -120,7 +120,7 @@ JS
 JS
     );
     ?>
-    <div class="sx-btn-backend-header">
+    <div class="sx-btn-backend-header sx-shell-hidden-xs-down">
         <a
             class="sx-shell-header__action sx-shell-header__action--icon"
             href="#"
@@ -131,7 +131,7 @@ JS
         </a>
     </div>
 
-    <div class="sx-btn-backend-header">
+    <div class="sx-btn-backend-header sx-shell-hidden-xs-down">
         <a
             class="sx-shell-header__action sx-shell-header__action--icon"
             href="<?= Url::to(['/cms/admin-settings']); ?>"

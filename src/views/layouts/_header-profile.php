@@ -25,6 +25,15 @@ ob_start();
         <span><?= \Yii::t('skeeks/cms', 'Security'); ?></span>
     </a>
 </li>
+<?php // "Уведомления": the personal page of notifications, only with a CMS that has it. ?>
+<?php if (trait_exists(\skeeks\cms\controllers\traits\UserNotifyActions::class)) : ?>
+<li>
+    <a class="dropdown-item sx-shell-header__menu-item" href="<?= Url::to(['/cms/admin-profile/notifications']); ?>">
+        <?= BackendIcon::render('bell', ['size' => 18]); ?>
+        <span>Уведомления</span>
+    </a>
+</li>
+<?php endif; ?>
 <li>
     <a
         class="dropdown-item sx-shell-header__menu-item"
